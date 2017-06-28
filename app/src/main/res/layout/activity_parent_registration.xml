@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="app.com.raivatshikhar.Register"
-    tools:showIn="@layout/activity_register">
+    android:orientation="vertical">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -24,12 +20,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@string/msg"
+                android:text="@string/parent_msg"
                 android:textColor="@color/colorAccent"
                 android:textSize="@dimen/_14sdp" />
 
             <EditText
-                android:id="@+id/activity_register_fullname"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35sdp"
                 android:layout_marginLeft="@dimen/_5sdp"
@@ -42,75 +37,99 @@
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/_12sdp" />
 
+            <RadioGroup
+                android:id="@+id/radioSex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioMale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/radio_male" />
+
+                <RadioButton
+                    android:id="@+id/radioFemale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/radio_female" />
+
+            </RadioGroup>
+
             <EditText
-                android:id="@+id/activity_register_username"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35sdp"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:background="@drawable/bg_edt"
-                android:hint="@string/user_name"
+                android:hint="@string/age_student"
+                android:inputType="number"
+                android:padding="@dimen/_5sdp"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_12sdp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@drawable/bg_edt"
+                android:hint="@string/year_of_english_exp"
+                android:inputType="number"
+                android:padding="@dimen/_5sdp"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_12sdp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@drawable/bg_edt"
+                android:hint="@string/nearest_railway_station"
                 android:inputType="text"
                 android:padding="@dimen/_5sdp"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/_12sdp" />
 
             <EditText
-                android:id="@+id/activity_register_email"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35sdp"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:background="@drawable/bg_edt"
-                android:hint="@string/email"
+                android:hint="@string/address"
                 android:inputType="text"
                 android:padding="@dimen/_5sdp"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/_12sdp" />
 
             <EditText
-                android:id="@+id/activity_register_password"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35sdp"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:background="@drawable/bg_edt"
-                android:hint="@string/password"
-                android:inputType="textPassword"
+                android:hint="@string/special_skils"
+                android:inputType="text"
                 android:padding="@dimen/_5sdp"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/_12sdp" />
 
             <Button
-                android:id="@+id/activity_register_btn"
+                android:id="@+id/login_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:background="@drawable/bg_btn_verify_otp"
-                android:text="@string/signup"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_16sdp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:gravity="center"
-                android:text="@string/alreadyhaveaccount"
-                android:textColor="@color/colorAccent"
-                android:textSize="@dimen/_14sdp" />
-
-            <Button
-                android:id="@+id/register_login"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:background="@drawable/bg_btn_login"
-                android:text="@string/login"
+                android:text="@string/submit"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_16sdp" />
@@ -118,4 +137,6 @@
 
         </LinearLayout>
     </ScrollView>
+
+
 </LinearLayout>

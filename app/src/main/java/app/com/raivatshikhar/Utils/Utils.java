@@ -22,6 +22,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -46,6 +47,7 @@ public class Utils {
     Context context;
     SharedPreferences sp;
     Location getLocation;
+
 
     public Utils(Context context) {
         this.context = context;
@@ -75,6 +77,17 @@ public class Utils {
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         final SharedPreferences.Editor editor = preferences.edit().clear();
         editor.apply();
+    }
+
+    public void ShowProgressDialog(boolean show) {
+        ProgressDialog pDialog = new ProgressDialog(context);
+        pDialog.setMessage("Please Wait");
+        pDialog.setCancelable(false);
+        if (show) {
+            pDialog.show();
+        } else {
+            pDialog.hide();
+        }
     }
 
     public static String encodeToBase64(Bitmap image, Bitmap.CompressFormat compressFormat, int quality) {

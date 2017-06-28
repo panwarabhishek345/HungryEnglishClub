@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -17,8 +16,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:layout_margin="@dimen/_10sdp"
             android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_splash" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -26,9 +32,10 @@
                 android:gravity="center"
                 android:text="@string/msg_login"
                 android:textColor="@color/colorAccent"
-                android:textSize="@dimen/_14sdp"/>
+                android:textSize="@dimen/_14sdp" />
 
             <EditText
+                android:id="@+id/activity_login_email"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35sdp"
                 android:layout_marginLeft="@dimen/_5sdp"
@@ -39,9 +46,10 @@
                 android:inputType="text"
                 android:padding="@dimen/_5sdp"
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/_12sdp"/>
+                android:textSize="@dimen/_12sdp" />
 
             <EditText
+                android:id="@+id/activity_login_password"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35sdp"
                 android:layout_marginLeft="@dimen/_5sdp"
@@ -52,10 +60,10 @@
                 android:inputType="textPassword"
                 android:padding="@dimen/_5sdp"
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/_12sdp"/>
+                android:textSize="@dimen/_12sdp" />
 
             <Button
-                android:id="@+id/activity_register_btn"
+                android:id="@+id/activity_login_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_15sdp"
@@ -63,7 +71,7 @@
                 android:text="@string/login"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_16sdp"/>
+                android:textSize="@dimen/_16sdp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -72,7 +80,7 @@
                 android:gravity="center"
                 android:text="@string/doyouhaveaccount"
                 android:textColor="@color/colorAccent"
-                android:textSize="@dimen/_14sdp"/>
+                android:textSize="@dimen/_14sdp" />
 
             <Button
                 android:id="@+id/login_register"
@@ -83,7 +91,7 @@
                 android:text="@string/openaccount"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_16sdp"/>
+                android:textSize="@dimen/_16sdp" />
 
 
         </LinearLayout>

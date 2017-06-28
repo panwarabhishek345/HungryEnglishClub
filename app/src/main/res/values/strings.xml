@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RaivatShikhar</string>
+    <string name="app_name">Share talk</string>
     <string name="title_activity_register">Register</string>
     <string name="full_name">Full Name</string>
     <string name="msg">Create a ShareTalk\'s account</string>
@@ -11,5 +11,20 @@
     <string name="doyouhaveaccount">Do not have an account?</string>
     <string name="login">Login</string>
     <string name="msg_login">Please login into your account.</string>
-    <string name="openaccount">Open an account</string>
+    <string name="openaccount">Create An Account</string>
+    <string name="parent_msg">Student / Parent Information</string>
+    <string name="age_student">Age of Student</string>
+    <string name="year_of_english_exp">Year of English Experence</string>
+    <string name="nearest_railway_station">Nearest Railway Station</string>
+    <string name="address">Address</string>
+    <string name="special_skils">Special Skill</string>
+    <string name="radio_male">Male</string>
+    <string name="radio_female">Female</string>
+    <string name="submit">Submit</string>
+    <string name="email_validation">Enter Valid Email</string>
+    <string name="password_validation">Password Must be grater then 5 charcter</string>
+    <string name="no_internet">Please check Internet Connection</string>
+    <string name="loginfail">Enter Valid Email Password</string>
+    <string name="user_name_validation">Username Must be graterthen 4 Charcter</string>
+    <string name="full_name_validation">Enter Full Name</string>
 </resources>
