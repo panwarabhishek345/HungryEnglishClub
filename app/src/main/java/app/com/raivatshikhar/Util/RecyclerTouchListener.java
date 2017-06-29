@@ -1,4 +1,4 @@
-package app.com.raivatshikhar.Utils;
+package app.com.raivatshikhar.Util;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

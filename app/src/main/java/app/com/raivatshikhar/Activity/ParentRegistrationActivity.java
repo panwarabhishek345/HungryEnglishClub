@@ -1,7 +1,9 @@
-package app.com.raivatshikhar;
+package app.com.raivatshikhar.Activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+
+import app.com.raivatshikhar.R;
 
 /**
  * Created by Bhadresh Chavada on 27-06-2017.

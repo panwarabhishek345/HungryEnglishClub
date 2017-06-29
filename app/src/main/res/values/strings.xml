@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">Share talk</string>
+    <string name="app_name">Hungry English</string>
     <string name="title_activity_register">Register</string>
     <string name="full_name">Full Name</string>
-    <string name="msg">Create a ShareTalk\'s account</string>
+    <string name="msg">Create an account</string>
     <string name="user_name">Username</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
@@ -22,9 +22,12 @@
     <string name="radio_female">Female</string>
     <string name="submit">Submit</string>
     <string name="email_validation">Enter Valid Email</string>
-    <string name="password_validation">Password Must be grater then 5 charcter</string>
+    <string name="password_validation">Password Must be grater then 6 charcter</string>
     <string name="no_internet">Please check Internet Connection</string>
     <string name="loginfail">Enter Valid Email Password</string>
     <string name="user_name_validation">Username Must be graterthen 4 Charcter</string>
     <string name="full_name_validation">Enter Full Name</string>
+    <string name="internet_connection_error">Hungry English requires an internet connection.Make sure Wi-Fi or mobile networks are turned on, then try again.</string>
+    <string name="phone_number">Mobile Number</string>
+    <string name="applyasteacher">Apply as teacher</string>
 </resources>

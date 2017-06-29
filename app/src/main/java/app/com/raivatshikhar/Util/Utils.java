@@ -1,4 +1,4 @@
-package app.com.raivatshikhar.Utils;
+package app.com.raivatshikhar.Util;
 
 
 import java.io.BufferedReader;
@@ -22,6 +22,8 @@ import javax.net.ssl.HttpsURLConnection;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -34,9 +36,14 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.util.Base64;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.widget.TextView;
+import app.com.raivatshikhar.R;
 
 /**
  * Created by AMD21 on 13/5/17.
@@ -47,11 +54,28 @@ public class Utils {
     Context context;
     SharedPreferences sp;
     Location getLocation;
+    public static Dialog dialog;
 
 
     public Utils(Context context) {
         this.context = context;
         sp = context.getSharedPreferences(Constant.Prefrence, Context.MODE_PRIVATE);
+    }
+
+    public static boolean checkNetwork(Context context) {
+        boolean wifiAvailable = false;
+        boolean mobileAvailable = false;
+        ConnectivityManager conManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] networkInfo = conManager.getAllNetworkInfo();
+        for (NetworkInfo netInfo : networkInfo) {
+            if (netInfo.getTypeName().equalsIgnoreCase("WIFI"))
+                if (netInfo.isConnected())
+                    wifiAvailable = true;
+            if (netInfo.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (netInfo.isConnected())
+                    mobileAvailable = true;
+        }
+        return wifiAvailable || mobileAvailable;
     }
 
     public static void WriteSharePrefrence(Context context, String key, String value) {
@@ -79,8 +103,8 @@ public class Utils {
         editor.apply();
     }
 
-    public void ShowProgressDialog(boolean show) {
-        ProgressDialog pDialog = new ProgressDialog(context);
+    public static void ShowProgressDialog(boolean show,Context mContext) {
+        ProgressDialog pDialog = new ProgressDialog(mContext);
         pDialog.setMessage("Please Wait");
         pDialog.setCancelable(false);
         if (show) {
@@ -103,19 +127,6 @@ public class Utils {
         long different = endDate.getTime() - startDate.getTime();
 
         return different / 1000;
-
-    }
-
-    public static String getTimeInCounter(long different) {
-
-        long years = different / (365 * 60 * 60 * 24);
-        long months = (different - years * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24);
-        long days = (different - years * 365 * 60 * 60 * 24 - months * 30 * 60 * 60 * 24) / (60 * 60 * 24);
-        long hours = (different - years * 365 * 60 * 60 * 24 - months * 30 * 60 * 60 * 24 - days * 60 * 60 * 24) / (60 * 60);
-        long minuts = (different - years * 365 * 60 * 60 * 24 - months * 30 * 60 * 60 * 24 - days * 60 * 60 * 24 - hours * 60 * 60) / 60;
-        long seconds = (different - years * 365 * 60 * 60 * 24 - months * 30 * 60 * 60 * 24 - days * 60 * 60 * 24 - hours * 60 * 60 - minuts * 60);
-
-        return " " + years + ":" + months + ":" + days + ":" + hours + ":" + minuts + ":" + seconds;
 
     }
 
@@ -327,4 +338,49 @@ public class Utils {
         return matcher.matches();
     }
 
+    public static void showDialog(Context context) {
+        dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.progressbar_dialog);
+//        dialog.getWindow().setBackgroundDrawable(
+//                new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(false);
+        dialog.show();
+    }
+
+    public static void dismissDialog() {
+        if (dialog != null && dialog.isShowing())
+            dialog.dismiss();
+    }
+
+    public static void showCustomDialog(String title, String str, Activity activity) {
+        // custom dialog
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+// ...Irrelevant code for customizing the buttons and title
+        LayoutInflater inflater = activity.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.custom_simple_dailog_ok, null);
+
+        dialogBuilder.setView(dialogView);
+
+        TextView txt_message_dialog = (TextView) dialogView.findViewById(R.id.txt_message_dialog);
+        txt_message_dialog.setText(str);
+
+        TextView txt_title_dialog = (TextView) dialogView.findViewById(R.id.txt_title_dialog);
+        txt_title_dialog.setText(title);
+
+        TextView btn_ok = (TextView) dialogView.findViewById(R.id.btn_ok);
+
+
+        final AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog.show();
+        btn_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+    }
 }

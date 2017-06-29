@@ -1,4 +1,4 @@
-package app.com.raivatshikhar;
+package app.com.raivatshikhar.Activity;
 
 
 import java.util.HashMap;
@@ -12,9 +12,9 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
-import app.com.raivatshikhar.Utils.Utils;
+import app.com.raivatshikhar.Util.Utils;
 
-import static app.com.raivatshikhar.Utils.Constant.USERID;
+import static app.com.raivatshikhar.Util.Constant.USERID;
 
 
 /**

@@ -1,4 +1,4 @@
-package app.com.raivatshikhar.Utils;
+package app.com.raivatshikhar.Util;
 
 
 import android.content.Context;

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="app.com.raivatshikhar.Register"
-    tools:showIn="@layout/activity_register">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              app:layout_behavior="@string/appbar_scrolling_view_behavior"
+              tools:context="app.com.raivatshikhar.Activity.RegisterActivity"
+              tools:showIn="@layout/activity_register">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -18,6 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/_10sdp"
+            android:gravity="center_horizontal"
             android:orientation="vertical">
 
             <TextView
@@ -26,7 +27,7 @@
                 android:gravity="center"
                 android:text="@string/msg"
                 android:textColor="@color/colorAccent"
-                android:textSize="@dimen/_14sdp" />
+                android:textSize="@dimen/_14sdp"/>
 
             <EditText
                 android:id="@+id/activity_register_fullname"
@@ -38,9 +39,10 @@
                 android:background="@drawable/bg_edt"
                 android:hint="@string/full_name"
                 android:inputType="text"
+                android:maxLines="1"
                 android:padding="@dimen/_5sdp"
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/_12sdp" />
+                android:textSize="@dimen/_12sdp"/>
 
             <EditText
                 android:id="@+id/activity_register_username"
@@ -52,9 +54,10 @@
                 android:background="@drawable/bg_edt"
                 android:hint="@string/user_name"
                 android:inputType="text"
+                android:maxLines="1"
                 android:padding="@dimen/_5sdp"
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/_12sdp" />
+                android:textSize="@dimen/_12sdp"/>
 
             <EditText
                 android:id="@+id/activity_register_email"
@@ -66,9 +69,10 @@
                 android:background="@drawable/bg_edt"
                 android:hint="@string/email"
                 android:inputType="text"
+                android:maxLines="1"
                 android:padding="@dimen/_5sdp"
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/_12sdp" />
+                android:textSize="@dimen/_12sdp"/>
 
             <EditText
                 android:id="@+id/activity_register_password"
@@ -80,9 +84,36 @@
                 android:background="@drawable/bg_edt"
                 android:hint="@string/password"
                 android:inputType="textPassword"
+                android:maxLines="1"
                 android:padding="@dimen/_5sdp"
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/_12sdp" />
+                android:textSize="@dimen/_12sdp"/>
+
+            <EditText
+                android:id="@+id/activity_register_mobile_number"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@drawable/bg_edt"
+                android:hint="@string/phone_number"
+                android:inputType="phone"
+                android:maxLines="1"
+                android:padding="@dimen/_5sdp"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_12sdp"/>
+
+            <CheckBox
+                android:id="@+id/activity_register_is_teacher"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:checked="false"
+                android:padding="@dimen/_5sdp"
+                android:text="@string/applyasteacher"/>
 
             <Button
                 android:id="@+id/activity_register_btn"
@@ -93,27 +124,28 @@
                 android:text="@string/signup"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_16sdp" />
+                android:textSize="@dimen/_16sdp"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:gravity="center"
+                android:padding="@dimen/_5sdp"
                 android:text="@string/alreadyhaveaccount"
                 android:textColor="@color/colorAccent"
-                android:textSize="@dimen/_14sdp" />
+                android:textSize="@dimen/_14sdp"/>
 
             <Button
                 android:id="@+id/register_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/bg_btn_login"
                 android:text="@string/login"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_16sdp" />
+                android:textSize="@dimen/_16sdp"/>
 
 
         </LinearLayout>
