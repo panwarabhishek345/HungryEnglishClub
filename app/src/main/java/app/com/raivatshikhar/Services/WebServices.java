@@ -3,6 +3,7 @@ package app.com.raivatshikhar.Services;
 
 import java.util.Map;
 
+import app.com.raivatshikhar.Model.Profile.StudentProfileMainResponse;
 import app.com.raivatshikhar.Model.login.LoginMainResponse;
 import app.com.raivatshikhar.Model.register.RegisterMainResponse;
 import retrofit.Callback;
@@ -16,6 +17,9 @@ public interface WebServices {
 
     @POST("/register.php")
     public void getRegister(@QueryMap Map<String, String> map, Callback<RegisterMainResponse> callback);
+
+    @POST("/student_profile.php")
+    public void getParentProfile(@QueryMap Map<String, String> map, Callback<StudentProfileMainResponse> callback);
 
 }
 

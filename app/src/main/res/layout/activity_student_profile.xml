@@ -25,6 +25,7 @@
                 android:textSize="@dimen/_14sdp" />
 
             <EditText
+                android:id="@+id/fullNameStudentEdit"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35sdp"
                 android:layout_marginLeft="@dimen/_5sdp"
@@ -59,6 +60,7 @@
             </RadioGroup>
 
             <EditText
+                android:id="@+id/ageEdit"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35sdp"
                 android:layout_marginLeft="@dimen/_5sdp"
@@ -72,6 +74,7 @@
                 android:textSize="@dimen/_12sdp" />
 
             <EditText
+                android:id="@+id/yearOfExpEdit"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35sdp"
                 android:layout_marginLeft="@dimen/_5sdp"
@@ -85,6 +88,7 @@
                 android:textSize="@dimen/_12sdp" />
 
             <EditText
+                android:id="@+id/nearRailwayStationEdit"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35sdp"
                 android:layout_marginLeft="@dimen/_5sdp"
@@ -98,6 +102,7 @@
                 android:textSize="@dimen/_12sdp" />
 
             <EditText
+                android:id="@+id/addressEdit"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35sdp"
                 android:layout_marginLeft="@dimen/_5sdp"
@@ -111,6 +116,7 @@
                 android:textSize="@dimen/_12sdp" />
 
             <EditText
+                android:id="@+id/specialSkillsEdit"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35sdp"
                 android:layout_marginLeft="@dimen/_5sdp"

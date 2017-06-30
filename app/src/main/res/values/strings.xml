@@ -30,4 +30,10 @@
     <string name="internet_connection_error">Hungry English requires an internet connection.Make sure Wi-Fi or mobile networks are turned on, then try again.</string>
     <string name="phone_number">Mobile Number</string>
     <string name="applyasteacher">Apply as teacher</string>
+    <string name="teacher_profile">Teacher Profile</string>
+    <string name="upload_id">Upload ID Proof</string>
+    <string name="current_workplace">Current Workplace</string>
+    <string name="avaibility">Avaibility</string>
+    <string name="upload_cv">Upload CV</string>
+    <string name="parent_profile">Parent Profile</string>
 </resources>

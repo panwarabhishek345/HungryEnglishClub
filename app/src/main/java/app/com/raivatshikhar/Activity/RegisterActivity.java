@@ -237,6 +237,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         map.put("email", "" + emailEdt.getText().toString());
         map.put("password", "" + passwordEdt.getText().toString());
         map.put("mob_no", "" + mobileEdt.getText().toString());
+        map.put("fullName", String.valueOf(fullNameEdt.getText()));
         if (isTeacher) {
             map.put("role", ROLE_TEACHER);
         } else {

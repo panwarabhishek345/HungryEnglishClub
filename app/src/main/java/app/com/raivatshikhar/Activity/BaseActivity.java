@@ -1,17 +1,26 @@
 package app.com.raivatshikhar.Activity;
 
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
+import app.com.raivatshikhar.Util.SetDatePicker;
 import app.com.raivatshikhar.Util.Utils;
 
 import static app.com.raivatshikhar.Util.Constant.USERID;
@@ -103,6 +112,50 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-     
+
+    }
+
+    // TODO: 09/6/17 Show the calender and dispaly Date
+    protected void chooseDate(final TextView textView, final SetDatePicker dateResponse) {
+
+
+        Calendar newCalendar = Calendar.getInstance();
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(BaseActivity.this, new DatePickerDialog.OnDateSetListener() {
+
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                String date = simpleDateFormat.format(newDate.getTime());
+                dateResponse.onDateSelect(date, textView);
+
+
+            }
+
+        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.getDatePicker().setMinDate(new Date().getTime());
+        datePickerDialog.show();
+    }
+
+
+    // TODO: 09/6/17 Show the TimePicker and dispaly Date
+    protected void chooseTime(final TextView textView, final SetDatePicker dateResponse) {
+
+
+        Calendar mcurrentTime = Calendar.getInstance();
+        int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+        int minute = mcurrentTime.get(Calendar.MINUTE);
+        TimePickerDialog mTimePicker;
+        mTimePicker = new TimePickerDialog(BaseActivity.this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                dateResponse.onDateSelect(selectedHour + ":" + selectedMinute, textView);
+            }
+        }, hour, minute, true);//Yes 24 hour time
+        mTimePicker.setTitle("Select Time");
+        mTimePicker.show();
+
+
     }
 }

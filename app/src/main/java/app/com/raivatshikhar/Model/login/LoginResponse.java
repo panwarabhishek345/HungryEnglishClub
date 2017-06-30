@@ -27,8 +27,20 @@ public class LoginResponse {
     @Expose
     private String role;
 
+    @SerializedName("is_active")
+    @Expose
+    private String IsActive;
+
     public String getId() {
         return id;
+    }
+
+    public String getIsActive() {
+        return IsActive;
+    }
+
+    public void setIsActive(String isActive) {
+        IsActive = isActive;
     }
 
     public void setId(String id) {

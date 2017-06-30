@@ -78,7 +78,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 //                                JSONObject object = new JSONObject(utils.getResponseofGet(loginUrl));
 //                                if (object.getString("status").equalsIgnoreCase("true")) {
 //
-//                                    startActivity(ParentRegistrationActivity.class);
+//                                    startActivity(StudentProfileActivity.class);
 //                                    this.finish();
 //                                } else {
 //                                    toast(getApplicationContext().getString(R.string.loginfail));
@@ -142,7 +142,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 // CALL LOGIN API
                 callLoginApi();
 
-//                startActivity(ParentRegistrationActivity.class);
+//                startActivity(StudentProfileActivity.class);
 //                this.finish();
                 break;
         }
@@ -179,12 +179,21 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     }
                     if (loginUser.getStatus().equals("true")) {
 
+                        String role = loginUser.getData().getRole();
                         Toast.makeText(getApplicationContext(), "" + loginUser.getMsg(), Toast.LENGTH_SHORT).show();
                         Utils.WriteSharePrefrence(LoginActivity.this, Constant.SHARED_PREFS.KEY_USER_ID, loginUser.getData().getId());
-                        Utils.WriteSharePrefrence(LoginActivity.this, Constant.SHARED_PREFS.KEY_USER_ROLE, loginUser.getData().getRole());
+                        Utils.WriteSharePrefrence(LoginActivity.this, Constant.SHARED_PREFS.KEY_USER_ROLE, role);
                         Utils.WriteSharePrefrence(LoginActivity.this, Constant.SHARED_PREFS.KEY_USER_NAME, loginUser.getData().getUsername());
                         Utils.WriteSharePrefrence(LoginActivity.this, Constant.SHARED_PREFS.KEY_IS_LOGGED_IN, "1");
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+
+                        if (role.equalsIgnoreCase("teacher") && loginUser.getData().getIsActive().equals("2") ) {
+                            startActivity(new Intent(LoginActivity.this, TeacherProfileActivity.class));
+                        } else if (role.equalsIgnoreCase("student")&& loginUser.getData().getIsActive().equals("0")) {
+                            startActivity(new Intent(LoginActivity.this, StudentProfileActivity.class));
+                        }else if(role.equalsIgnoreCase("student")){
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        }
+
 
                         finish();
                     }
@@ -195,7 +204,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 public void failure(RetrofitError error) {
                     error.printStackTrace();
                     error.getMessage();
-                    Log.e("Retrofit Error", "" + error);
                     Toast.makeText(getApplicationContext(), "Something Wrong", Toast.LENGTH_SHORT).show();
                 }
             });

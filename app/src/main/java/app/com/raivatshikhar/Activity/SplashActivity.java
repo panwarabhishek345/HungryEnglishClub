@@ -27,7 +27,7 @@ public class SplashActivity extends Activity {
             public void run() {
                 String isLoggedIn = Utils.ReadSharePrefrence(SplashActivity.this, Constant.SHARED_PREFS.KEY_IS_LOGGED_IN);
                 if (isLoggedIn.equalsIgnoreCase("1")) {
-                    Intent i = new Intent(SplashActivity.this, MainActivity.class);
+                    Intent i = new Intent(SplashActivity.this, TeacherProfileActivity.class);
                     startActivity(i);
                     finish();
                 } else {
