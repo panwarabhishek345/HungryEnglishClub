@@ -5,7 +5,6 @@ import java.util.Map;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +13,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 import app.com.raivatshikhar.Model.Profile.StudentProfileMainResponse;
+import app.com.raivatshikhar.R;
 import app.com.raivatshikhar.Services.ApiHandler;
 import app.com.raivatshikhar.Util.Constant;
 import app.com.raivatshikhar.Util.Utils;
@@ -34,7 +34,7 @@ public class StudentProfileActivity extends BaseActivity {
     private String sex = "";
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_profile);
 
@@ -57,7 +57,7 @@ public class StudentProfileActivity extends BaseActivity {
 
         addressEdit = (EditText) findViewById(R.id.addressEdit);
 
-        avaibilityStudentEdit = (EditText) findViewById(avaibilityEdit);
+        avaibilityStudentEdit = (EditText) findViewById(R.id.avaibilityStudentEdit);
 
         specialSkillsEdit = (EditText) findViewById(R.id.specialSkillsEdit);
 
@@ -201,7 +201,7 @@ public class StudentProfileActivity extends BaseActivity {
         map.put("address", String.valueOf(addressEdit.getText().toString()));
         map.put("skill", String.valueOf(specialSkillsEdit.getText().toString()));
 
-        Log.e("map", "LOGIN " + map);
+        Log.e("map", "STUDENT PROFILE  " + map);
         return map;
     }
 

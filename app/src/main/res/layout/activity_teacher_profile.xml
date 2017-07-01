@@ -39,7 +39,7 @@
 
 
             <EditText
-                android:id="@+id/fullNameEdit"
+                android:id="@+id/fullNameTeacherEdit"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35sdp"
                 android:layout_marginLeft="@dimen/_5sdp"
@@ -57,15 +57,20 @@
             <EditText
                 android:id="@+id/currnetPlaceEdit"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_35sdp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:background="@drawable/bg_edt"
                 android:drawableRight="@drawable/ic_location"
-                android:hint="@string/current_workplace"
+                android:lines="5"
+                android:minLines="5"
+                android:maxLines="8"
+                android:gravity="center_vertical"
+                android:enabled="false"
+                android:hint="Address"
                 android:inputType="number"
-                android:padding="@dimen/_5sdp"
+                android:padding="@dimen/_10sdp"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/_12sdp"/>
 
@@ -83,7 +88,6 @@
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:background="@drawable/bg_edt"
-                    android:drawableRight="@drawable/ic_calendar"
                     android:hint="@string/avaibility"
                     android:inputType="text"
                     android:padding="@dimen/_5sdp"
@@ -152,6 +156,7 @@
                     android:layout_width="@dimen/_100sdp"
                     android:layout_height="@dimen/_35sdp"
                     android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:layout_gravity="center"
                     android:layout_marginRight="@dimen/_30sdp"
                     android:text="Choose File"
@@ -160,6 +165,7 @@
 
 
             <EditText
+                android:id="@+id/specialSkillTeacherEdit"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35sdp"
                 android:layout_marginLeft="@dimen/_5sdp"
@@ -173,7 +179,7 @@
                 android:textSize="@dimen/_12sdp"/>
 
             <Button
-                android:id="@+id/login_register"
+                android:id="@+id/btnSubmiTeacherProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/_10sdp"
