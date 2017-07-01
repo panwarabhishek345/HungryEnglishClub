@@ -21,13 +21,15 @@ import app.com.raivatshikhar.Util.Utils;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+import static app.com.raivatshikhar.R.id.avaibilityEdit;
+
 /**
  * Created by Bhadresh Chavada on 27-06-2017.
  */
 
 public class StudentProfileActivity extends BaseActivity {
 
-    private EditText fullNameStudentEdit, ageEdit, yearOfExpEdit, nearRailwayStationEdit, addressEdit, specialSkillsEdit;
+    private EditText fullNameStudentEdit, ageEdit, yearOfExpEdit, nearRailwayStationEdit, addressEdit, specialSkillsEdit, avaibilityStudentEdit;
     private RadioGroup radioSex;
     private RadioButton radioButton;
     private Button login_register;
@@ -56,6 +58,8 @@ public class StudentProfileActivity extends BaseActivity {
         nearRailwayStationEdit = (EditText) findViewById(R.id.nearRailwayStationEdit);
 
         addressEdit = (EditText) findViewById(R.id.addressEdit);
+
+        avaibilityStudentEdit = (EditText) findViewById(avaibilityEdit);
 
         specialSkillsEdit = (EditText) findViewById(R.id.specialSkillsEdit);
 
@@ -100,6 +104,13 @@ public class StudentProfileActivity extends BaseActivity {
                 if (addressEdit.getText().toString().equalsIgnoreCase("")) {
                     addressEdit.setError("Enter Address");
                     addressEdit.requestFocus();
+                    return;
+                }
+
+
+                if (avaibilityStudentEdit.getText().toString().equalsIgnoreCase("")) {
+                    avaibilityStudentEdit.setError("Enter Avaibility");
+                    avaibilityStudentEdit.requestFocus();
                     return;
                 }
 
@@ -183,13 +194,14 @@ public class StudentProfileActivity extends BaseActivity {
         Map<String, String> map = new HashMap<>();
         String userId = Utils.ReadSharePrefrence(StudentProfileActivity.this, Constant.SHARED_PREFS.KEY_USER_ID);
         map.put("uId", "" + userId);
-        map.put("fullname", "" + fullNameStudentEdit.getText().toString());
-        map.put("age", "" + ageEdit.getText());
-        map.put("sex", "" + sex);
+        map.put("fullname", "" + String.valueOf(fullNameStudentEdit.getText()));
+        map.put("available_time", String.valueOf(avaibilityStudentEdit.getText()));
+        map.put("age", String.valueOf(ageEdit.getText()));
+        map.put("sex", String.valueOf(sex));
         map.put("experience", String.valueOf(yearOfExpEdit.getText()));
-        map.put("station", "" + nearRailwayStationEdit.getText().toString());
-        map.put("address", "" + addressEdit.getText().toString());
-        map.put("skill", "" + specialSkillsEdit.getText().toString());
+        map.put("station", String.valueOf(nearRailwayStationEdit.getText()));
+        map.put("address", String.valueOf(addressEdit.getText().toString()));
+        map.put("skill", String.valueOf(specialSkillsEdit.getText().toString()));
 
         Log.e("map", "LOGIN " + map);
         return map;
