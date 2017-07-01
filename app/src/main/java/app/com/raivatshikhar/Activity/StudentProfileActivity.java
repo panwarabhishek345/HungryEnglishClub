@@ -14,14 +14,12 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 import app.com.raivatshikhar.Model.Profile.StudentProfileMainResponse;
-import app.com.raivatshikhar.R;
 import app.com.raivatshikhar.Services.ApiHandler;
 import app.com.raivatshikhar.Util.Constant;
 import app.com.raivatshikhar.Util.Utils;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-import static app.com.raivatshikhar.R.id.avaibilityEdit;
 
 /**
  * Created by Bhadresh Chavada on 27-06-2017.
