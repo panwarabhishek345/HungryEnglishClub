@@ -6,12 +6,16 @@ import java.util.Map;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
 import app.com.raivatshikhar.Model.Profile.StudentProfileMainResponse;
 import app.com.raivatshikhar.R;
 import app.com.raivatshikhar.Services.ApiHandler;
@@ -64,6 +68,8 @@ public class StudentProfileActivity extends BaseActivity {
         login_register = (Button) findViewById(R.id.login_register);
 
         radioSex = (RadioGroup) findViewById(R.id.radioSex);
+
+
 
     }
 
@@ -171,7 +177,8 @@ public class StudentProfileActivity extends BaseActivity {
 
                     Toast.makeText(getApplicationContext(), "" + parentProfileMainResponse.getMsg(), Toast.LENGTH_SHORT).show();
 
-                    startActivity(new Intent(StudentProfileActivity.this, TeacherProfileActivity.class));
+                    Utils.WriteSharePrefrence(StudentProfileActivity.this, Constant.SHARED_PREFS.KEY_IS_ACTIVE, "1");
+                    startActivity(new Intent(StudentProfileActivity.this, TeacherListActivity.class));
 
                     finish();
                 }
@@ -205,4 +212,25 @@ public class StudentProfileActivity extends BaseActivity {
         return map;
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_logout, menu);
+
+        // return true so that the menu pop up is opened
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.logout:
+                Utils.ClearaSharePrefrence(StudentProfileActivity.this);
+                startActivity(LoginActivity.class, true);
+
+                break;
+
+        }
+        return true;
+    }
 }

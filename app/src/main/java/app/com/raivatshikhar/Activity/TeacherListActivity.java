@@ -10,14 +10,20 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+
 import app.com.raivatshikhar.Adapter.TeacherListAdapter;
 import app.com.raivatshikhar.R;
+import app.com.raivatshikhar.Util.Constant;
+import app.com.raivatshikhar.Util.Utils;
 
 /**
  * Created by Rujul on 7/1/2017.
  */
 
-public class TeacherListActivity extends Activity {
+public class TeacherListActivity extends BaseActivity {
 
     RecyclerView recyclerTearcherList;
     private List<HashMap<String, String>> teacherList;
@@ -119,5 +125,30 @@ public class TeacherListActivity extends Activity {
 //        return map;
 //    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_profile, menu);
 
+        // return true so that the menu pop up is opened
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        String role = Utils.ReadSharePrefrence(TeacherListActivity.this, Constant.SHARED_PREFS.KEY_USER_ROLE);
+        switch (item.getItemId()) {
+            case R.id.logout:
+                Utils.ClearaSharePrefrence(TeacherListActivity.this);
+                startActivity(LoginActivity.class, true);
+
+                break;
+            case R.id.profile:
+                if (role.equalsIgnoreCase("student"))
+                    startActivity(StudentProfileActivity.class);
+                else if (role.equalsIgnoreCase("teacher"))
+                    startActivity(TeacherProfileActivity.class);
+        }
+        return true;
+    }
 }

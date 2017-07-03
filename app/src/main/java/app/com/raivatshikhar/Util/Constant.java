@@ -22,6 +22,7 @@ public class Constant {
 
         public static final String KEY_IS_LOGGED_IN = "is_logged_in";
         public static final String KEY_USER_NAME = "user_name";
+        public static final String KEY_IS_ACTIVE = "is_activity";
     }
 
 }

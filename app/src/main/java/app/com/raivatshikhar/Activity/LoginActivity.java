@@ -12,6 +12,7 @@ import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import app.com.raivatshikhar.Model.login.LoginMainResponse;
 import app.com.raivatshikhar.R;
 import app.com.raivatshikhar.Services.ApiHandler;
@@ -180,22 +181,58 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     if (loginUser.getStatus().equals("true")) {
 
                         String role = loginUser.getData().getRole();
+                        String isActiveStatue =loginUser.getData().getIsActive();
                         Toast.makeText(getApplicationContext(), "" + loginUser.getMsg(), Toast.LENGTH_SHORT).show();
                         Utils.WriteSharePrefrence(LoginActivity.this, Constant.SHARED_PREFS.KEY_USER_ID, loginUser.getData().getId());
                         Utils.WriteSharePrefrence(LoginActivity.this, Constant.SHARED_PREFS.KEY_USER_ROLE, role);
                         Utils.WriteSharePrefrence(LoginActivity.this, Constant.SHARED_PREFS.KEY_USER_NAME, loginUser.getData().getUsername());
                         Utils.WriteSharePrefrence(LoginActivity.this, Constant.SHARED_PREFS.KEY_IS_LOGGED_IN, "1");
+                        Utils.WriteSharePrefrence(LoginActivity.this, Constant.SHARED_PREFS.KEY_IS_ACTIVE,isActiveStatue );
 
-                        if (role.equalsIgnoreCase("teacher") && loginUser.getData().getIsActive().equals("2") ) {
-                            startActivity(new Intent(LoginActivity.this, TeacherProfileActivity.class));
-                        } else if (role.equalsIgnoreCase("student")&& loginUser.getData().getIsActive().equals("0")) {
-                            startActivity(new Intent(LoginActivity.this, StudentProfileActivity.class));
-                        }else if(role.equalsIgnoreCase("student")){
-                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//                        if (role.equalsIgnoreCase("teacher") && loginUser.getData().getIsActive().equals("2")) {
+//                            startActivity(new Intent(LoginActivity.this, TeacherProfileActivity.class));
+//                            finish();
+//                        } else if (role.equalsIgnoreCase("student") && loginUser.getData().getIsActive().equals("0")) {
+//                            startActivity(new Intent(LoginActivity.this, StudentProfileActivity.class));
+//                            finish();
+//                        } else if (role.equalsIgnoreCase("student") && loginUser.getData().getIsActive().equals("1")) {
+//                            startActivity(new Intent(LoginActivity.this, TeacherListActivity.class));
+//                            finish();
+//                        } else if (role.equalsIgnoreCase("teacher") && loginUser.getData().getIsActive().equals("0")) {
+//                            startActivity(new Intent(LoginActivity.this, TeacherProfileActivity.class));
+//                            finish();
+//                        }
+
+                        if (role.equalsIgnoreCase("student") && isActiveStatue.equalsIgnoreCase("0")) {
+
+                            Intent i = new Intent(LoginActivity.this, StudentProfileActivity.class);
+                            startActivity(i);
+                            finish();
+
+                        } else if (role.equalsIgnoreCase("student") && isActiveStatue.equalsIgnoreCase("1")) {
+
+                            Intent i = new Intent(LoginActivity.this, TeacherListActivity.class);
+                            startActivity(i);
+                            finish();
+
+                        } else if (role.equalsIgnoreCase("teacher") && isActiveStatue.equalsIgnoreCase("0")) {
+
+                            Intent i = new Intent(LoginActivity.this, TeacherProfileActivity.class);
+                            startActivity(i);
+                            finish();
+
+                        } else if (role.equalsIgnoreCase("teacher") && isActiveStatue.equalsIgnoreCase("1")) {
+                            Intent i = new Intent(LoginActivity.this, TeacherProfileActivity.class);
+                            startActivity(i);
+                            finish();
+
+                        } else if (role.equalsIgnoreCase("teacher") && isActiveStatue.equalsIgnoreCase("2")) {
+                            Intent i = new Intent(LoginActivity.this, TeacherProfileActivity.class);
+                            startActivity(i);
+                            finish();
                         }
 
 
-                        finish();
                     }
 
                 }
