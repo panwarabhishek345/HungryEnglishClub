@@ -63,13 +63,12 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:background="@drawable/bg_edt"
                 android:drawableRight="@drawable/ic_location"
-                android:lines="5"
-                android:minLines="5"
-                android:maxLines="8"
                 android:gravity="center_vertical"
-                android:enabled="false"
                 android:hint="Address"
-                android:inputType="number"
+                android:inputType="text"
+                android:lines="5"
+                android:maxLines="8"
+                android:minLines="5"
                 android:padding="@dimen/_10sdp"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/_12sdp"/>
@@ -163,6 +162,39 @@
                     />
             </RelativeLayout>
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tvUploadAudio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:background="@drawable/bg_btn_verify_otp"
+                    android:gravity="center"
+                    android:padding="@dimen/_5sdp"
+                    android:paddingLeft="@dimen/_40sdp"
+                    android:paddingRight="@dimen/_40sdp"
+                    android:text="@string/upload_audio"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/_12sdp"/>
+
+
+                <Button
+                    android:id="@+id/btn_audio_file"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="@dimen/_30sdp"
+                    android:text="Choose File"
+                    />
+            </RelativeLayout>
 
             <EditText
                 android:id="@+id/specialSkillTeacherEdit"
