@@ -50,12 +50,12 @@ public class SplashActivity extends Activity {
                         finish();
 
                     } else if (role.equalsIgnoreCase("teacher") && isActiveStatue.equalsIgnoreCase("1")) {
-                        Intent i = new Intent(SplashActivity.this, TeacherProfileActivity.class);
+                        Intent i = new Intent(SplashActivity.this, MainActivity.class);
                         startActivity(i);
                         finish();
 
                     } else if (role.equalsIgnoreCase("teacher") && isActiveStatue.equalsIgnoreCase("2")) {
-                        Intent i = new Intent(SplashActivity.this, TeacherProfileActivity.class);
+                        Intent i = new Intent(SplashActivity.this, MainActivity.class);
                         startActivity(i);
                         finish();
                     }

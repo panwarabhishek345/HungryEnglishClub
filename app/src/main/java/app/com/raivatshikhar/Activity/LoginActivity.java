@@ -222,12 +222,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                             finish();
 
                         } else if (role.equalsIgnoreCase("teacher") && isActiveStatue.equalsIgnoreCase("1")) {
-                            Intent i = new Intent(LoginActivity.this, TeacherProfileActivity.class);
+                            Intent i = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(i);
                             finish();
 
                         } else if (role.equalsIgnoreCase("teacher") && isActiveStatue.equalsIgnoreCase("2")) {
-                            Intent i = new Intent(LoginActivity.this, TeacherProfileActivity.class);
+                            Intent i = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(i);
                             finish();
                         }

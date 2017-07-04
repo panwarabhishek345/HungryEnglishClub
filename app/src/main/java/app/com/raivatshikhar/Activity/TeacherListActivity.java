@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 import app.com.raivatshikhar.Adapter.TeacherListAdapter;
 import app.com.raivatshikhar.R;
@@ -28,6 +29,7 @@ public class TeacherListActivity extends BaseActivity {
     RecyclerView recyclerTearcherList;
     private List<HashMap<String, String>> teacherList;
     private TeacherListAdapter teacherListAdapter;
+    ImageView imgListHeader;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,6 +54,7 @@ public class TeacherListActivity extends BaseActivity {
     private void idMapping() {
 
         recyclerTearcherList = (RecyclerView) findViewById(R.id.recyclerTearcherList);
+        imgListHeader = (ImageView) findViewById(R.id.image_teacher_list_header);
 
         teacherListAdapter = new TeacherListAdapter(TeacherListActivity.this, teacherList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
