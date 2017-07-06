@@ -10,15 +10,13 @@ import app.com.raivatshikhar.Util.Constant;
 import app.com.raivatshikhar.Util.Utils;
 
 public class MainActivity extends BaseActivity {
-    public TextView msgTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        msgTv = (TextView) findViewById(R.id.main_msg);
-        msgTv.setText("Hello " + read(Constant.SHARED_PREFS.KEY_USER_NAME) + " your Role " + read(Constant.SHARED_PREFS.KEY_USER_ROLE));
+
     }
 
     @Override
