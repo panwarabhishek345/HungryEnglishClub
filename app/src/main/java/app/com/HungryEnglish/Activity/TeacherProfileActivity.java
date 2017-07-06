@@ -359,10 +359,6 @@ public class TeacherProfileActivity extends BaseActivity implements
                     ActivityCompat.requestPermissions(TeacherProfileActivity.this,
                             new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                             CONSTANT);
-
-                    // MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE is an
-                    // app-defined int constant. The callback method gets the
-                    // result of the request.
                 }
             } else {
 //                ActivityCompat.requestPermissions(TeacherProfileActivity.this,
