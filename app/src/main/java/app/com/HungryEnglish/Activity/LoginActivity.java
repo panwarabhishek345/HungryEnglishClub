@@ -141,6 +141,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                             Intent i = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(i);
                             finish();
+                        } else if (role.equalsIgnoreCase("admin")) {
+                            Intent i = new Intent(LoginActivity.this, AdminMainActivity.class);
+                            startActivity(i);
+                            finish();
                         }
                     }
                 }

@@ -29,7 +29,6 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class MainActivity extends BaseActivity {
-    public TextView msgTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
