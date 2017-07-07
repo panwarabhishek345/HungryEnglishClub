@@ -62,9 +62,8 @@
                 android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:background="@drawable/bg_edt"
-                android:drawableRight="@drawable/ic_location"
                 android:gravity="center_vertical"
-                android:hint="Address"
+                android:hint="@string/nearest_railway_station"
                 android:inputType="text"
                 android:lines="5"
                 android:maxLines="8"
@@ -118,7 +117,7 @@
 
 
                 <ImageView
-                    android:id="@+id/id_image"
+                    android:id="@+id/idProofImage"
                     android:layout_width="@dimen/_100sdp"
                     android:layout_height="@dimen/_130sdp"
                     android:layout_alignParentRight="true"

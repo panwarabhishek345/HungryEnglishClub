@@ -37,4 +37,5 @@
     <string name="upload_cv">Upload CV</string>
     <string name="parent_profile">Parent Profile</string>
     <string name="upload_audio">Upload Audio</string>
+    <string name="location">Address ( Location )</string>
 </resources>

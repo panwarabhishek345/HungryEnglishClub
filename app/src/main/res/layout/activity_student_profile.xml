@@ -95,7 +95,7 @@
                 android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:background="@drawable/bg_edt"
-                android:hint="@string/nearest_railway_station"
+                android:hint="@string/location"
                 android:inputType="text"
                 android:padding="@dimen/_5sdp"
                 android:textColor="@android:color/black"
