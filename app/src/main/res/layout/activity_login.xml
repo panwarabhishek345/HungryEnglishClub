@@ -58,6 +58,7 @@
                 android:background="@drawable/bg_edt"
                 android:hint="@string/password"
                 android:inputType="textPassword"
+                android:maxLength="15"
                 android:padding="@dimen/_5sdp"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/_12sdp" />

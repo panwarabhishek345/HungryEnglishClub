@@ -88,29 +88,14 @@ public class TeacherProfileActivity extends BaseActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //show error dialog if GoolglePlayServices not available
-//        if (!isGooglePlayServicesAvailable()) {
-//            finish();
-//        }
-
-
         setContentView(R.layout.activity_teacher_profile);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         idMapping();
         getLocation();
-
-
     }
 
     void getLocation() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             getLocationRequest(MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
             return;
         }
@@ -120,7 +105,6 @@ public class TeacherProfileActivity extends BaseActivity implements
                     public void onSuccess(Location location) {
                         // Got last known location. In some rare situations this can be null.
                         if (location != null) {
-                            // ...
                             lat = location.getLatitude();
                             lng = location.getLongitude();
                             currnetPlaceEdit.setText(getCompleteAddressString(lat, lng));
@@ -168,34 +152,18 @@ public class TeacherProfileActivity extends BaseActivity implements
             case R.id.btn_cv_file:
                 uploadFile(MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE_FILE);
                 break;
-
             case R.id.currnetPlaceEdit:
                 getLocationRequest(MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
-//                createLocationRequest();
                 break;
             case R.id.btn_audio_file:
                 uploadAudio(MY_PERMISSIONS_REQUEST_ACCESS_AUDIOFILE);
-
+                break;
             case R.id.btnSubmiTeacherProfile:
-
                 if (fullNameTeacherEdit.getText().toString().equals("")) {
                     fullNameTeacherEdit.setError("Enter Name");
                     fullNameTeacherEdit.requestFocus();
                     return;
                 }
-
-//                if (lat == 0.0) {
-//                    currnetPlaceEdit.setError("Select Location");
-//                    currnetPlaceEdit.requestFocus();
-//                    return;
-//                }
-//
-//
-//                if (lat == 0.0) {
-//                    currnetPlaceEdit.setError("Select Location");
-//                    currnetPlaceEdit.requestFocus();
-//                    return;
-//                }
 
                 if (avaibilityDateTeacherEdit.getText().toString().equals("")) {
                     avaibilityDateTeacherEdit.setError("Enter Avaibility");
@@ -219,7 +187,7 @@ public class TeacherProfileActivity extends BaseActivity implements
 
 
     private void getLocationRequest(int myPermissionsRequestAccessFineLocation) {
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, myPermissionsRequestAccessFineLocation);
+//        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, myPermissionsRequestAccessFineLocation);
 
         if (ActivityCompat.checkSelfPermission(TeacherProfileActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(TeacherProfileActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)) {
@@ -242,7 +210,6 @@ public class TeacherProfileActivity extends BaseActivity implements
                 });
                 builder.show();
             }
-
         } else {
             getLocation();
         }
@@ -525,8 +492,6 @@ public class TeacherProfileActivity extends BaseActivity implements
     }
 
 
-
-
     private void onSelectFromGalleryResult(Intent data) {
         Uri selectedImageUri = data.getData();
         Log.e("PICTURE LINK", ">> " + selectedImageUri.getPath());
@@ -573,7 +538,6 @@ public class TeacherProfileActivity extends BaseActivity implements
     }
 
 
-
     /* Get the real path from the URI */
     public String getPathFromURI(Uri contentUri) {
         String res = null;
@@ -587,8 +551,6 @@ public class TeacherProfileActivity extends BaseActivity implements
         return res;
 
     }
-
-
 
 
     @Override
@@ -623,24 +585,12 @@ public class TeacherProfileActivity extends BaseActivity implements
 
     private void callTeacherProfileApi() {
         if (!Utils.checkNetwork(TeacherProfileActivity.this)) {
-
             Utils.showCustomDialog("Internet Connection !", getResources().getString(R.string.internet_connection_error), TeacherProfileActivity.this);
-
             return;
         }
-//        else {
-//            Toast.makeText(getApplicationContext(), "Teacher Profile Update successfully", Toast.LENGTH_SHORT).show();
-//
-//            startActivity(new Intent(TeacherProfileActivity.this, TeacherListActivity.class));
-//
-//            finish();
-//        }
 
         //  SHOW PROGRESS DIALOG
         Utils.showDialog(TeacherProfileActivity.this);
-
-        Log.e("proImage ","@@ "+pathProfilePic);
-
         TypedFile proImage = new TypedFile("multipart/form-data", new File(pathProfilePic));
         TypedFile idProof = new TypedFile("multipart/form-data", new File(pathIdProofPic));
         TypedFile resume = new TypedFile("multipart/form-data", new File(pathIdProofPic));
@@ -728,6 +678,7 @@ public class TeacherProfileActivity extends BaseActivity implements
         }
         return strAdd;
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
