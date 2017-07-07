@@ -40,7 +40,7 @@ public class TeacherListAdapter extends RecyclerView.Adapter<TeacherListAdapter.
     }
 
 
-    public TeacherListAdapter(TeacherListActivity mainActivity, List<TeacherListResponse> teacherList) {
+    public TeacherListAdapter(Context mainActivity, List<TeacherListResponse> teacherList) {
 
         this.teacherList = teacherList;
         this.mContext = mainActivity;
