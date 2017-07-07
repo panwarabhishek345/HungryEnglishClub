@@ -28,14 +28,17 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.util.Base64;
 import android.util.Log;
@@ -43,6 +46,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
+
 import app.com.HungryEnglish.R;
 
 /**
@@ -103,7 +107,7 @@ public class Utils {
         editor.apply();
     }
 
-    public static void ShowProgressDialog(boolean show,Context mContext) {
+    public static void ShowProgressDialog(boolean show, Context mContext) {
         ProgressDialog pDialog = new ProgressDialog(mContext);
         pDialog.setMessage("Please Wait");
         pDialog.setCancelable(false);
@@ -382,5 +386,19 @@ public class Utils {
             }
         });
 
+    }
+
+    public static String getRealPathFromURI(Context mContext,Uri contentURI) {
+        String result;
+        Cursor cursor = mContext.getContentResolver().query(contentURI, null, null, null, null);
+        if (cursor == null) { // Source is Dropbox or other similar local file path
+            result = contentURI.getPath();
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            result = cursor.getString(idx);
+            cursor.close();
+        }
+        return result;
     }
 }

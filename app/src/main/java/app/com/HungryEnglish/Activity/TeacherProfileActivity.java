@@ -4,20 +4,13 @@ package app.com.HungryEnglish.Activity;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import android.Manifest;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.location.Address;
-import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,7 +28,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import app.com.HungryEnglish.Model.Profile.TeacherProfileMainResponse;
 import app.com.HungryEnglish.R;
 import app.com.HungryEnglish.Services.ApiHandler;
@@ -45,6 +37,8 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 import retrofit.mime.TypedFile;
+
+import static app.com.HungryEnglish.Util.Utils.getRealPathFromURI;
 
 
 /**
@@ -178,11 +172,35 @@ public class TeacherProfileActivity extends BaseActivity implements
     @Override
     protected void onActivityResult(int reqCode, int resultCode, Intent data) {
         super.onActivityResult(reqCode, resultCode, data);
-        if (data != null) {
-            onSelectFromGalleryResult(data, reqCode);
-        } else {
-            Toast.makeText(TeacherProfileActivity.this, "Yopu didn't pick anything", Toast.LENGTH_SHORT).show();
+        getRealPathFromURI(this, data.getData());
+        switch (reqCode) {
+            case SELECT_PHOTO:
+                pathProfilePic = getRealPathFromURI(this, data.getData());
+                Picasso.with(TeacherProfileActivity.this).load(Uri.fromFile(new File(pathProfilePic))).error(R.drawable.ic_user_default).into(profileImage);
+                Log.e("PATH", "Image Path : " + pathProfilePic);
+                break;
+
+            case SELECT_ID_PROOF:
+                pathIdProofPic = getRealPathFromURI(this, data.getData());
+                Picasso.with(TeacherProfileActivity.this).load(Uri.fromFile(new File(pathIdProofPic))).error(R.drawable.ic_user_default).into(idProofImage);
+                Log.e("PATH", "Image Path : " + pathIdProofPic);
+                break;
+
+
+            case SELECT_FILE:
+                pathCvDoc = getRealPathFromURI(this, data.getData());
+                break;
+
+            case SELECT_AUDIO:
+                pathAudioFile = getRealPathFromURI(this, data.getData());
+                break;
         }
+
+//        if (data != null) {
+//            onSelectFromGalleryResult(data, reqCode);
+//        } else {
+//            Toast.makeText(TeacherProfileActivity.this, "Yopu didn't pick anything", Toast.LENGTH_SHORT).show();
+//        }
 //        switch (reqCode) {
 //            case SELECT_PHOTO:
 //                if (resultCode == RESULT_OK) {
