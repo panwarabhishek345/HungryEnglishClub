@@ -38,4 +38,6 @@
     <string name="parent_profile">Parent Profile</string>
     <string name="upload_audio">Upload Audio</string>
     <string name="location">Address ( Location )</string>
+    <string name="sucess_external_storage_msg">Hungry English will use your storage.</string>
+    <string name="error_permission_msg">Hungry English can be miss behave.</string>
 </resources>
