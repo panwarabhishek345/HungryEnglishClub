@@ -49,37 +49,23 @@ public class TeacherApprovedListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mView =  inflater.inflate(R.layout.fragment_teacher_aproved_list, container, false);
-
         idMapping();
-
-
-            callTeacherListApi();
-
+        callTeacherListApi();
         return  mView;
     }
 
-
-
     private void idMapping() {
-
         recyclerTearcherList = (RecyclerView)mView. findViewById(R.id.recyclerTearcherList);
-
-
     }
-
 
     // CALL TEACHER LIST API HERE
     private void callTeacherListApi() {
-
         if (!Utils.checkNetwork(getActivity())) {
-
             Utils.showCustomDialog("Internet Connection !", getResources().getString(R.string.internet_connection_error), getActivity());
-
             return;
         } else {
             Utils.showDialog(getActivity());
             ApiHandler.getApiService().getTeacherList(getTeacherDetail(), new retrofit.Callback<TeacherListMainResponse>() {
-
                 @Override
                 public void success(TeacherListMainResponse teacherListMainResponse, Response response) {
                     Utils.dismissDialog();
@@ -92,18 +78,12 @@ public class TeacherApprovedListFragment extends Fragment {
                         return;
                     }
                     if (teacherListMainResponse.getStatus().equals("false")) {
-
                         Toast.makeText(getActivity(), "" + teacherListMainResponse.getMessage(), Toast.LENGTH_SHORT).show();
-
                         return;
                     }
                     if (teacherListMainResponse.getStatus().equals("true")) {
-
                         teacherList = new ArrayList<TeacherListResponse>();
                         teacherList = teacherListMainResponse.getData();
-
-                        Log.e("TeacherList", "" + teacherList.size());
-                        Log.e("TeacherList", "" + teacherList);
 
                         teacherListAdapter = new TeacherListAdapter(getActivity(), teacherList);
                         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
@@ -111,7 +91,6 @@ public class TeacherApprovedListFragment extends Fragment {
                         recyclerTearcherList.setLayoutManager(mLayoutManager);
                         recyclerTearcherList.setItemAnimator(new DefaultItemAnimator());
                         recyclerTearcherList.setAdapter(teacherListAdapter);
-
                     }
 
                 }
@@ -132,12 +111,6 @@ public class TeacherApprovedListFragment extends Fragment {
         Map<String, String> map = new HashMap<>();
         map.put("role", "teacher");
         map.put("status", "1");
-
-        Log.e("map", "TEACHER LIST " + map);
         return map;
     }
-
-   
-
-    
 }

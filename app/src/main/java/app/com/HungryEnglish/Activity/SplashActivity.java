@@ -61,7 +61,7 @@ public class SplashActivity extends Activity {
                     }
 
                 } else {
-                    Intent i = new Intent(SplashActivity.this, AdminMainActivity.class);
+                    Intent i = new Intent(SplashActivity.this, LoginActivity.class);
                     startActivity(i);
                     finish();
                 }

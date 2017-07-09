@@ -20,16 +20,12 @@ import app.com.HungryEnglish.R;
  */
 
 public class AdminMainActivity extends AppCompatActivity {
-//    http://www.androidhive.info/2015/09/android-material-design-working-with-tabs/
+//  http://www.androidhive.info/2015/09/android-material-design-working-with-tabs/
 
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private ViewPagerAdapter adapter;
-    private int[] tabIcons = {
-            R.drawable.ic_calendar,
-            R.drawable.ic_location,
-    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,7 +71,6 @@ public class AdminMainActivity extends AppCompatActivity {
         tabTwo.setText("PENDING");
         tabTwo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_pending, 0, 0);
         tabLayout.getTabAt(1).setCustomView(tabTwo);
-
 
     }
 

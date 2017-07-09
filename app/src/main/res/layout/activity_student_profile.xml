@@ -1,28 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/_5sdp"
-        android:fillViewport="true">
-
-        <LinearLayout
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/_10sdp"
-            android:orientation="vertical">
+            android:background="@color/bg_color"
+            android:fillViewport="true"
+    >
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/parent_msg"
-                android:textColor="@color/colorAccent"
-                android:textSize="@dimen/_14sdp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/_10sdp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/parent_msg"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/_14sdp"/>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp">
 
             <EditText
                 android:id="@+id/fullNameStudentEdit"
@@ -37,27 +39,35 @@
                 android:padding="@dimen/_5sdp"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/_12sdp"/>
+        </android.support.design.widget.TextInputLayout>
 
-            <RadioGroup
-                android:id="@+id/radioSex"
+        <RadioGroup
+            android:id="@+id/radioSex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioMale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:checked="true"
+                android:text="@string/radio_male"/>
 
-                <RadioButton
-                    android:id="@+id/radioMale"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:text="@string/radio_male"/>
+            <RadioButton
+                android:id="@+id/radioFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/radio_female"/>
 
-                <RadioButton
-                    android:id="@+id/radioFemale"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/radio_female"/>
+        </RadioGroup>
 
-            </RadioGroup>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
 
             <EditText
                 android:id="@+id/ageEdit"
@@ -72,6 +82,12 @@
                 android:padding="@dimen/_5sdp"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/_12sdp"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp">
 
             <EditText
                 android:id="@+id/yearOfExpEdit"
@@ -86,6 +102,12 @@
                 android:padding="@dimen/_5sdp"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/_12sdp"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp">
 
             <EditText
                 android:id="@+id/nearRailwayStationEdit"
@@ -100,6 +122,12 @@
                 android:padding="@dimen/_5sdp"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/_12sdp"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp">
 
             <EditText
                 android:id="@+id/addressEdit"
@@ -115,6 +143,13 @@
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/_12sdp"/>
 
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp">
 
             <EditText
                 android:id="@+id/avaibilityStudentEdit"
@@ -130,6 +165,13 @@
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/_12sdp"/>
 
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp">
+
             <EditText
                 android:id="@+id/specialSkillsEdit"
                 android:layout_width="match_parent"
@@ -144,20 +186,21 @@
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/_12sdp"/>
 
-            <Button
-                android:id="@+id/login_register"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:background="@drawable/bg_btn_verify_otp"
-                android:text="@string/submit"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_16sdp"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/login_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:background="@drawable/bg_btn_verify_otp"
+            android:text="@string/submit"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16sdp"/>
 
 
-        </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
+</ScrollView>
 
 
-</LinearLayout>

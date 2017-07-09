@@ -38,6 +38,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 import retrofit.mime.TypedFile;
 
+import static app.com.HungryEnglish.Util.Utils.getPath;
 import static app.com.HungryEnglish.Util.Utils.getRealPathFromURI;
 
 
@@ -172,27 +173,41 @@ public class TeacherProfileActivity extends BaseActivity implements
     @Override
     protected void onActivityResult(int reqCode, int resultCode, Intent data) {
         super.onActivityResult(reqCode, resultCode, data);
+        Log.d("reqCode", String.valueOf(reqCode));
         getRealPathFromURI(this, data.getData());
+
         switch (reqCode) {
             case SELECT_PHOTO:
-                pathProfilePic = getRealPathFromURI(this, data.getData());
+                if (Build.VERSION.SDK_INT <= 21) {
+                    pathProfilePic = getRealPathFromURI(this, data.getData());
+                } else {
+                    pathProfilePic = getPath(this, data.getData());
+                }
                 Picasso.with(TeacherProfileActivity.this).load(Uri.fromFile(new File(pathProfilePic))).error(R.drawable.ic_user_default).into(profileImage);
                 Log.e("PATH", "Image Path : " + pathProfilePic);
                 break;
-
             case SELECT_ID_PROOF:
-                pathIdProofPic = getRealPathFromURI(this, data.getData());
+                if (Build.VERSION.SDK_INT <= 21) {
+                    pathIdProofPic = getRealPathFromURI(this, data.getData());
+                } else {
+                    pathIdProofPic = getPath(this, data.getData());
+                }
                 Picasso.with(TeacherProfileActivity.this).load(Uri.fromFile(new File(pathIdProofPic))).error(R.drawable.ic_user_default).into(idProofImage);
                 Log.e("PATH", "Image Path : " + pathIdProofPic);
                 break;
-
-
             case SELECT_FILE:
-                pathCvDoc = getRealPathFromURI(this, data.getData());
+                if (Build.VERSION.SDK_INT <= 21) {
+                    pathCvDoc = getRealPathFromURI(this, data.getData());
+                } else {
+                    pathCvDoc = getPath(this, data.getData());
+                }
                 break;
-
             case SELECT_AUDIO:
-                pathAudioFile = getRealPathFromURI(this, data.getData());
+                if (Build.VERSION.SDK_INT <= 21) {
+                    pathAudioFile = getRealPathFromURI(this, data.getData());
+                } else {
+                    pathAudioFile = getPath(this, data.getData());
+                }
                 break;
         }
 
@@ -243,95 +258,6 @@ public class TeacherProfileActivity extends BaseActivity implements
 //                }
 //                break;
 //        }
-    }
-
-
-    private void onSelectFromGalleryResult(Intent data, int OPTION) {
-        Uri selectedImageUri = data.getData();
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
-            // Do something for 19 and above versions
-            // OI FILE Manager
-            String[] column = {MediaStore.Images.Media.DATA};
-
-            Cursor cursor = getContentResolver().
-                    query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                            column, null, null, null);
-            int columnIndex = cursor.getColumnIndex(column[0]);
-
-            switch (OPTION) {
-
-                case SELECT_PHOTO:
-                    if (cursor.moveToFirst()) {
-                        pathProfilePic = cursor.getString(columnIndex);
-                    }
-                    cursor.close();
-                    Picasso.with(TeacherProfileActivity.this).load(selectedImageUri).error(R.drawable.ic_user_default).into(profileImage);
-                    Log.e("PATH", "Image Path : " + pathProfilePic);
-                    break;
-
-                case SELECT_ID_PROOF:
-                    if (cursor.moveToFirst()) {
-                        pathIdProofPic = cursor.getString(columnIndex);
-                    }
-                    cursor.close();
-                    Picasso.with(TeacherProfileActivity.this).load(selectedImageUri).error(R.drawable.ic_user_default).into(idProofImage);
-                    Log.e("PATH", "Image Path : " + pathIdProofPic);
-                    break;
-
-
-                case SELECT_FILE:
-                    if (cursor.moveToFirst()) {
-                        pathCvDoc = cursor.getString(columnIndex);
-                    }
-                    cursor.close();
-                    Log.e("PATH", "Image Path : " + pathCvDoc);
-                    break;
-
-                case SELECT_AUDIO:
-                    if (cursor.moveToFirst()) {
-                        pathAudioFile = cursor.getString(columnIndex);
-                    }
-                    cursor.close();
-                    Log.e("PATH", "Image Path : " + pathAudioFile);
-                    break;
-            }
-
-
-        } else {
-
-
-            switch (OPTION) {
-
-                case SELECT_PHOTO:
-                    pathProfilePic = getPathFromURI(selectedImageUri);
-                    Picasso.with(TeacherProfileActivity.this).load(selectedImageUri).error(R.drawable.ic_user_default).into(profileImage);
-                    Log.e("PATH", "Image Path : " + pathProfilePic);
-                    break;
-
-                case SELECT_ID_PROOF:
-                    pathIdProofPic = getPathFromURI(selectedImageUri);
-                    Picasso.with(TeacherProfileActivity.this).load(selectedImageUri).error(R.drawable.ic_user_default).into(idProofImage);
-                    Log.e("PATH", "Image Path : " + pathIdProofPic);
-                    break;
-
-
-                case SELECT_FILE:
-                    pathCvDoc = getPathFromURI(selectedImageUri);
-                    Log.e("PATH", "Image Path : " + pathCvDoc);
-                    break;
-
-                case SELECT_AUDIO:
-                    pathAudioFile = getPathFromURI(selectedImageUri);
-                    Log.e("PATH", "Image Path : " + pathAudioFile);
-                    break;
-            }
-
-            Log.e("File Path", ">> " + pathIdProofPic);
-            String imageName = pathIdProofPic.substring(pathIdProofPic.lastIndexOf('/') + 1);
-            Picasso.with(TeacherProfileActivity.this).load(selectedImageUri).error(R.drawable.ic_user_default).into(profileImage);
-        }
-
-
     }
 
 
@@ -389,49 +315,52 @@ public class TeacherProfileActivity extends BaseActivity implements
             Utils.showCustomDialog("Internet Connection !", getResources().getString(R.string.internet_connection_error), TeacherProfileActivity.this);
             return;
         }
+        if (pathProfilePic != null && pathIdProofPic != null && pathIdProofPic != null && pathIdProofPic != null) {
+            //  SHOW PROGRESS DIALOG
+            Utils.showDialog(TeacherProfileActivity.this);
+            TypedFile proImage = new TypedFile("multipart/form-data", new File(pathProfilePic));
+            TypedFile idProof = new TypedFile("multipart/form-data", new File(pathIdProofPic));
+            TypedFile resume = new TypedFile("multipart/form-data", new File(pathIdProofPic));
+            TypedFile audiofile = new TypedFile("multipart/form-data", new File(pathIdProofPic));
 
-        //  SHOW PROGRESS DIALOG
-        Utils.showDialog(TeacherProfileActivity.this);
-        TypedFile proImage = new TypedFile("multipart/form-data", new File(pathProfilePic));
-        TypedFile idProof = new TypedFile("multipart/form-data", new File(pathIdProofPic));
-        TypedFile resume = new TypedFile("multipart/form-data", new File(pathCvDoc));
-        TypedFile audiofile = new TypedFile("multipart/form-data", new File(pathAudioFile));
+            ApiHandler.getApiService().createTeacherProfile(getTeacherProfileDetail(), idProof, proImage, resume, new Callback<TeacherProfileMainResponse>() {
 
-        ApiHandler.getApiService().createTeacherProfile(getTeacherProfileDetail(), idProof, proImage, resume, new Callback<TeacherProfileMainResponse>() {
+                @Override
+                public void success(TeacherProfileMainResponse teacherProfileMainResponse, Response response) {
+                    Utils.dismissDialog();
+                    if (teacherProfileMainResponse == null) {
+                        Toast.makeText(getApplicationContext(), "Something Wrong", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (teacherProfileMainResponse.getStatus() == null) {
+                        Toast.makeText(getApplicationContext(), "Something Wrong", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (teacherProfileMainResponse.getStatus().equals("false")) {
+                        Toast.makeText(getApplicationContext(), "" + teacherProfileMainResponse.getMsg(), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (teacherProfileMainResponse.getStatus().equals("true")) {
 
-            @Override
-            public void success(TeacherProfileMainResponse teacherProfileMainResponse, Response response) {
-                Utils.dismissDialog();
-                if (teacherProfileMainResponse == null) {
-                    Toast.makeText(getApplicationContext(), "Something Wrong", Toast.LENGTH_SHORT).show();
-                    return;
+                        Toast.makeText(getApplicationContext(), "" + teacherProfileMainResponse.getMsg(), Toast.LENGTH_SHORT).show();
+
+                        startActivity(new Intent(TeacherProfileActivity.this, TeacherProfileActivity.class));
+
+                        finish();
+                    }
+
                 }
-                if (teacherProfileMainResponse.getStatus() == null) {
-                    Toast.makeText(getApplicationContext(), "Something Wrong", Toast.LENGTH_SHORT).show();
-                    return;
+
+                @Override
+                public void failure(RetrofitError error) {
+                    error.printStackTrace();
+                    toast("Something Wrong");
                 }
-                if (teacherProfileMainResponse.getStatus().equals("false")) {
-                    Toast.makeText(getApplicationContext(), "" + teacherProfileMainResponse.getMsg(), Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (teacherProfileMainResponse.getStatus().equals("true")) {
+            });
+        } else {
+            toast("Please select all the files");
+        }
 
-                    Toast.makeText(getApplicationContext(), "" + teacherProfileMainResponse.getMsg(), Toast.LENGTH_SHORT).show();
-
-                    startActivity(new Intent(TeacherProfileActivity.this, TeacherProfileActivity.class));
-
-                    finish();
-                }
-
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                error.printStackTrace();
-                error.getMessage();
-                Toast.makeText(getApplicationContext(), "Something Wrong", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     private Map<String, String> getTeacherProfileDetail() {
