@@ -13,7 +13,7 @@
 
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="app.com.HungryEnglish.Activity.MainActivity">
+        <activity android:name="app.com.HungryEnglish.Activity.Teacher.MainActivity">
 
         </activity>
 
@@ -21,19 +21,29 @@
             android:name="app.com.HungryEnglish.Activity.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.AdminMainActivity" />
+        <activity android:name=".Activity.Admin.AdminTeacherList"/>
         <activity
             android:name="app.com.HungryEnglish.Activity.RegisterActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name="app.com.HungryEnglish.Activity.LoginActivity"></activity>
-        <activity android:name="app.com.HungryEnglish.Activity.StudentProfileActivity" />
-        <activity android:name="app.com.HungryEnglish.Activity.TeacherProfileActivity" />
-        <activity android:name="app.com.HungryEnglish.Activity.TeacherListActivity" />
+        <activity android:name="app.com.HungryEnglish.Activity.Student.StudentProfileActivity"/>
+        <activity android:name="app.com.HungryEnglish.Activity.Teacher.TeacherProfileActivity"/>
+        <activity android:name="app.com.HungryEnglish.Activity.Teacher.TeacherListActivity">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN"/>-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--</intent-filter>-->
+        </activity>
+
+        <activity android:name=".Activity.Admin.AdminDashboardActivity"/>
+        <activity android:name=".Activity.Student.StudentListActivity"/>
+        <activity android:name=".Activity.Admin.AddImageOrLinkActivity"/>
 
         <meta-data
             android:name="com.google.android.gms.version"

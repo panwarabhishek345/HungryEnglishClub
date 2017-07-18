@@ -17,7 +17,7 @@
     <string name="year_of_english_exp">Year of English Experence</string>
     <string name="nearest_railway_station">Nearest Railway Station</string>
     <string name="address">Address</string>
-    <string name="special_skils">Special Skill</string>
+
     <string name="radio_male">Male</string>
     <string name="radio_female">Female</string>
     <string name="submit">Submit</string>
@@ -28,7 +28,7 @@
     <string name="user_name_validation">Username Must be graterthen 4 Charcter</string>
     <string name="full_name_validation">Enter Full Name</string>
     <string name="internet_connection_error">Hungry English requires an internet connection.Make sure Wi-Fi or mobile networks are turned on, then try again.</string>
-    <string name="phone_number">Mobile Number</string>
+    <string name="wechat">Wechat Id</string>
     <string name="applyasteacher">Apply as teacher</string>
     <string name="teacher_profile">Teacher Profile</string>
     <string name="upload_id">Upload ID Proof</string>
@@ -40,4 +40,26 @@
     <string name="location">Address ( Location )</string>
     <string name="sucess_external_storage_msg">Hungry English will use your storage.</string>
     <string name="error_permission_msg">Hungry English can be miss behave.</string>
+    <string name="logout">Logout</string>
+    <string name="teacher_name">Name :</string>
+    <string name="teacher_email">Email :</string>
+    <string name="teacher_mobile_no">Mobile No :</string>
+    <string name="teacher_avaibility">Avaibility</string>
+    <string name="special_skils">Special Skill</string>
+    <string name="special_skils_label">Special Skill : </string>
+    <string name="teacher_avaibility_label">Avaibility : </string>
+    <string name="nearest_railway_station_label">Nearest Railway Station : </string>
+
+    <string name="alert_msg">Alert Msg</string>
+    <string name="ok">OK</string>
+    <string name="choose_file">Choose File</string>
+    <string name="internet_error">Internet Connection !</string>
+    <string name="accept_invitation">Accept</string>
+    <string name="student_list">Student List</string>
+    <string name="teacher_list">Teacher List</string>
+    <string name="add_image_link"><![CDATA[Add Image / Links]]></string>
+    <string name="edit">Edit</string>
+    <string name="logout_note">Would you like to logout from Hungry English?</string>
+    <string name="cancel">Cancel</string>
+    <string name="linksforref">Links for reference.</string>
 </resources>

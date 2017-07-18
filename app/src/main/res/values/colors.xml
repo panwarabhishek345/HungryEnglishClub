@@ -8,4 +8,5 @@
     <color name="black">#000000</color>
     <color name="bg_color">#f6f6f6</color>
     <color name="edittext_bg">#fafafa</color>
+    <color name="gray_border">#E5E4E2</color>
 </resources>

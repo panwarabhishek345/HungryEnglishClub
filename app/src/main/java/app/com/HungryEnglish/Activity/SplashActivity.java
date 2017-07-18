@@ -5,6 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import app.com.HungryEnglish.Activity.Admin.AdminDashboardActivity;
+import app.com.HungryEnglish.Activity.Student.StudentProfileActivity;
+import app.com.HungryEnglish.Activity.Teacher.MainActivity;
+import app.com.HungryEnglish.Activity.Teacher.TeacherListActivity;
+import app.com.HungryEnglish.Activity.Teacher.TeacherProfileActivity;
 import app.com.HungryEnglish.R;
 import app.com.HungryEnglish.Util.Constant;
 import app.com.HungryEnglish.Util.Utils;
@@ -56,6 +61,10 @@ public class SplashActivity extends Activity {
 
                     } else if (role.equalsIgnoreCase("teacher") && isActiveStatue.equalsIgnoreCase("2")) {
                         Intent i = new Intent(SplashActivity.this, MainActivity.class);
+                        startActivity(i);
+                        finish();
+                    }else if (role.equalsIgnoreCase("admin")) {
+                        Intent i = new Intent(SplashActivity.this, AdminDashboardActivity.class);
                         startActivity(i);
                         finish();
                     }

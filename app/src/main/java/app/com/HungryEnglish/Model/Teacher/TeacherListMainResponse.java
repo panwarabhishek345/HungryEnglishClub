@@ -1,4 +1,4 @@
-package app.com.HungryEnglish.Model.TeacherList;
+package app.com.HungryEnglish.Model.Teacher;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

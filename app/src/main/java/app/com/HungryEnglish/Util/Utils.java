@@ -45,6 +45,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.TextView;
 
 import app.com.HungryEnglish.R;
@@ -545,5 +546,13 @@ public class Utils {
      */
     public static boolean isGooglePhotosUri(Uri uri) {
         return "com.google.android.apps.photos.content".equals(uri.getAuthority());
+    }
+
+    public static void visibleButton(Button button) {
+        button.setVisibility(View.VISIBLE);
+    }
+
+    public static void invisibleButton(Button button) {
+        button.setVisibility(View.GONE);
     }
 }

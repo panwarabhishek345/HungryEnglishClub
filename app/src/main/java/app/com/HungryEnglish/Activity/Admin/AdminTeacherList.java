@@ -1,4 +1,4 @@
-package app.com.HungryEnglish.Activity;
+package app.com.HungryEnglish.Activity.Admin;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import app.com.HungryEnglish.Adapter.ViewPagerAdapter;
@@ -19,7 +20,7 @@ import app.com.HungryEnglish.R;
  * Created by Vnnovate on 7/5/2017.
  */
 
-public class AdminMainActivity extends AppCompatActivity {
+public class AdminTeacherList extends AppCompatActivity {
 //  http://www.androidhive.info/2015/09/android-material-design-working-with-tabs/
 
     private Toolbar toolbar;
@@ -30,7 +31,9 @@ public class AdminMainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_admin_main);
+//        getActionBar().setDisplayHomeAsUpEnabled(true);
 
         idMapping();
         setOnClick();
@@ -38,9 +41,6 @@ public class AdminMainActivity extends AppCompatActivity {
     }
 
     private void idMapping() {
-
-//        toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -80,9 +80,20 @@ public class AdminMainActivity extends AppCompatActivity {
 
     private void setTabText() {
 
-        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(AdminMainActivity.this, R.color.colorPrimaryDark));
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(AdminTeacherList.this, R.color.colorPrimaryDark));
 
         tabLayout.setSelectedTabIndicatorHeight(12);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        if (item.getItemId() == android.R.id.home) {
+//            Toast.makeText(AdminTeacherList.this, "Back", Toast.LENGTH_LONG).show();
+            onBackPressed();
+            return true;
+        };
+        return super.onOptionsItemSelected(item);
+    }
+
 
 }

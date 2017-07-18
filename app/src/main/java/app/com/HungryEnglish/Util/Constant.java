@@ -7,7 +7,6 @@ package app.com.HungryEnglish.Util;
 public class Constant {
 
 
-    public static final String USERID = "userId";
     public static final String Prefrence = "prefrence";
     public static final String ROLE_TEACHER = "teacher";
     public static final String ROLE_STUDENT = "student";

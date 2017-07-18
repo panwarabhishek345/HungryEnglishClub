@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_color"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/ivSelectImage"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_100sdp"
+            android:background="@color/gray_border"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_add_img"/>
+
+        <LinearLayout
+            android:id="@+id/llAddMoreLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:orientation="vertical"></LinearLayout>
+
+        <TextView
+            android:id="@+id/tvAddMoreBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:background="@drawable/bg_btn_verify_otp"
+            android:drawableLeft="@drawable/ic_add"
+            android:gravity="center|center_vertical"
+            android:padding="@dimen/_10sdp"
+            android:text=" Add More Contact"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold"/>
+
+
+        <TextView
+            android:id="@+id/tvSubmitLink"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:gravity="center"
+            android:background="@drawable/bg_btn_verify_otp"
+            android:text="@string/submit"
+            android:textSize="@dimen/_16sdp"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
+
+</ScrollView>

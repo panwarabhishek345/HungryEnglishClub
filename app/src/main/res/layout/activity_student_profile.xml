@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/bg_color"
-            android:fillViewport="true"
-    >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    android:fillViewport="true">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/_10sdp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="@dimen/_15sdp">
 
         <TextView
             android:layout_width="match_parent"
@@ -19,7 +18,7 @@
             android:gravity="center"
             android:text="@string/parent_msg"
             android:textColor="@color/colorAccent"
-            android:textSize="@dimen/_14sdp"/>
+            android:textSize="@dimen/_14sdp" />
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -38,7 +37,7 @@
                 android:inputType="text"
                 android:padding="@dimen/_5sdp"
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/_12sdp"/>
+                android:textSize="@dimen/_12sdp" />
         </android.support.design.widget.TextInputLayout>
 
         <RadioGroup
@@ -53,21 +52,22 @@
                 android:id="@+id/radioMale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:buttonTint="@color/colorPrimaryDark"
                 android:checked="true"
-                android:text="@string/radio_male"/>
+                android:text="@string/radio_male" />
 
             <RadioButton
                 android:id="@+id/radioFemale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/radio_female"/>
+                android:buttonTint="@color/colorPrimaryDark"
+                android:text="@string/radio_female" />
 
         </RadioGroup>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
 
             <EditText
                 android:id="@+id/ageEdit"
@@ -81,7 +81,7 @@
                 android:inputType="number"
                 android:padding="@dimen/_5sdp"
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/_12sdp"/>
+                android:textSize="@dimen/_12sdp" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -101,7 +101,7 @@
                 android:inputType="number"
                 android:padding="@dimen/_5sdp"
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/_12sdp"/>
+                android:textSize="@dimen/_12sdp" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -121,28 +121,7 @@
                 android:inputType="text"
                 android:padding="@dimen/_5sdp"
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/_12sdp"/>
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp">
-
-            <EditText
-                android:id="@+id/addressEdit"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_35sdp"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:background="@drawable/bg_edt"
-                android:hint="@string/address"
-                android:inputType="text"
-                android:padding="@dimen/_5sdp"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/_12sdp"/>
-
+                android:textSize="@dimen/_12sdp" />
         </android.support.design.widget.TextInputLayout>
 
 
@@ -163,7 +142,7 @@
                 android:inputType="text"
                 android:padding="@dimen/_5sdp"
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/_12sdp"/>
+                android:textSize="@dimen/_12sdp" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -184,7 +163,7 @@
                 android:inputType="text"
                 android:padding="@dimen/_5sdp"
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/_12sdp"/>
+                android:textSize="@dimen/_12sdp" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -197,7 +176,7 @@
             android:text="@string/submit"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="@dimen/_16sdp"/>
+            android:textSize="@dimen/_16sdp" />
 
 
     </LinearLayout>

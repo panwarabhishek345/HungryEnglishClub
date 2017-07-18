@@ -1,11 +1,10 @@
-package app.com.HungryEnglish.Activity;
+package app.com.HungryEnglish.Activity.Teacher;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -16,17 +15,25 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import app.com.HungryEnglish.Activity.BaseActivity;
+import app.com.HungryEnglish.Activity.LoginActivity;
+import app.com.HungryEnglish.Activity.Student.StudentProfileActivity;
 import app.com.HungryEnglish.Adapter.TeacherListAdapter;
-import app.com.HungryEnglish.Model.TeacherList.TeacherListMainResponse;
-import app.com.HungryEnglish.Model.TeacherList.TeacherListResponse;
+import app.com.HungryEnglish.Interface.OnRemoveTeacherClickListener;
+import app.com.HungryEnglish.Model.Teacher.InfoResponse;
+import app.com.HungryEnglish.Model.Teacher.TeacherListMainResponse;
+import app.com.HungryEnglish.Model.Teacher.TeacherListResponse;
 import app.com.HungryEnglish.R;
 import app.com.HungryEnglish.Services.ApiHandler;
 import app.com.HungryEnglish.Util.Constant;
 import app.com.HungryEnglish.Util.Utils;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+
+import static app.com.HungryEnglish.R.id.image_teacher_list_header;
 
 /**
  * Created by Rujul on 7/1/2017.
@@ -40,6 +47,11 @@ public class TeacherListActivity extends BaseActivity {
     private TeacherListAdapter teacherListAdapter;
     ImageView imgListHeader;
     List<TeacherListResponse> teacherList;
+    InfoResponse infoList;
+    private int cnt = 0;
+    private LinearLayout llLinkList;
+    OnRemoveTeacherClickListener onRemoveTeacherClickListener;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,17 +59,17 @@ public class TeacherListActivity extends BaseActivity {
         setContentView(R.layout.activity_teacher_list);
 
         idMapping();
-
         if (Utils.ReadSharePrefrence(TeacherListActivity.this, Constant.SHARED_PREFS.KEY_USER_ROLE).equalsIgnoreCase("student")) {
-
             callTeacherListApi();
         }
     }
 
+
     private void idMapping() {
 
         recyclerTearcherList = (RecyclerView) findViewById(R.id.recyclerTearcherList);
-        imgListHeader = (ImageView) findViewById(R.id.image_teacher_list_header);
+        imgListHeader = (ImageView) findViewById(image_teacher_list_header);
+        llLinkList = (LinearLayout) findViewById(R.id.llLinkList);
 
 
     }
@@ -97,10 +109,7 @@ public class TeacherListActivity extends BaseActivity {
                         teacherList = new ArrayList<TeacherListResponse>();
                         teacherList = teacherListMainResponse.getData();
 
-                        Log.e("TeacherList", "" + teacherList.size());
-                        Log.e("TeacherList", "" + teacherList);
-
-                        teacherListAdapter = new TeacherListAdapter(TeacherListActivity.this, teacherList);
+                        teacherListAdapter = new TeacherListAdapter(TeacherListActivity.this, teacherList, (TeacherListAdapter.OnRemoveTeacherClickListener) onRemoveTeacherClickListener);
                         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
                         recyclerTearcherList.setLayoutManager(mLayoutManager);
@@ -125,7 +134,7 @@ public class TeacherListActivity extends BaseActivity {
 
     private Map<String, String> getTeacherDetail() {
         Map<String, String> map = new HashMap<>();
-        map.put("role", Utils.ReadSharePrefrence(TeacherListActivity.this, Constant.SHARED_PREFS.KEY_USER_ROLE));
+        map.put("role", "teacher");
         map.put("status", Utils.ReadSharePrefrence(TeacherListActivity.this, Constant.SHARED_PREFS.KEY_IS_ACTIVE));
 
         Log.e("map", "TEACHER LIST " + map);
@@ -151,10 +160,16 @@ public class TeacherListActivity extends BaseActivity {
 
                 break;
             case R.id.profile:
-                if (role.equalsIgnoreCase("student"))
-                    startActivity(StudentProfileActivity.class);
-                else if (role.equalsIgnoreCase("teacher"))
-                    startActivity(TeacherProfileActivity.class);
+                switch (role) {
+                    case "student":
+                        startActivity(StudentProfileActivity.class);
+                        break;
+
+                    case "teacher":
+                        startActivity(TeacherProfileActivity.class);
+                        break;
+
+                }
         }
         return true;
     }

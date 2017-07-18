@@ -1,13 +1,13 @@
-package app.com.HungryEnglish.Model.TeacherList;
+package app.com.HungryEnglish.Model.StudentList;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by R'jul on 7/6/2017.
+ * Created by R'jul on 7/14/2017.
  */
 
-public class TeacherInfo {
+public class StudentInfo {
 
     @SerializedName("current_field")
     @Expose
@@ -64,4 +64,5 @@ public class TeacherInfo {
     public void setType(Object type) {
         this.type = type;
     }
+
 }

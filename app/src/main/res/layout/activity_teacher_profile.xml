@@ -182,14 +182,15 @@
 
                 <Button
                     android:id="@+id/btn_cv_file"
-                    android:layout_width="@dimen/_100sdp"
+                    android:layout_width="wrap_content"
                     android:layout_height="@dimen/_35sdp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center"
                     android:layout_marginRight="@dimen/_30sdp"
                     android:background="@drawable/bg_btn_verify_otp"
-                    android:text="Choose File"
+                    android:padding="@dimen/_10sdp"
+                    android:text="@string/choose_file"
                     android:textColor="@color/white"
                     />
             </RelativeLayout>
@@ -217,14 +218,15 @@
 
                 <Button
                     android:id="@+id/btn_audio_file"
-                    android:layout_width="@dimen/_100sdp"
+                    android:layout_width="wrap_content"
                     android:layout_height="@dimen/_35sdp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center"
                     android:layout_marginRight="@dimen/_30sdp"
                     android:background="@drawable/bg_btn_verify_otp"
-                    android:text="Choose File"
+                    android:padding="@dimen/_10sdp"
+                    android:text="@string/choose_file"
                     android:textColor="@color/white"
                     />
             </RelativeLayout>

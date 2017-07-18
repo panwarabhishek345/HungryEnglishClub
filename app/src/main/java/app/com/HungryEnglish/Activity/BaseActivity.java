@@ -20,10 +20,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+import app.com.HungryEnglish.Util.Constant;
 import app.com.HungryEnglish.Util.SetDatePicker;
 import app.com.HungryEnglish.Util.Utils;
 
-import static app.com.HungryEnglish.Util.Constant.USERID;
 
 
 /**
@@ -98,7 +98,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public boolean isLoggedIn() {
-        if (read(USERID).equalsIgnoreCase("")) {
+        if (read(Constant.SHARED_PREFS.KEY_USER_ID).equalsIgnoreCase("")) {
             return false;
         } else {
             return true;
