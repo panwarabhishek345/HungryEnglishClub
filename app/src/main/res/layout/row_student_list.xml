@@ -20,8 +20,8 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ivTeacherProfilePic"
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="@dimen/_100sdp"
+            android:layout_width="@dimen/_110sdp"
+            android:layout_height="@dimen/_110sdp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_user_default"
             app:civ_border_color="@color/white"
@@ -51,6 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/teacher_email"
+                android:singleLine="true"
                 android:textColor="@color/black"/>
 
             <TextView
@@ -58,6 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/teacher_mobile_no"
+                android:singleLine="true"
                 android:textColor="@color/black"/>
 
             <TextView
@@ -65,13 +67,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/teacher_avaibility"
+                android:singleLine="true"
                 android:textColor="@color/black"/>
 
             <TextView
                 android:id="@+id/etEditStudentProfile"
                 android:layout_width="@dimen/_80sdp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
+                android:layout_gravity="right|bottom"
                 android:background="@drawable/bg_btn_verify_otp"
                 android:gravity="center"
                 android:padding="@dimen/_2sdp"

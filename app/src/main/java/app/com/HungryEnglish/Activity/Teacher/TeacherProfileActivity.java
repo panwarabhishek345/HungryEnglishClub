@@ -63,15 +63,15 @@ public class TeacherProfileActivity extends BaseActivity implements
         View.OnClickListener {
 
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 0;
-    private ImageView profileImage, idProofImage;
+    private ImageView profileImage, idProofImage, ivCVFileStatus, ivAudioFileStatus;
     final int SELECT_PHOTO = 100;
     final int SELECT_ID_PROOF = 200;
     final int SELECT_FILE = 300;
     final int SELECT_AUDIO = 400;
-    private Button btnCvUpload;
+    private EditText btnCvUpload, btnAudioFile;
     private EditText currnetPlaceEdit, fullNameTeacherEdit, avaibilityDateTeacherEdit, specialSkillTeacherEdit;
     private String pathProfilePic, pathCvDoc, pathIdProofPic, pathAudioFile;
-    private Button btnSubmiTeacherProfile, btnAudioFile;
+    private Button btnSubmiTeacherProfile;
     private String teacherId, role;
 
     @Override
@@ -86,13 +86,17 @@ public class TeacherProfileActivity extends BaseActivity implements
     private void idMapping() {
         profileImage = (ImageView) findViewById(R.id.profile_image);
         idProofImage = (ImageView) findViewById(R.id.idProofImage);
-        btnCvUpload = (Button) findViewById(R.id.btn_cv_file);
+        ivCVFileStatus = (ImageView) findViewById(R.id.ivCVFileStatus);
+        ivAudioFileStatus = (ImageView) findViewById(R.id.ivAudioFileStatus);
+
         currnetPlaceEdit = (EditText) findViewById(R.id.currnetPlaceEdit);
         fullNameTeacherEdit = (EditText) findViewById(R.id.fullNameTeacherEdit);
         avaibilityDateTeacherEdit = (EditText) findViewById(R.id.avaibilityDateTeacherEdit);
         specialSkillTeacherEdit = (EditText) findViewById(R.id.specialSkillTeacherEdit);
+        btnAudioFile = (EditText) findViewById(R.id.btn_audio_file);
+        btnCvUpload = (EditText) findViewById(R.id.btn_cv_file);
+
         btnSubmiTeacherProfile = (Button) findViewById(R.id.btnSubmiTeacherProfile);
-        btnAudioFile = (Button) findViewById(R.id.btn_audio_file);
 
         profileImage.setOnClickListener(this);
         idProofImage.setOnClickListener(this);
@@ -212,6 +216,7 @@ public class TeacherProfileActivity extends BaseActivity implements
                         pathProfilePic = getPath(this, data.getData());
                     }
                     Picasso.with(TeacherProfileActivity.this).load(Uri.fromFile(new File(pathProfilePic))).error(R.drawable.ic_user_default).into(profileImage);
+
                     Log.e("PATH", "Image Path : " + pathProfilePic);
                     break;
                 case SELECT_ID_PROOF:
@@ -222,6 +227,7 @@ public class TeacherProfileActivity extends BaseActivity implements
                     }
                     Picasso.with(TeacherProfileActivity.this).load(Uri.fromFile(new File(pathIdProofPic))).error(R.drawable.ic_user_default).into(idProofImage);
                     Log.e("PATH", "Image Path : " + pathIdProofPic);
+
                     break;
                 case SELECT_FILE:
                     if (Build.VERSION.SDK_INT <= 21) {
@@ -232,6 +238,9 @@ public class TeacherProfileActivity extends BaseActivity implements
                     String[] spiltArray = pathCvDoc.split("/");
                     String cvFileName = spiltArray[spiltArray.length - 1];
                     btnCvUpload.setText(cvFileName);
+                    if (!pathCvDoc.equals("")) {
+                        Picasso.with(TeacherProfileActivity.this).load(R.drawable.ic_file).into(ivCVFileStatus);
+                    }
                     break;
                 case SELECT_AUDIO:
                     if (Build.VERSION.SDK_INT <= 21) {
@@ -242,6 +251,9 @@ public class TeacherProfileActivity extends BaseActivity implements
                     String[] spiltAudioArray = pathCvDoc.split("/");
                     String audioFileName = spiltAudioArray[spiltAudioArray.length - 1];
                     btnAudioFile.setText(audioFileName);
+                    if (!btnAudioFile.equals("")) {
+                        Picasso.with(TeacherProfileActivity.this).load(R.drawable.ic_file).into(ivAudioFileStatus);
+                    }
                     break;
 
 
@@ -312,15 +324,19 @@ public class TeacherProfileActivity extends BaseActivity implements
                     String[] cvFileArray = resumePath.split("/");
                     if (cvFileArray.length > 1) {
                         btnCvUpload.setText(cvFileArray[cvFileArray.length - 1]);
+                        Picasso.with(TeacherProfileActivity.this).load(R.drawable.ic_file).into(ivCVFileStatus);
+
                     }
 
                     String audioPath = teacherProfileMain.getInfo().getResume();
                     String[] audioFileArray = audioPath.split("/");
                     if (audioFileArray.length > 1) {
                         btnAudioFile.setText(audioFileArray[audioFileArray.length - 1]);
+                        Picasso.with(TeacherProfileActivity.this).load(R.drawable.ic_file).into(ivAudioFileStatus);
                     }
                 }
             }
+
             @Override
             public void failure(RetrofitError error) {
 

@@ -1,49 +1,47 @@
 package app.com.HungryEnglish.Adapter;
 
-import java.util.List;
-
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.util.List;
+
 import app.com.HungryEnglish.Fragment.TeacherPendingListFragment;
-import app.com.HungryEnglish.Interface.OnRemoveTeacherClickListener;
 import app.com.HungryEnglish.Model.Teacher.TeacherListResponse;
 import app.com.HungryEnglish.R;
 
 import static app.com.HungryEnglish.Fragment.TeacherApprovedListFragment.callRemoveTeacherFromListApi;
 
 /**
- * Created by R'jul on 7/11/2017.
+ * Created by Vnnovate on 7/19/2017.
  */
 
-public class TeacherPendingAdapter extends RecyclerView.Adapter<TeacherPendingAdapter.MyViewHolder> {
+public class TeacherApprovedAdapter extends RecyclerView.Adapter<TeacherApprovedAdapter.MyViewHolder> {
     int pos;
     private List<TeacherListResponse> teacherList;
     private Context mContext;
-    OnItemClickListener mOnItemClickLister;
-    private OnRemoveTeacherClickListener mListener;
+    AdapterView.OnItemClickListener mOnItemClickLister;
+    private TeacherPendingAdapter.OnRemoveTeacherClickListener mListener;
 
 
     public interface OnRemoveTeacherClickListener {
         public void onItemClick(View view, int position);
     }
 
-    public TeacherPendingAdapter(Context activity, List<TeacherListResponse> teacherList) {
+    public TeacherApprovedAdapter(Context activity, List<TeacherListResponse> teacherList) {
         this.mContext = activity;
         this.teacherList = teacherList;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvTeacherName, tvEmail, tvMobileNo, tvTeacherAvaibility, tvAcceptInvitation;
+        public TextView tvTeacherName, tvEmail, tvMobileNo, tvTeacherAvaibility;
         public ImageView ivProfilePic, ivRemove;
         public LinearLayout llEditDel;
 
@@ -55,9 +53,9 @@ public class TeacherPendingAdapter extends RecyclerView.Adapter<TeacherPendingAd
             tvMobileNo = (TextView) view.findViewById(R.id.tvMobileNo);
             tvTeacherAvaibility = (TextView) view.findViewById(R.id.tvTeacherAvaibility);
             ivProfilePic = (ImageView) view.findViewById(R.id.ivTeacherProfilePic);
-            tvAcceptInvitation = (TextView) view.findViewById(R.id.tvAcceptInvitation);
             ivRemove = (ImageView) view.findViewById(R.id.ivRemove);
             llEditDel = (LinearLayout) view.findViewById(R.id.llEditDel);
+
         }
     }
 
@@ -65,7 +63,7 @@ public class TeacherPendingAdapter extends RecyclerView.Adapter<TeacherPendingAd
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.row_teacher_pending_list, parent, false);
+                .inflate(R.layout.row_teacher_approved_list, parent, false);
 
         return new MyViewHolder(itemView);
     }
@@ -79,15 +77,6 @@ public class TeacherPendingAdapter extends RecyclerView.Adapter<TeacherPendingAd
         holder.tvEmail.setText("Email : " + teacherList.get(pos).getEmail());
 
         holder.tvMobileNo.setText("Mobile No : " + teacherList.get(pos).getMobNo());
-
-        holder.tvAcceptInvitation.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TeacherPendingListFragment.callTeacherAcceptInvitationApi( pos, teacherList.get(pos).getId(), teacherList.get(pos).getIsActive());
-            }
-        });
-
-
         holder.ivRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,6 +85,7 @@ public class TeacherPendingAdapter extends RecyclerView.Adapter<TeacherPendingAd
 
             }
         });
+
 //        Picasso.with(mContext).load(R.drawable.ic_user_default).into(holder.ivProfilePic);
 //        holder.tvGender.setText("Gender : " + teacherList.get(position).get("gender"));
 //        holder.tvExperience.setText("Experience : " + teacherList.get(position).get("experience"));
@@ -108,6 +98,4 @@ public class TeacherPendingAdapter extends RecyclerView.Adapter<TeacherPendingAd
         Log.e("COUNT", "@@ " + teacherList.size());
         return teacherList.size();
     }
-
-
 }

@@ -18,9 +18,11 @@ import java.util.List;
 import java.util.Map;
 
 import app.com.HungryEnglish.Activity.BaseActivity;
+import app.com.HungryEnglish.Adapter.TeacherApprovedAdapter;
 import app.com.HungryEnglish.Adapter.TeacherListAdapter;
 import app.com.HungryEnglish.Adapter.TeacherPendingAdapter;
 import app.com.HungryEnglish.Interface.OnRemoveTeacherClickListener;
+import app.com.HungryEnglish.Model.RemoveTeacher.RemoveTeacherFromListMainResponse;
 import app.com.HungryEnglish.Model.Teacher.TeacherListMainResponse;
 import app.com.HungryEnglish.Model.Teacher.TeacherListResponse;
 import app.com.HungryEnglish.R;
@@ -41,7 +43,7 @@ public class TeacherApprovedListFragment extends Fragment {
     View mView;
     private static RecyclerView recyclerTearcherList;
     static List<TeacherListResponse> teacherList;
-    private static TeacherListAdapter teacherListAdapter;
+    private static TeacherApprovedAdapter teacherApprovedAdapter;
     OnRemoveTeacherClickListener onRemoveTeacherClickListener;
     public static Context mContext;
 
@@ -87,12 +89,12 @@ public class TeacherApprovedListFragment extends Fragment {
                         teacherList = new ArrayList<TeacherListResponse>();
                         teacherList = teacherListMainResponse.getData();
 
-                        teacherListAdapter = new TeacherListAdapter(getActivity(), teacherList, (TeacherListAdapter.OnRemoveTeacherClickListener) onRemoveTeacherClickListener);
+                        teacherApprovedAdapter = new TeacherApprovedAdapter(getActivity(), teacherList);
                         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
                         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
                         recyclerTearcherList.setLayoutManager(mLayoutManager);
                         recyclerTearcherList.setItemAnimator(new DefaultItemAnimator());
-                        recyclerTearcherList.setAdapter(teacherListAdapter);
+                        recyclerTearcherList.setAdapter(teacherApprovedAdapter);
                     }
 
                 }
@@ -119,58 +121,56 @@ public class TeacherApprovedListFragment extends Fragment {
 //    http://smartsquad.16mb.com/HungryEnglish/api/delete_user.php?id=19&role=student
 
     // CALL DELETE TEACHER FROM LIST API HERE
-    public static void callRemoveTeacherFromListApi(final int pos) {
+    public static void callRemoveTeacherFromListApi(int pos, String id, String role) {
+        final int position = pos;
         if (!Utils.checkNetwork(mContext)) {
             Utils.showCustomDialog("Internet Connection !", mContext.getResources().getString(R.string.internet_connection_error), (Activity) mContext);
             return;
-        } else {
-            Utils.showDialog(mContext);
-            ApiHandler.getApiService().getRemoveTeacherFromList(removeTeacherDetail(), new retrofit.Callback<TeacherListMainResponse>() {
-                @Override
-                public void success(TeacherListMainResponse teacherListMainResponse, Response response) {
-                    Utils.dismissDialog();
-                    if (teacherListMainResponse == null) {
-                        Toast.makeText(mContext, "Something Wrong", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    if (teacherListMainResponse.getStatus() == null) {
-                        Toast.makeText(mContext, "Something Wrong", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    if (teacherListMainResponse.getStatus().equals("false")) {
-                        Toast.makeText(mContext, "" + teacherListMainResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    if (teacherListMainResponse.getStatus().equals("true")) {
-                        Toast.makeText(mContext, teacherListMainResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                        teacherListAdapter = new TeacherListAdapter(mContext, teacherList);
-                        LinearLayoutManager mLayoutManager = new LinearLayoutManager(mContext);
-                        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-                        recyclerTearcherList.setLayoutManager(mLayoutManager);
-                        recyclerTearcherList.setItemAnimator(new DefaultItemAnimator());
-                        recyclerTearcherList.setAdapter(teacherListAdapter);
-                        teacherList.remove(pos);
-                        teacherListAdapter.notifyDataSetChanged();
-                    }
-
-                }
-
-                @Override
-                public void failure(RetrofitError error) {
-                    error.printStackTrace();
-                    error.getMessage();
-                    Toast.makeText(mContext, "Something Wrong", Toast.LENGTH_SHORT).show();
-                }
-            });
-
         }
+        Utils.showDialog(mContext);
+        ApiHandler.getApiService().getRemoveTeacherFromList(removeTeacherDetail(id, role), new retrofit.Callback<RemoveTeacherFromListMainResponse>() {
+            @Override
+            public void success(RemoveTeacherFromListMainResponse removeTeacherFromListMainResponse, Response response) {
+                Utils.dismissDialog();
+                if (removeTeacherFromListMainResponse == null) {
+                    Toast.makeText(mContext, "Something Wrong", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (removeTeacherFromListMainResponse.getStatus() == null) {
+                    Toast.makeText(mContext, "Something Wrong", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (removeTeacherFromListMainResponse.getStatus().equals("false")) {
+                    Toast.makeText(mContext, "" + removeTeacherFromListMainResponse.getMsg(), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (removeTeacherFromListMainResponse.getStatus().equals("true")) {
+                    Toast.makeText(mContext, removeTeacherFromListMainResponse.getMsg(), Toast.LENGTH_SHORT).show();
+//                    teacherApprovedAdapter = new TeacherApprovedAdapter(mContext, teacherList);
+//                    LinearLayoutManager mLayoutManager = new LinearLayoutManager(mContext);
+//                    mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+//                    recyclerTearcherList.setLayoutManager(mLayoutManager);
+//                    recyclerTearcherList.setItemAnimator(new DefaultItemAnimator());
+//                    recyclerTearcherList.setAdapter(teacherApprovedAdapter);
+                    teacherList.remove(position);
+                    teacherApprovedAdapter.notifyDataSetChanged();
+                }
 
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                error.printStackTrace();
+                error.getMessage();
+                Toast.makeText(mContext, "Something Wrong", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    private static Map<String, String> removeTeacherDetail() {
+    private static Map<String, String> removeTeacherDetail(String id, String role) {
         Map<String, String> map = new HashMap<>();
-        map.put("role", Utils.ReadSharePrefrence(mContext, KEY_USER_ROLE));
-        map.put("id", Utils.ReadSharePrefrence(mContext, KEY_USER_ID));
+        map.put("role", role);
+        map.put("id", id);
         return map;
     }
 

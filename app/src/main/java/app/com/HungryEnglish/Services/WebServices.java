@@ -7,6 +7,7 @@ import app.com.HungryEnglish.Activity.Teacher.TeacherProfileActivity;
 import app.com.HungryEnglish.Model.Profile.StudentGetProfileMainResponse;
 import app.com.HungryEnglish.Model.Profile.StudentProfileMainResponse;
 import app.com.HungryEnglish.Model.Profile.TeacherProfileMainResponse;
+import app.com.HungryEnglish.Model.RemoveTeacher.RemoveTeacherFromListMainResponse;
 import app.com.HungryEnglish.Model.StudentList.StudentListMainResponse;
 import app.com.HungryEnglish.Model.Teacher.InfoMainResponse;
 import app.com.HungryEnglish.Model.Teacher.TeacherListMainResponse;
@@ -38,7 +39,7 @@ public interface WebServices {
     public void getTeacherList(@QueryMap Map<String, String> map, Callback<TeacherListMainResponse> callback);
 
     @POST("/delete_user.php")
-    public void getRemoveTeacherFromList(@QueryMap Map<String, String> map, Callback<TeacherListMainResponse> callback);
+    public void getRemoveTeacherFromList(@QueryMap Map<String, String> map, Callback<RemoveTeacherFromListMainResponse> callback);
 
     @POST("/getuserbystatus.php")
     public void getStudentList(@QueryMap Map<String, String> map, Callback<StudentListMainResponse> callback);

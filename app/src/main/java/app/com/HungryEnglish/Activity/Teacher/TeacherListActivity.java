@@ -109,7 +109,7 @@ public class TeacherListActivity extends BaseActivity {
                         teacherList = new ArrayList<TeacherListResponse>();
                         teacherList = teacherListMainResponse.getData();
 
-                        teacherListAdapter = new TeacherListAdapter(TeacherListActivity.this, teacherList, (TeacherListAdapter.OnRemoveTeacherClickListener) onRemoveTeacherClickListener);
+                        teacherListAdapter = new TeacherListAdapter(TeacherListActivity.this, teacherList);
                         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
                         recyclerTearcherList.setLayoutManager(mLayoutManager);

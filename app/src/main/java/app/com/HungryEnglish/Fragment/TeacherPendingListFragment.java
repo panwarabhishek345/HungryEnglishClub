@@ -18,7 +18,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import app.com.HungryEnglish.Adapter.TeacherListAdapter;
 import app.com.HungryEnglish.Adapter.TeacherPendingAdapter;
+import app.com.HungryEnglish.Model.RemoveTeacher.RemoveTeacherFromListMainResponse;
 import app.com.HungryEnglish.Model.Teacher.TeacherListMainResponse;
 import app.com.HungryEnglish.Model.Teacher.TeacherListResponse;
 import app.com.HungryEnglish.Model.Teacher.TeacherPendingRequestMainResponse;
@@ -28,6 +30,8 @@ import app.com.HungryEnglish.Util.Utils;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+import static app.com.HungryEnglish.Util.Constant.SHARED_PREFS.KEY_USER_ID;
+import static app.com.HungryEnglish.Util.Constant.SHARED_PREFS.KEY_USER_ROLE;
 import static app.com.HungryEnglish.Util.Utils.checkNetwork;
 import static app.com.HungryEnglish.Util.Utils.showDialog;
 
@@ -40,8 +44,8 @@ public class TeacherPendingListFragment extends Fragment {
     View mView;
     private static RecyclerView recyclerTearcherList;
     static List<TeacherListResponse> teacherList;
-    private static TeacherPendingAdapter teacherPendingAdapter;
-    private static TeacherPendingAdapter teacherListAdapter;
+//    private static TeacherPendingAdapter teacherPendingAdapter;
+    private static TeacherPendingAdapter teacherPendingListAdapter;
     private static String status, uid;
     public static Context mContext;
 
@@ -95,12 +99,12 @@ public class TeacherPendingListFragment extends Fragment {
                         teacherList = new ArrayList<TeacherListResponse>();
                         teacherList = teacherListMainResponse.getData();
 
-                        teacherListAdapter = new TeacherPendingAdapter(getActivity(), teacherList);
+                        teacherPendingListAdapter = new TeacherPendingAdapter(getActivity(), teacherList);
                         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
                         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
                         recyclerTearcherList.setLayoutManager(mLayoutManager);
                         recyclerTearcherList.setItemAnimator(new DefaultItemAnimator());
-                        recyclerTearcherList.setAdapter(teacherListAdapter);
+                        recyclerTearcherList.setAdapter(teacherPendingListAdapter);
                     }
 
                 }
@@ -157,14 +161,14 @@ public class TeacherPendingListFragment extends Fragment {
                     }
                     if (teacherListMainResponse.getStatus().equals("true")) {
 
-                        teacherPendingAdapter = new TeacherPendingAdapter(mContext, teacherList);
+                        teacherPendingListAdapter = new TeacherPendingAdapter(mContext, teacherList);
                         LinearLayoutManager mLayoutManager = new LinearLayoutManager(mContext);
                         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
                         recyclerTearcherList.setLayoutManager(mLayoutManager);
                         recyclerTearcherList.setItemAnimator(new DefaultItemAnimator());
-                        recyclerTearcherList.setAdapter(teacherListAdapter);
+                        recyclerTearcherList.setAdapter(teacherPendingListAdapter);
                         teacherList.remove(position);
-                        teacherPendingAdapter.notifyDataSetChanged();
+                        teacherPendingListAdapter.notifyDataSetChanged();
                     }
                 }
 
@@ -188,6 +192,60 @@ public class TeacherPendingListFragment extends Fragment {
         Log.e("map", "TEACHER ACCEPT " + map);
         return map;
     }
+    // CALL DELETE TEACHER FROM LIST API HERE
+    public static void callRemoveTeacherFromListApi(final int pos) {
+        if (!Utils.checkNetwork(mContext)) {
+            Utils.showCustomDialog("Internet Connection !", mContext.getResources().getString(R.string.internet_connection_error), (Activity) mContext);
+            return;
+        } else {
+            Utils.showDialog(mContext);
+            ApiHandler.getApiService().getRemoveTeacherFromList(removeTeacherDetail(), new retrofit.Callback<RemoveTeacherFromListMainResponse>() {
+                @Override
+                public void success(RemoveTeacherFromListMainResponse teacherListMainResponse, Response response) {
+                    Utils.dismissDialog();
+                    if (teacherListMainResponse == null) {
+                        Toast.makeText(mContext, "Something Wrong", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (teacherListMainResponse.getStatus() == null) {
+                        Toast.makeText(mContext, "Something Wrong", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (teacherListMainResponse.getStatus().equals("false")) {
+                        Toast.makeText(mContext, "" + teacherListMainResponse.getMsg(), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (teacherListMainResponse.getStatus().equals("true")) {
+                        Toast.makeText(mContext, teacherListMainResponse.getMsg(), Toast.LENGTH_SHORT).show();
+//                        teacherPendingListAdapter = new TeacherPendingAdapter(mContext, teacherList);
+//                        LinearLayoutManager mLayoutManager = new LinearLayoutManager(mContext);
+//                        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+//                        recyclerTearcherList.setLayoutManager(mLayoutManager);
+//                        recyclerTearcherList.setItemAnimator(new DefaultItemAnimator());
+//                        recyclerTearcherList.setAdapter(teacherPendingListAdapter);
+                        teacherList.remove(pos);
+                        teacherPendingListAdapter.notifyDataSetChanged();
+                    }
 
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    error.printStackTrace();
+                    error.getMessage();
+                    Toast.makeText(mContext, "Something Wrong", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }
+
+    }
+
+    private static Map<String, String> removeTeacherDetail() {
+        Map<String, String> map = new HashMap<>();
+        map.put("role", Utils.ReadSharePrefrence(mContext, KEY_USER_ROLE));
+        map.put("id", Utils.ReadSharePrefrence(mContext, KEY_USER_ID));
+        return map;
+    }
 
 }
