@@ -1,10 +1,12 @@
 package app.com.HungryEnglish.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -13,18 +15,20 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import app.com.HungryEnglish.Activity.Student.StudentProfileActivity;
+import app.com.HungryEnglish.Activity.Teacher.TeacherProfileActivity;
 import app.com.HungryEnglish.Fragment.TeacherPendingListFragment;
 import app.com.HungryEnglish.Model.Teacher.TeacherListResponse;
 import app.com.HungryEnglish.R;
 
 import static app.com.HungryEnglish.Fragment.TeacherApprovedListFragment.callRemoveTeacherFromListApi;
+import static app.com.HungryEnglish.R.id.ivEdit;
 
 /**
  * Created by Vnnovate on 7/19/2017.
  */
 
 public class TeacherApprovedAdapter extends RecyclerView.Adapter<TeacherApprovedAdapter.MyViewHolder> {
-    int pos;
     private List<TeacherListResponse> teacherList;
     private Context mContext;
     AdapterView.OnItemClickListener mOnItemClickLister;
@@ -42,7 +46,7 @@ public class TeacherApprovedAdapter extends RecyclerView.Adapter<TeacherApproved
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView tvTeacherName, tvEmail, tvMobileNo, tvTeacherAvaibility;
-        public ImageView ivProfilePic, ivRemove;
+        public ImageView ivProfilePic, ivRemove, ivEdit;
         public LinearLayout llEditDel;
 
 
@@ -55,6 +59,7 @@ public class TeacherApprovedAdapter extends RecyclerView.Adapter<TeacherApproved
             ivProfilePic = (ImageView) view.findViewById(R.id.ivTeacherProfilePic);
             ivRemove = (ImageView) view.findViewById(R.id.ivRemove);
             llEditDel = (LinearLayout) view.findViewById(R.id.llEditDel);
+            ivEdit = (ImageView) view.findViewById(R.id.ivEdit);
 
         }
     }
@@ -70,7 +75,7 @@ public class TeacherApprovedAdapter extends RecyclerView.Adapter<TeacherApproved
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        pos = position;
+        final int pos = position;
         //        Movie movie = teacherList.get(position);
         holder.tvTeacherName.setText(teacherList.get(pos).getUsername());
 
@@ -83,6 +88,16 @@ public class TeacherApprovedAdapter extends RecyclerView.Adapter<TeacherApproved
 
                 callRemoveTeacherFromListApi(pos,teacherList.get(pos).getId(),teacherList.get(pos).getRole());
 
+            }
+        });
+
+        holder.ivEdit.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, TeacherProfileActivity.class);
+                intent.putExtra("id", teacherList.get(pos).getId());
+                intent.putExtra("role", teacherList.get(pos).getRole());
+                mContext.startActivity(intent);
             }
         });
 

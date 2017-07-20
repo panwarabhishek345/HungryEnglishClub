@@ -3,6 +3,7 @@ package app.com.HungryEnglish.Adapter;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import app.com.HungryEnglish.Activity.Student.StudentProfileActivity;
+import app.com.HungryEnglish.Activity.Teacher.TeacherProfileActivity;
 import app.com.HungryEnglish.Fragment.TeacherPendingListFragment;
 import app.com.HungryEnglish.Interface.OnRemoveTeacherClickListener;
 import app.com.HungryEnglish.Model.Teacher.TeacherListResponse;
@@ -26,7 +29,6 @@ import static app.com.HungryEnglish.Fragment.TeacherApprovedListFragment.callRem
  */
 
 public class TeacherPendingAdapter extends RecyclerView.Adapter<TeacherPendingAdapter.MyViewHolder> {
-    int pos;
     private List<TeacherListResponse> teacherList;
     private Context mContext;
     OnItemClickListener mOnItemClickLister;
@@ -44,7 +46,7 @@ public class TeacherPendingAdapter extends RecyclerView.Adapter<TeacherPendingAd
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView tvTeacherName, tvEmail, tvMobileNo, tvTeacherAvaibility, tvAcceptInvitation;
-        public ImageView ivProfilePic, ivRemove;
+        public ImageView ivProfilePic, ivRemove, ivEdit;
         public LinearLayout llEditDel;
 
 
@@ -58,6 +60,7 @@ public class TeacherPendingAdapter extends RecyclerView.Adapter<TeacherPendingAd
             tvAcceptInvitation = (TextView) view.findViewById(R.id.tvAcceptInvitation);
             ivRemove = (ImageView) view.findViewById(R.id.ivRemove);
             llEditDel = (LinearLayout) view.findViewById(R.id.llEditDel);
+            ivEdit = (ImageView) view.findViewById(R.id.ivEdit);
         }
     }
 
@@ -72,7 +75,7 @@ public class TeacherPendingAdapter extends RecyclerView.Adapter<TeacherPendingAd
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        pos = position;
+        final int pos = position;
         //        Movie movie = teacherList.get(position);
         holder.tvTeacherName.setText(teacherList.get(pos).getUsername());
 
@@ -83,16 +86,26 @@ public class TeacherPendingAdapter extends RecyclerView.Adapter<TeacherPendingAd
         holder.tvAcceptInvitation.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                TeacherPendingListFragment.callTeacherAcceptInvitationApi( pos, teacherList.get(pos).getId(), teacherList.get(pos).getIsActive());
+                TeacherPendingListFragment.callTeacherAcceptInvitationApi(pos, teacherList.get(pos).getId(), teacherList.get(pos).getIsActive());
             }
         });
 
+
+        holder.ivEdit.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, TeacherProfileActivity.class);
+                intent.putExtra("id", teacherList.get(pos).getId());
+                intent.putExtra("role", teacherList.get(pos).getRole());
+                mContext.startActivity(intent);
+            }
+        });
 
         holder.ivRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                callRemoveTeacherFromListApi(pos,teacherList.get(pos).getId(),teacherList.get(pos).getRole());
+                callRemoveTeacherFromListApi(pos, teacherList.get(pos).getId(), teacherList.get(pos).getRole());
 
             }
         });

@@ -21,15 +21,15 @@ public class TeacherInfo {
     @SerializedName("resume")
     @Expose
     private String resume;
+    @SerializedName("audioFile")
+    @Expose
+    private String audioFile;
     @SerializedName("address")
     @Expose
     private String address;
     @SerializedName("available_time")
     @Expose
     private String availableTime;
-    @SerializedName("station")
-    @Expose
-    private String station;
     @SerializedName("skills")
     @Expose
     private String skills;
@@ -66,6 +66,14 @@ public class TeacherInfo {
         this.resume = resume;
     }
 
+    public String getAudioFile() {
+        return audioFile;
+    }
+
+    public void setAudioFile(String audioFile) {
+        this.audioFile = audioFile;
+    }
+
     public String getAddress() {
         return address;
     }
@@ -80,14 +88,6 @@ public class TeacherInfo {
 
     public void setAvailableTime(String availableTime) {
         this.availableTime = availableTime;
-    }
-
-    public String getStation() {
-        return station;
-    }
-
-    public void setStation(String station) {
-        this.station = station;
     }
 
     public String getSkills() {

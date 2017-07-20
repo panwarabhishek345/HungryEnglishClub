@@ -1,255 +1,247 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_color"
-    android:orientation="vertical">
+    android:layout_margin="@dimen/_5sdp"
+    android:fillViewport="true">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/_5sdp"
-        android:fillViewport="true">
+        android:layout_margin="@dimen/_10sdp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/teacher_profile"
+            android:textSize="@dimen/_14sdp"/>
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:src="@drawable/ic_user_default"
+            app:civ_border_color="@color/colorAccent"
+            app:civ_border_width="4dp"/>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp">
+
+            <EditText
+                android:id="@+id/fullNameTeacherEdit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@drawable/bg_edt"
+                android:gravity="center_vertical"
+                android:hint="@string/full_name"
+                android:inputType="text"
+                android:padding="@dimen/_5sdp"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_12sdp"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp">
+
+            <EditText
+                android:id="@+id/currnetPlaceEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@drawable/bg_edt"
+                android:gravity="center_vertical"
+                android:hint="@string/nearest_railway_station"
+                android:inputType="text"
+                android:lines="5"
+                android:maxLines="8"
+                android:minLines="5"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_12sdp"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp">
+
+            <EditText
+                android:id="@+id/avaibilityDateTeacherEdit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@drawable/bg_edt"
+                android:hint="@string/avaibility"
+                android:inputType="text"
+                android:padding="@dimen/_5sdp"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_12sdp"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp">
+
+            <EditText
+                android:id="@+id/specialSkillTeacherEdit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@drawable/bg_edt"
+                android:hint="@string/special_skils"
+                android:inputType="text"
+                android:padding="@dimen/_5sdp"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_12sdp"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:gravity="center"
+                android:padding="@dimen/_5sdp"
+                android:paddingLeft="@dimen/_40sdp"
+                android:paddingRight="@dimen/_40sdp"
+                android:text="@string/upload_id"
+                android:textSize="@dimen/_12sdp"/>
+
+
+            <ImageView
+                android:id="@+id/idProofImage"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_130sdp"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="center"
+                android:layout_marginRight="@dimen/_30sdp"
+                android:src="@color/white"/>
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="@dimen/_10sdp"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/teacher_profile"
-                android:textColor="@color/colorAccent"
-                android:textSize="@dimen/_14sdp" />
-
-
-            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/profile_image"
-                android:layout_width="110dp"
-                android:layout_height="110dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:src="@drawable/ic_user_default"
-                app:civ_border_color="@color/colorAccent"
-                app:civ_border_width="4dp" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp">
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_weight="1">
 
                 <EditText
-                    android:id="@+id/fullNameTeacherEdit"
+                    android:id="@+id/btn_cv_file"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_35sdp"
                     android:layout_marginLeft="@dimen/_5sdp"
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:background="@drawable/bg_edt"
-                    android:gravity="center_vertical"
-                    android:hint="@string/full_name"
+                    android:focusable="false"
+                    android:hint="@string/upload_cv"
                     android:inputType="text"
                     android:padding="@dimen/_5sdp"
                     android:textColor="@android:color/black"
-                    android:textSize="@dimen/_12sdp" />
+                    android:textSize="@dimen/_12sdp"/>
 
             </android.support.design.widget.TextInputLayout>
 
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp">
-
-                <EditText
-                    android:id="@+id/currnetPlaceEdit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:background="@drawable/bg_edt"
-                    android:gravity="center_vertical"
-                    android:hint="@string/nearest_railway_station"
-                    android:inputType="text"
-                    android:lines="5"
-                    android:maxLines="8"
-                    android:minLines="5"
-                    android:padding="@dimen/_10sdp"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/_12sdp" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp">
-
-                <EditText
-                    android:id="@+id/avaibilityDateTeacherEdit"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_35sdp"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:background="@drawable/bg_edt"
-                    android:hint="@string/avaibility"
-                    android:inputType="text"
-                    android:padding="@dimen/_5sdp"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/_12sdp" />
-
-            </android.support.design.widget.TextInputLayout>
-
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp">
-
-                <EditText
-                    android:id="@+id/specialSkillTeacherEdit"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_35sdp"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:background="@drawable/bg_edt"
-                    android:hint="@string/special_skils"
-                    android:inputType="text"
-                    android:padding="@dimen/_5sdp"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/_12sdp" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_35sdp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:gravity="center"
-                    android:padding="@dimen/_5sdp"
-                    android:paddingLeft="@dimen/_40sdp"
-                    android:paddingRight="@dimen/_40sdp"
-                    android:text="@string/upload_id"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/_12sdp" />
-
-
-                <ImageView
-                    android:id="@+id/idProofImage"
-                    android:layout_width="@dimen/_100sdp"
-                    android:layout_height="@dimen/_130sdp"
-                    android:layout_alignParentRight="true"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="@dimen/_30sdp"
-                    android:src="@color/white" />
-            </RelativeLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_weight="1">
-
-                    <EditText
-                        android:id="@+id/btn_cv_file"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_35sdp"
-                        android:layout_marginLeft="@dimen/_5sdp"
-                        android:layout_marginStart="@dimen/_5sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:background="@drawable/bg_edt"
-                        android:hint="@string/upload_cv"
-                        android:inputType="text"
-                        android:padding="@dimen/_5sdp"
-                        android:textColor="@android:color/black"
-                        android:textSize="@dimen/_12sdp" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <ImageView
-                    android:id="@+id/ivCVFileStatus"
-                    android:layout_width="@dimen/_25sdp"
-                    android:layout_height="@dimen/_25sdp"
-                    android:layout_gravity="bottom"
-                    android:layout_marginLeft="@dimen/_10sdp"
-                    android:src="@drawable/ic_no_file" />
-
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_weight="1">
-
-                    <EditText
-                        android:id="@+id/btn_audio_file"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_35sdp"
-                        android:layout_marginLeft="@dimen/_5sdp"
-                        android:layout_marginStart="@dimen/_5sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:background="@drawable/bg_edt"
-                        android:hint="@string/upload_audio"
-                        android:inputType="text"
-
-                        android:padding="@dimen/_5sdp"
-                        android:textColor="@android:color/black"
-                        android:textSize="@dimen/_12sdp" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <ImageView
-                    android:id="@+id/ivAudioFileStatus"
-                    android:layout_width="@dimen/_25sdp"
-                    android:layout_height="@dimen/_25sdp"
-                    android:layout_gravity="bottom"
-                    android:layout_marginLeft="@dimen/_10sdp"
-                    android:src="@drawable/ic_no_file" />
-
-            </LinearLayout>
-
-
-            <Button
-                android:id="@+id/btnSubmiTeacherProfile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:background="@drawable/bg_btn_verify_otp"
-                android:text="@string/submit"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_16sdp" />
+            <ImageView
+                android:id="@+id/ivCVFileStatus"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:src="@drawable/ic_no_file"/>
 
 
         </LinearLayout>
-    </ScrollView>
 
 
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_weight="1">
+
+                <EditText
+                    android:id="@+id/btn_audio_file"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:background="@drawable/bg_edt"
+                    android:focusable="false"
+                    android:hint="@string/upload_audio"
+                    android:inputType="text"
+                    android:padding="@dimen/_5sdp"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_12sdp"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <ImageView
+                android:id="@+id/ivAudioFileStatus"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:src="@drawable/ic_no_file"/>
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/btnSubmiTeacherProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:background="@drawable/bg_btn_verify_otp"
+            android:text="@string/submit"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16sdp"/>
+
+
+    </LinearLayout>
+</ScrollView>

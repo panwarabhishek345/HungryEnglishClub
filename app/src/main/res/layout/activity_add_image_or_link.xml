@@ -15,7 +15,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_100sdp"
             android:background="@color/gray_border"
-            android:scaleType="centerInside"
+            android:layout_margin="@dimen/_10sdp"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_add_img"/>
 
         <LinearLayout
@@ -26,7 +27,7 @@
             android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginRight="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_5sdp"
-            android:orientation="vertical"></LinearLayout>
+            android:orientation="vertical"/>
 
         <TextView
             android:id="@+id/tvAddMoreBtn"
@@ -35,27 +36,27 @@
             android:layout_gravity="center"
             android:layout_margin="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_20sdp"
-            android:background="@drawable/bg_btn_verify_otp"
             android:drawableLeft="@drawable/ic_add"
             android:gravity="center|center_vertical"
             android:padding="@dimen/_10sdp"
             android:text=" Add More Contact"
-            android:textColor="@color/white"
+            android:textColor="@color/colorPrimary"
             android:textSize="@dimen/_12sdp"
             android:textStyle="bold"/>
 
 
         <TextView
             android:id="@+id/tvSubmitLink"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/_140sdp"
             android:layout_height="wrap_content"
-            android:padding="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_25sdp"
-            android:gravity="center"
             android:background="@drawable/bg_btn_verify_otp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:padding="@dimen/_5sdp"
             android:text="@string/submit"
-            android:textSize="@dimen/_16sdp"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sdp"/>
 
     </LinearLayout>
 

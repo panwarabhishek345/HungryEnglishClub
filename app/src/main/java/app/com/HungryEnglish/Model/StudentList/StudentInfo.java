@@ -9,60 +9,82 @@ import com.google.gson.annotations.SerializedName;
 
 public class StudentInfo {
 
-    @SerializedName("current_field")
+    @SerializedName("studentId")
     @Expose
-    private Object currentField;
-    @SerializedName("field_count")
+    private String studentId;
+    @SerializedName("sex")
     @Expose
-    private Object fieldCount;
-    @SerializedName("lengths")
+    private String sex;
+    @SerializedName("age")
     @Expose
-    private Object lengths;
-    @SerializedName("num_rows")
+    private String age;
+    @SerializedName("station")
     @Expose
-    private Object numRows;
-    @SerializedName("type")
+    private String station;
+    @SerializedName("address")
     @Expose
-    private Object type;
+    private String address;
+    @SerializedName("skills")
+    @Expose
+    private String skills;
+    @SerializedName("available_time")
+    @Expose
+    private String availableTime;
 
-    public Object getCurrentField() {
-        return currentField;
+    public String getStudentId() {
+        return studentId;
     }
 
-    public void setCurrentField(Object currentField) {
-        this.currentField = currentField;
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
     }
 
-    public Object getFieldCount() {
-        return fieldCount;
+    public String getSex() {
+        return sex;
     }
 
-    public void setFieldCount(Object fieldCount) {
-        this.fieldCount = fieldCount;
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
-    public Object getLengths() {
-        return lengths;
+    public String getAge() {
+        return age;
     }
 
-    public void setLengths(Object lengths) {
-        this.lengths = lengths;
+    public void setAge(String age) {
+        this.age = age;
     }
 
-    public Object getNumRows() {
-        return numRows;
+    public String getStation() {
+        return station;
     }
 
-    public void setNumRows(Object numRows) {
-        this.numRows = numRows;
+    public void setStation(String station) {
+        this.station = station;
     }
 
-    public Object getType() {
-        return type;
+    public String getAddress() {
+        return address;
     }
 
-    public void setType(Object type) {
-        this.type = type;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getSkills() {
+        return skills;
+    }
+
+    public void setSkills(String skills) {
+        this.skills = skills;
+    }
+
+    public String getAvailableTime() {
+        return availableTime;
+    }
+
+    public void setAvailableTime(String availableTime) {
+        this.availableTime = availableTime;
     }
 
 }

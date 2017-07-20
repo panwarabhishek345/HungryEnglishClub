@@ -47,20 +47,30 @@ import static app.com.HungryEnglish.Util.Constant.SHARED_PREFS.KEY_USER_ROLE;
 
 public class StudentProfileActivity extends BaseActivity {
 
-    private EditText fullNameStudentEdit, ageEdit, yearOfExpEdit, nearRailwayStationEdit, specialSkillsEdit, avaibilityStudentEdit;
+    private EditText fullNameStudentEdit, ageEdit, nearRailwayStationEdit, specialSkillsEdit, avaibilityStudentEdit;
     private RadioGroup radioSex;
     private RadioButton radioMale, radioFemale;
     private RadioButton radioButton;
     private Button login_register;
     private String sex = "";
+    private String id = "", role = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_profile);
         idMapping();
+        getDataFromIntent();
         setOnClick();
         getProfile();
+    }
+
+    private void getDataFromIntent() {
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            id = extras.getString("id");
+            role = extras.getString("role");
+        }
     }
 
 
@@ -69,8 +79,6 @@ public class StudentProfileActivity extends BaseActivity {
         fullNameStudentEdit = (EditText) findViewById(R.id.fullNameStudentEdit);
 
         ageEdit = (EditText) findViewById(R.id.ageEdit);
-
-        yearOfExpEdit = (EditText) findViewById(R.id.yearOfExpEdit);
 
         nearRailwayStationEdit = (EditText) findViewById(R.id.nearRailwayStationEdit);
 
@@ -108,13 +116,6 @@ public class StudentProfileActivity extends BaseActivity {
                     return;
                 }
 
-                if (yearOfExpEdit.getText().toString().equalsIgnoreCase("")) {
-                    yearOfExpEdit.setError("Enter Year Of English Experience");
-                    yearOfExpEdit.requestFocus();
-                    return;
-                }
-
-
                 if (nearRailwayStationEdit.getText().toString().equalsIgnoreCase("")) {
                     nearRailwayStationEdit.setError("Enter Nearest Railway Station");
                     nearRailwayStationEdit.requestFocus();
@@ -142,9 +143,6 @@ public class StudentProfileActivity extends BaseActivity {
                 radioButton = (RadioButton) findViewById(selectedId);
 
                 sex = radioButton.getText().toString();
-
-                Toast.makeText(StudentProfileActivity.this,
-                        radioButton.getText(), Toast.LENGTH_SHORT).show();
 
                 callParentProfileApi();
 
@@ -184,10 +182,10 @@ public class StudentProfileActivity extends BaseActivity {
                 }
                 if (parentProfileMainResponse.getStatus().equals("true")) {
 
-                    Toast.makeText(getApplicationContext(), "" + parentProfileMainResponse.getMsg(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "User Profile Get successfully", Toast.LENGTH_SHORT).show();
 
                     Utils.WriteSharePrefrence(StudentProfileActivity.this, Constant.SHARED_PREFS.KEY_IS_ACTIVE, "1");
-                    startActivity(new Intent(StudentProfileActivity.this, TeacherListActivity.class));
+//                    startActivity(new Intent(StudentProfileActivity.this, TeacherListActivity.class));
 
                     finish();
                 }
@@ -206,17 +204,19 @@ public class StudentProfileActivity extends BaseActivity {
 
     private Map<String, String> getParentProfileDetail() {
         Map<String, String> map = new HashMap<>();
-        String userId = Utils.ReadSharePrefrence(StudentProfileActivity.this, Constant.SHARED_PREFS.KEY_USER_ID);
-        map.put("uId", "" + userId);
+        if (role.equalsIgnoreCase("")) {
+            String userId = Utils.ReadSharePrefrence(StudentProfileActivity.this, Constant.SHARED_PREFS.KEY_USER_ID);
+            map.put("uId", "" + userId);
+        } else {
+            map.put("uId", id);
+        }
+
         map.put("fullname", "" + String.valueOf(fullNameStudentEdit.getText()));
         map.put("available_time", String.valueOf(avaibilityStudentEdit.getText()));
         map.put("age", String.valueOf(ageEdit.getText()));
         map.put("sex", String.valueOf(sex));
-        map.put("experience", String.valueOf(yearOfExpEdit.getText()));
         map.put("station", String.valueOf(nearRailwayStationEdit.getText()));
         map.put("skill", String.valueOf(specialSkillsEdit.getText()));
-
-        Log.e("map", "STUDENT PROFILE  " + map);
         return map;
     }
 
@@ -276,25 +276,31 @@ public class StudentProfileActivity extends BaseActivity {
             return;
         }
         HashMap<String, String> map = new HashMap<>();
-        map.put("uId", read(KEY_USER_ID));
-        map.put("role", read(KEY_USER_ROLE));
+        if (role.equalsIgnoreCase("")) {
+            map.put("uId", read(KEY_USER_ID));
+            map.put("role", read(KEY_USER_ROLE));
+        } else {
+            map.put("uId", id);
+            map.put("role", role);
+        }
         ApiHandler.getApiService().getStudentProfile(map, new Callback<StudentGetProfileMainResponse>() {
             @Override
             public void success(StudentGetProfileMainResponse studentGetProfileMainResponse, Response response) {
                 toast(studentGetProfileMainResponse.getMsg());
                 fullNameStudentEdit.setText(studentGetProfileMainResponse.getData().getFullName());
+                fullNameStudentEdit.setText(studentGetProfileMainResponse.getData().getUsername());
                 if (studentGetProfileMainResponse.getInfo() != null) {
 
                     avaibilityStudentEdit.setText(studentGetProfileMainResponse.getInfo().getAvailableTime());
                     ageEdit.setText(studentGetProfileMainResponse.getInfo().getAge());
 
-                    if(studentGetProfileMainResponse.getInfo().getSex().equalsIgnoreCase("male")){
+                    if (studentGetProfileMainResponse.getInfo().getSex().equalsIgnoreCase("male")) {
                         radioMale.setChecked(true);
-                    }else{
+                    } else {
                         radioFemale.setChecked(true);
                     }
 
-                    Log.e("@@ ",""+studentGetProfileMainResponse.getInfo().getSkills());
+                    Log.e("@@ ", "" + studentGetProfileMainResponse.getInfo().getSkills());
                     specialSkillsEdit.setText(studentGetProfileMainResponse.getInfo().getSkills());
 
                     nearRailwayStationEdit.setText(studentGetProfileMainResponse.getInfo().getStation());

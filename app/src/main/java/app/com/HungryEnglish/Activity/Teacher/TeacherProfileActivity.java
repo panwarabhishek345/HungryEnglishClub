@@ -70,18 +70,26 @@ public class TeacherProfileActivity extends BaseActivity implements
     final int SELECT_AUDIO = 400;
     private EditText btnCvUpload, btnAudioFile;
     private EditText currnetPlaceEdit, fullNameTeacherEdit, avaibilityDateTeacherEdit, specialSkillTeacherEdit;
-    private String pathProfilePic, pathCvDoc, pathIdProofPic, pathAudioFile;
+    private String pathProfilePic = "", pathCvDoc = "", pathIdProofPic = "", pathAudioFile = "";
     private Button btnSubmiTeacherProfile;
-    private String teacherId, role;
+    private String id = "", role = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_profile);
         idMapping();
+        getDataFromIntent();
         getProfile();
     }
 
+    private void getDataFromIntent() {
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            id = extras.getString("id");
+            role = extras.getString("role");
+        }
+    }
 
     private void idMapping() {
         profileImage = (ImageView) findViewById(R.id.profile_image);
@@ -216,8 +224,6 @@ public class TeacherProfileActivity extends BaseActivity implements
                         pathProfilePic = getPath(this, data.getData());
                     }
                     Picasso.with(TeacherProfileActivity.this).load(Uri.fromFile(new File(pathProfilePic))).error(R.drawable.ic_user_default).into(profileImage);
-
-                    Log.e("PATH", "Image Path : " + pathProfilePic);
                     break;
                 case SELECT_ID_PROOF:
                     if (Build.VERSION.SDK_INT <= 21) {
@@ -226,8 +232,6 @@ public class TeacherProfileActivity extends BaseActivity implements
                         pathIdProofPic = getPath(this, data.getData());
                     }
                     Picasso.with(TeacherProfileActivity.this).load(Uri.fromFile(new File(pathIdProofPic))).error(R.drawable.ic_user_default).into(idProofImage);
-                    Log.e("PATH", "Image Path : " + pathIdProofPic);
-
                     break;
                 case SELECT_FILE:
                     if (Build.VERSION.SDK_INT <= 21) {
@@ -306,28 +310,30 @@ public class TeacherProfileActivity extends BaseActivity implements
             return;
         }
         HashMap<String, String> map = new HashMap<>();
-        map.put("uId", read(KEY_USER_ID));
-        map.put("role", read(KEY_USER_ROLE));
+        if (role.equalsIgnoreCase("")) {
+            map.put("uId", read(KEY_USER_ID));
+            map.put("role", read(KEY_USER_ROLE));
+        } else {
+            map.put("uId", id);
+            map.put("role", role);
+        }
         ApiHandler.getApiService().getTeacherProfile(map, new Callback<TeacherProfileMain>() {
             @Override
             public void success(TeacherProfileMain teacherProfileMain, Response response) {
-                toast(teacherProfileMain.getMsg());
                 fullNameTeacherEdit.setText(teacherProfileMain.getData().getFullName());
                 if (teacherProfileMain.getInfo() != null) {
                     avaibilityDateTeacherEdit.setText(teacherProfileMain.getInfo().getAvailableTime());
                     currnetPlaceEdit.setText(teacherProfileMain.getInfo().getAddress());
                     specialSkillTeacherEdit.setText(teacherProfileMain.getInfo().getSkills());
                     Picasso.with(TeacherProfileActivity.this).load(BASEURL + teacherProfileMain.getInfo().getProfileImage()).into(profileImage);
+                    Log.e("ID IMG", "" + BASEURL + teacherProfileMain.getInfo().getIdImage());
                     Picasso.with(TeacherProfileActivity.this).load(BASEURL + teacherProfileMain.getInfo().getIdImage()).into(idProofImage);
-
                     String resumePath = teacherProfileMain.getInfo().getResume();
                     String[] cvFileArray = resumePath.split("/");
                     if (cvFileArray.length > 1) {
                         btnCvUpload.setText(cvFileArray[cvFileArray.length - 1]);
                         Picasso.with(TeacherProfileActivity.this).load(R.drawable.ic_file).into(ivCVFileStatus);
-
                     }
-
                     String audioPath = teacherProfileMain.getInfo().getResume();
                     String[] audioFileArray = audioPath.split("/");
                     if (audioFileArray.length > 1) {
@@ -354,8 +360,8 @@ public class TeacherProfileActivity extends BaseActivity implements
             Utils.showDialog(TeacherProfileActivity.this);
             TypedFile proImage = new TypedFile("multipart/form-data", new File(pathProfilePic));
             TypedFile idProof = new TypedFile("multipart/form-data", new File(pathIdProofPic));
-            TypedFile resume = new TypedFile("multipart/form-data", new File(pathIdProofPic));
-            TypedFile audiofile = new TypedFile("multipart/form-data", new File(pathIdProofPic));
+            TypedFile resume = new TypedFile("multipart/form-data", new File(pathCvDoc));
+            TypedFile audiofile = new TypedFile("multipart/form-data", new File(pathAudioFile));
 
             ApiHandler.getApiService().createTeacherProfile(getTeacherProfileDetail(), idProof, proImage, resume, new Callback<TeacherProfileMainResponse>() {
 
@@ -376,7 +382,7 @@ public class TeacherProfileActivity extends BaseActivity implements
                     }
                     if (teacherProfileMainResponse.getStatus().equals("true")) {
                         Toast.makeText(getApplicationContext(), "" + teacherProfileMainResponse.getMsg(), Toast.LENGTH_SHORT).show();
-                        startActivity(MainActivity.class);
+//                        startActivity(MainActivity.class);
                         finish();
                     }
                 }
@@ -394,8 +400,12 @@ public class TeacherProfileActivity extends BaseActivity implements
 
     private Map<String, String> getTeacherProfileDetail() {
         Map<String, String> map = new HashMap<>();
-        String userId = Utils.ReadSharePrefrence(TeacherProfileActivity.this, KEY_USER_ID);
-        map.put("uId", userId);
+        if (role.equalsIgnoreCase("")) {
+            String userId = Utils.ReadSharePrefrence(TeacherProfileActivity.this, KEY_USER_ID);
+            map.put("uId", userId);
+        } else {
+            map.put("uId", id);
+        }
         map.put("fullname", String.valueOf(fullNameTeacherEdit.getText()));
         map.put("available_time", String.valueOf(avaibilityDateTeacherEdit.getText()));
         map.put("address", String.valueOf(currnetPlaceEdit.getText()));

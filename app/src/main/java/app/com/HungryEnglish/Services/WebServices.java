@@ -41,6 +41,9 @@ public interface WebServices {
     @POST("/delete_user.php")
     public void getRemoveTeacherFromList(@QueryMap Map<String, String> map, Callback<RemoveTeacherFromListMainResponse> callback);
 
+    @POST("/delete_user.php")
+    public void getRemoveStudentFromList(@QueryMap Map<String, String> map, Callback<RemoveTeacherFromListMainResponse> callback);
+
     @POST("/getuserbystatus.php")
     public void getStudentList(@QueryMap Map<String, String> map, Callback<StudentListMainResponse> callback);
 
@@ -50,8 +53,9 @@ public interface WebServices {
     @POST("/get_info.php")
     public void getInfo(@QueryMap Map<String, String> map, Callback<InfoMainResponse> callback);
 
+    @Multipart
     @POST("/add_info.php")
-    public void addInfo(@QueryMap Map<String, String> map, Callback<AddInfoResponse> callback);
+    public void addInfo(@QueryMap Map<String, String> map, @Part("image") TypedFile image, Callback<AddInfoResponse> callback);
 
     @POST("/profile.php")
     public void getTeacherProfile(@QueryMap Map<String, String> map, Callback<TeacherProfileMain> callback);

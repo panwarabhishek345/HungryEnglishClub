@@ -133,8 +133,7 @@ public class MainActivity extends BaseActivity {
                         infoList = new InfoResponse();
                         infoList = infoMainResponse.getInfo();
                         String imgUrl = Constant.BASEURL + infoList.getImage();
-                        Picasso.with(MainActivity.this).load(imgUrl).error(R.drawable.gredient_green).into(image_teacher_list_header);
-
+                        Picasso.with(MainActivity.this).load(imgUrl).placeholder(R.drawable.gredient_green).error(R.drawable.gredient_green).into(image_teacher_list_header);
                         if (!infoList.getLink1().equalsIgnoreCase("")) {
                             addDynamicContactText(infoList.getLink1());
                         }
