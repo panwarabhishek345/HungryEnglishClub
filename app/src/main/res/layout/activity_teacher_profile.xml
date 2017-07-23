@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,18 +17,18 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/teacher_profile"
-            android:textSize="@dimen/_14sdp"/>
+            android:textSize="@dimen/_14sdp" />
 
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_image"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/_10sdp"
             android:src="@drawable/ic_user_default"
             app:civ_border_color="@color/colorAccent"
-            app:civ_border_width="4dp"/>
+            app:civ_border_width="4dp" />
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -49,7 +48,7 @@
                 android:inputType="text"
                 android:padding="@dimen/_5sdp"
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/_12sdp"/>
+                android:textSize="@dimen/_12sdp" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -75,7 +74,7 @@
                 android:minLines="5"
                 android:padding="@dimen/_10sdp"
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/_12sdp"/>
+                android:textSize="@dimen/_12sdp" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -96,7 +95,7 @@
                 android:inputType="text"
                 android:padding="@dimen/_5sdp"
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/_12sdp"/>
+                android:textSize="@dimen/_12sdp" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -118,7 +117,28 @@
                 android:inputType="text"
                 android:padding="@dimen/_5sdp"
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/_12sdp"/>
+                android:textSize="@dimen/_12sdp" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp">
+
+            <EditText
+                android:id="@+id/etMobileOrWechatId"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@drawable/bg_edt"
+                android:hint="@string/mobile_or_wechat"
+                android:inputType="text"
+                android:padding="@dimen/_5sdp"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_12sdp" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -138,7 +158,7 @@
                 android:paddingLeft="@dimen/_40sdp"
                 android:paddingRight="@dimen/_40sdp"
                 android:text="@string/upload_id"
-                android:textSize="@dimen/_12sdp"/>
+                android:textSize="@dimen/_12sdp" />
 
 
             <ImageView
@@ -148,7 +168,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_gravity="center"
                 android:layout_marginRight="@dimen/_30sdp"
-                android:src="@color/white"/>
+                android:src="@color/white" />
         </RelativeLayout>
 
         <LinearLayout
@@ -175,7 +195,7 @@
                     android:inputType="text"
                     android:padding="@dimen/_5sdp"
                     android:textColor="@android:color/black"
-                    android:textSize="@dimen/_12sdp"/>
+                    android:textSize="@dimen/_12sdp" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -185,7 +205,16 @@
                 android:layout_height="@dimen/_25sdp"
                 android:layout_gravity="bottom"
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:src="@drawable/ic_no_file"/>
+                android:src="@drawable/ic_no_file" />
+
+            <ImageView
+                android:id="@+id/ivViewCv"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:src="@drawable/ic_view_doc"
+                android:visibility="gone" />
 
 
         </LinearLayout>
@@ -215,7 +244,7 @@
                     android:inputType="text"
                     android:padding="@dimen/_5sdp"
                     android:textColor="@android:color/black"
-                    android:textSize="@dimen/_12sdp"/>
+                    android:textSize="@dimen/_12sdp" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -225,7 +254,16 @@
                 android:layout_height="@dimen/_25sdp"
                 android:layout_gravity="bottom"
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:src="@drawable/ic_no_file"/>
+                android:src="@drawable/ic_no_file" />
+
+            <ImageView
+                android:id="@+id/ivViewAudio"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:src="@drawable/ic_view_doc"
+                android:visibility="gone" />
 
         </LinearLayout>
 
@@ -240,7 +278,7 @@
             android:text="@string/submit"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="@dimen/_16sdp"/>
+            android:textSize="@dimen/_16sdp" />
 
 
     </LinearLayout>

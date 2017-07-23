@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.annotation.StringDef;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -63,13 +64,13 @@ public class TeacherProfileActivity extends BaseActivity implements
         View.OnClickListener {
 
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 0;
-    private ImageView profileImage, idProofImage, ivCVFileStatus, ivAudioFileStatus;
+    private ImageView profileImage, idProofImage, ivCVFileStatus, ivAudioFileStatus, ivViewCv, ivViewAudio;
     final int SELECT_PHOTO = 100;
     final int SELECT_ID_PROOF = 200;
     final int SELECT_FILE = 300;
     final int SELECT_AUDIO = 400;
     private EditText btnCvUpload, btnAudioFile;
-    private EditText currnetPlaceEdit, fullNameTeacherEdit, avaibilityDateTeacherEdit, specialSkillTeacherEdit;
+    private EditText currnetPlaceEdit, fullNameTeacherEdit, avaibilityDateTeacherEdit, specialSkillTeacherEdit, etMobileOrWechatId;
     private String pathProfilePic = "", pathCvDoc = "", pathIdProofPic = "", pathAudioFile = "";
     private Button btnSubmiTeacherProfile;
     private String id = "", role = "";
@@ -96,7 +97,10 @@ public class TeacherProfileActivity extends BaseActivity implements
         idProofImage = (ImageView) findViewById(R.id.idProofImage);
         ivCVFileStatus = (ImageView) findViewById(R.id.ivCVFileStatus);
         ivAudioFileStatus = (ImageView) findViewById(R.id.ivAudioFileStatus);
+        ivViewCv = (ImageView) findViewById(R.id.ivViewCv);
+        ivViewAudio = (ImageView) findViewById(R.id.ivViewAudio);
 
+        etMobileOrWechatId = (EditText) findViewById(R.id.etMobileOrWechatId);
         currnetPlaceEdit = (EditText) findViewById(R.id.currnetPlaceEdit);
         fullNameTeacherEdit = (EditText) findViewById(R.id.fullNameTeacherEdit);
         avaibilityDateTeacherEdit = (EditText) findViewById(R.id.avaibilityDateTeacherEdit);
@@ -112,11 +116,18 @@ public class TeacherProfileActivity extends BaseActivity implements
         currnetPlaceEdit.setOnClickListener(this);
         btnSubmiTeacherProfile.setOnClickListener(this);
         btnAudioFile.setOnClickListener(this);
+        ivViewCv.setOnClickListener(this);
+        ivViewAudio.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.ivViewCv:
+                break;
+
+            case R.id.ivViewAudio:
+                break;
             case R.id.profile_image:
                 uploadImage(SELECT_PHOTO);
                 break;
@@ -144,6 +155,11 @@ public class TeacherProfileActivity extends BaseActivity implements
                     specialSkillTeacherEdit.setError("Enter Special Skills");
                     specialSkillTeacherEdit.requestFocus();
                     return;
+                }
+
+                if (etMobileOrWechatId.getText().toString().equals("")) {
+                    etMobileOrWechatId.setError("Enter Mobile No. or Wechat Id");
+                    etMobileOrWechatId.requestFocus();
                 }
 
                 if (pathProfilePic.equalsIgnoreCase("")) {
@@ -334,12 +350,15 @@ public class TeacherProfileActivity extends BaseActivity implements
                         btnCvUpload.setText(cvFileArray[cvFileArray.length - 1]);
                         Picasso.with(TeacherProfileActivity.this).load(R.drawable.ic_file).into(ivCVFileStatus);
                     }
-                    String audioPath = teacherProfileMain.getInfo().getResume();
+
+                    String audioPath = teacherProfileMain.getInfo().getAudioFile();
                     String[] audioFileArray = audioPath.split("/");
                     if (audioFileArray.length > 1) {
                         btnAudioFile.setText(audioFileArray[audioFileArray.length - 1]);
                         Picasso.with(TeacherProfileActivity.this).load(R.drawable.ic_file).into(ivAudioFileStatus);
                     }
+
+                    etMobileOrWechatId.setText(String.valueOf(teacherProfileMain.getData().getMobNo()));
                 }
             }
 
@@ -410,6 +429,7 @@ public class TeacherProfileActivity extends BaseActivity implements
         map.put("available_time", String.valueOf(avaibilityDateTeacherEdit.getText()));
         map.put("address", String.valueOf(currnetPlaceEdit.getText()));
         map.put("skill", String.valueOf(specialSkillTeacherEdit.getText()));
+        map.put("mob_no", String.valueOf(etMobileOrWechatId.getText()));
         return map;
     }
 

@@ -62,4 +62,6 @@
     <string name="logout_note">Would you like to logout from Hungry English?</string>
     <string name="cancel">Cancel</string>
     <string name="linksforref">Links for reference.</string>
+    <string name="mobile_or_wechat">Mobile/Wechat Id</string>
+    <string name="report_teacher">Report Teacher</string>
 </resources>

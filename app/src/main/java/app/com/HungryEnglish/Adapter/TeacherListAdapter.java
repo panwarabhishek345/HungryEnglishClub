@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import app.com.HungryEnglish.Fragment.TeacherApprovedListFragment;
 import app.com.HungryEnglish.Model.Teacher.TeacherListResponse;
@@ -27,7 +28,7 @@ public class TeacherListAdapter extends RecyclerView.Adapter<TeacherListAdapter.
     private List<TeacherListResponse> teacherList;
     private Context mContext;
     TeacherApprovedListFragment activity;
-//    private OnRemoveTeacherClickListener mListener;
+    //    private OnRemoveTeacherClickListener mListener;
     private int pos;
 
     public TeacherListAdapter(Context mContext, List<TeacherListResponse> teacherList) {
@@ -35,15 +36,9 @@ public class TeacherListAdapter extends RecyclerView.Adapter<TeacherListAdapter.
         this.teacherList = teacherList;
     }
 
-//    public interface OnRemoveTeacherClickListener {
-//        public void onItemClick(View view, int position);
-//    }
-
-
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvTeacherName, tvClosestStation, tvTeacherAvaibility, tvSpecialSkills;
+        public TextView tvTeacherName, tvClosestStation, tvTeacherAvaibility, tvSpecialSkills, tvReportTeacher;
         public ImageView ivProfilePic;
-
 
 
         public MyViewHolder(View view) {
@@ -53,23 +48,13 @@ public class TeacherListAdapter extends RecyclerView.Adapter<TeacherListAdapter.
             tvSpecialSkills = (TextView) view.findViewById(R.id.tvSpecialSkills);
             tvTeacherAvaibility = (TextView) view.findViewById(R.id.tvTeacherAvaibility);
             ivProfilePic = (ImageView) view.findViewById(R.id.ivTeacherProfilePic);
+            if (Utils.ReadSharePrefrence(mContext, Constant.SHARED_PREFS.KEY_USER_ROLE).equals("student")) {
+                tvReportTeacher = (TextView) view.findViewById(R.id.tvReportTeacher);
+            }
+
 
         }
-
-//        public void bind(TeacherListResponse teacherListResponse, OnRemoveTeacherClickListener mListener) {
-//
-//
-//        }
     }
-
-
-//    public TeacherListAdapter(Context mainActivity, List<TeacherListResponse> teacherList, OnRemoveTeacherClickListener onRemoveTeacherClickListener) {
-//
-//        this.teacherList = teacherList;
-//        this.mContext = mainActivity;
-//        this.mListener = onRemoveTeacherClickListener;
-//
-//    }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -81,10 +66,7 @@ public class TeacherListAdapter extends RecyclerView.Adapter<TeacherListAdapter.
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-//        Movie movie = teacherList.get(position);
         pos = position;
-//        holder.bind(teacherList.get(position), mListener);
-
         holder.tvTeacherName.setText(teacherList.get(position).getUsername());
 
         if (teacherList.get(position).getTeacherInfo() != null) {
@@ -99,12 +81,16 @@ public class TeacherListAdapter extends RecyclerView.Adapter<TeacherListAdapter.
             Log.e("URL", "" + profilePicUrl);
             Picasso.with(mContext).load(profilePicUrl).error(R.drawable.ic_user_default).into(holder.ivProfilePic);
 
+            if (Utils.ReadSharePrefrence(mContext, Constant.SHARED_PREFS.KEY_USER_ROLE).equals("student")) {
+                holder.tvReportTeacher.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(mContext, "Send Mail To Teacher Under Development", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
         }
-
-
-//        holder.tvGender.setText("Gender : " + teacherList.get(position).get("gender"));
-//        holder.tvExperience.setText("Experience : " + teacherList.get(position).get("experience"));
-//        holder.tvTeacherAvaibility.setText("Avaibility : " + teacherList.get(position).get("avaibility"));
     }
 
     @Override

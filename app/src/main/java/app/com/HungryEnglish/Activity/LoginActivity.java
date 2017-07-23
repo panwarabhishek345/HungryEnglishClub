@@ -157,6 +157,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
             @Override
             public void failure(RetrofitError error) {
+                Utils.dismissDialog();
                 error.printStackTrace();
                 error.getMessage();
                 Toast.makeText(getApplicationContext(), "Something Wrong", Toast.LENGTH_SHORT).show();

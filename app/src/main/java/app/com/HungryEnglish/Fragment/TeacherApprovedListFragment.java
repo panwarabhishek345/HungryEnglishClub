@@ -18,11 +18,15 @@ import java.util.List;
 import java.util.Map;
 
 import app.com.HungryEnglish.Activity.BaseActivity;
+import app.com.HungryEnglish.Activity.Student.StudentListActivity;
+import app.com.HungryEnglish.Adapter.StudentListAdapter;
 import app.com.HungryEnglish.Adapter.TeacherApprovedAdapter;
 import app.com.HungryEnglish.Adapter.TeacherListAdapter;
 import app.com.HungryEnglish.Adapter.TeacherPendingAdapter;
 import app.com.HungryEnglish.Interface.OnRemoveTeacherClickListener;
 import app.com.HungryEnglish.Model.RemoveTeacher.RemoveTeacherFromListMainResponse;
+import app.com.HungryEnglish.Model.StudentList.StudentData;
+import app.com.HungryEnglish.Model.StudentList.StudentListMainResponse;
 import app.com.HungryEnglish.Model.Teacher.TeacherListMainResponse;
 import app.com.HungryEnglish.Model.Teacher.TeacherListResponse;
 import app.com.HungryEnglish.R;
@@ -55,6 +59,7 @@ public class TeacherApprovedListFragment extends Fragment {
         mContext = getActivity();
         idMapping();
         callTeacherListApi();
+
         return mView;
     }
 
@@ -173,5 +178,7 @@ public class TeacherApprovedListFragment extends Fragment {
         map.put("id", id);
         return map;
     }
+
+
 
 }

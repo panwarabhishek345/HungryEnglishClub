@@ -14,6 +14,7 @@ import app.com.HungryEnglish.Model.Teacher.TeacherListMainResponse;
 import app.com.HungryEnglish.Model.Teacher.TeacherPendingRequestMainResponse;
 import app.com.HungryEnglish.Model.Teacher.TeacherProfileMain;
 import app.com.HungryEnglish.Model.admin.AddInfoResponse;
+import app.com.HungryEnglish.Model.admin.CountListMainResponse;
 import app.com.HungryEnglish.Model.login.LoginMainResponse;
 import app.com.HungryEnglish.Model.register.RegisterMainResponse;
 import retrofit.Callback;
@@ -37,6 +38,9 @@ public interface WebServices {
 
     @POST("/getuserbystatus.php")
     public void getTeacherList(@QueryMap Map<String, String> map, Callback<TeacherListMainResponse> callback);
+
+    @POST("/get_count.php")
+    public void getCountList(@QueryMap Map<String, String> map, Callback<CountListMainResponse> callback);
 
     @POST("/delete_user.php")
     public void getRemoveTeacherFromList(@QueryMap Map<String, String> map, Callback<RemoveTeacherFromListMainResponse> callback);

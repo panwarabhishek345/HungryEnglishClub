@@ -47,7 +47,7 @@ import static app.com.HungryEnglish.Util.Constant.SHARED_PREFS.KEY_USER_ROLE;
 
 public class StudentProfileActivity extends BaseActivity {
 
-    private EditText fullNameStudentEdit, ageEdit, nearRailwayStationEdit, specialSkillsEdit, avaibilityStudentEdit;
+    private EditText fullNameStudentEdit, ageEdit, nearRailwayStationEdit, avaibilityStudentEdit;
     private RadioGroup radioSex;
     private RadioButton radioMale, radioFemale;
     private RadioButton radioButton;
@@ -83,8 +83,6 @@ public class StudentProfileActivity extends BaseActivity {
         nearRailwayStationEdit = (EditText) findViewById(R.id.nearRailwayStationEdit);
 
         avaibilityStudentEdit = (EditText) findViewById(R.id.avaibilityStudentEdit);
-
-        specialSkillsEdit = (EditText) findViewById(R.id.specialSkillsEdit);
 
         login_register = (Button) findViewById(R.id.login_register);
 
@@ -125,13 +123,6 @@ public class StudentProfileActivity extends BaseActivity {
                 if (avaibilityStudentEdit.getText().toString().equalsIgnoreCase("")) {
                     avaibilityStudentEdit.setError("Enter Avaibility");
                     avaibilityStudentEdit.requestFocus();
-                    return;
-                }
-
-
-                if (specialSkillsEdit.getText().toString().equalsIgnoreCase("")) {
-                    specialSkillsEdit.setError("Enter Special Skills");
-                    specialSkillsEdit.requestFocus();
                     return;
                 }
 
@@ -185,9 +176,14 @@ public class StudentProfileActivity extends BaseActivity {
                     Toast.makeText(getApplicationContext(), "User Profile Get successfully", Toast.LENGTH_SHORT).show();
 
                     Utils.WriteSharePrefrence(StudentProfileActivity.this, Constant.SHARED_PREFS.KEY_IS_ACTIVE, "1");
-//                    startActivity(new Intent(StudentProfileActivity.this, TeacherListActivity.class));
+                    if (!role.equals("")) {
+                        finish();
 
-                    finish();
+                    } else {
+                        startActivity(new Intent(StudentProfileActivity.this, TeacherListActivity.class));
+                    }
+
+
                 }
 
             }
@@ -216,7 +212,6 @@ public class StudentProfileActivity extends BaseActivity {
         map.put("age", String.valueOf(ageEdit.getText()));
         map.put("sex", String.valueOf(sex));
         map.put("station", String.valueOf(nearRailwayStationEdit.getText()));
-        map.put("skill", String.valueOf(specialSkillsEdit.getText()));
         return map;
     }
 
@@ -288,7 +283,7 @@ public class StudentProfileActivity extends BaseActivity {
             public void success(StudentGetProfileMainResponse studentGetProfileMainResponse, Response response) {
                 toast(studentGetProfileMainResponse.getMsg());
                 fullNameStudentEdit.setText(studentGetProfileMainResponse.getData().getFullName());
-                fullNameStudentEdit.setText(studentGetProfileMainResponse.getData().getUsername());
+
                 if (studentGetProfileMainResponse.getInfo() != null) {
 
                     avaibilityStudentEdit.setText(studentGetProfileMainResponse.getInfo().getAvailableTime());
@@ -299,9 +294,6 @@ public class StudentProfileActivity extends BaseActivity {
                     } else {
                         radioFemale.setChecked(true);
                     }
-
-                    Log.e("@@ ", "" + studentGetProfileMainResponse.getInfo().getSkills());
-                    specialSkillsEdit.setText(studentGetProfileMainResponse.getInfo().getSkills());
 
                     nearRailwayStationEdit.setText(studentGetProfileMainResponse.getInfo().getStation());
 
