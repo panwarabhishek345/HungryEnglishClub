@@ -43,7 +43,7 @@
     <string name="logout">Logout</string>
     <string name="teacher_name">Name :</string>
     <string name="teacher_email">Email :</string>
-    <string name="teacher_mobile_no">Mobile No :</string>
+    <string name="teacher_mobile_no">wechat id :</string>
     <string name="teacher_avaibility">Avaibility</string>
     <string name="special_skils">Special Skill</string>
     <string name="special_skils_label">Special Skill : </string>
@@ -64,4 +64,5 @@
     <string name="linksforref">Links for reference.</string>
     <string name="mobile_or_wechat">Mobile/Wechat Id</string>
     <string name="report_teacher">Report Teacher</string>
+    <string name="right_reseved">© André Roberts 2017 - All Rights Reserved</string>
 </resources>
