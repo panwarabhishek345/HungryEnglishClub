@@ -47,7 +47,7 @@ import static app.com.HungryEnglish.Util.Constant.SHARED_PREFS.KEY_USER_ROLE;
 
 public class StudentProfileActivity extends BaseActivity {
 
-    private EditText fullNameStudentEdit, ageEdit, nearRailwayStationEdit, avaibilityStudentEdit;
+    private EditText fullNameStudentEdit, ageEdit, nearRailwayStationEdit, avaibilityStudentEdit, wechatEdt;
     private RadioGroup radioSex;
     private RadioButton radioMale, radioFemale;
     private RadioButton radioButton;
@@ -77,6 +77,8 @@ public class StudentProfileActivity extends BaseActivity {
     private void idMapping() {
 
         fullNameStudentEdit = (EditText) findViewById(R.id.fullNameStudentEdit);
+
+        wechatEdt = (EditText) findViewById(R.id.wechatEdit);
 
         ageEdit = (EditText) findViewById(R.id.ageEdit);
 
@@ -210,6 +212,7 @@ public class StudentProfileActivity extends BaseActivity {
         map.put("fullname", "" + String.valueOf(fullNameStudentEdit.getText()));
         map.put("available_time", String.valueOf(avaibilityStudentEdit.getText()));
         map.put("age", String.valueOf(ageEdit.getText()));
+        map.put("mobile", String.valueOf(wechatEdt.getText()));
         map.put("sex", String.valueOf(sex));
         map.put("station", String.valueOf(nearRailwayStationEdit.getText()));
         return map;
@@ -281,9 +284,8 @@ public class StudentProfileActivity extends BaseActivity {
         ApiHandler.getApiService().getStudentProfile(map, new Callback<StudentGetProfileMainResponse>() {
             @Override
             public void success(StudentGetProfileMainResponse studentGetProfileMainResponse, Response response) {
-                toast(studentGetProfileMainResponse.getMsg());
                 fullNameStudentEdit.setText(studentGetProfileMainResponse.getData().getFullName());
-
+                wechatEdt.setText(studentGetProfileMainResponse.getData().getMobNo());
                 if (studentGetProfileMainResponse.getInfo() != null) {
 
                     avaibilityStudentEdit.setText(studentGetProfileMainResponse.getInfo().getAvailableTime());
@@ -294,10 +296,7 @@ public class StudentProfileActivity extends BaseActivity {
                     } else {
                         radioFemale.setChecked(true);
                     }
-
                     nearRailwayStationEdit.setText(studentGetProfileMainResponse.getInfo().getStation());
-
-
                 }
             }
 

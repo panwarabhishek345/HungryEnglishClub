@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -16,6 +17,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.InputType;
 import android.util.Log;
@@ -28,6 +30,7 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import app.com.HungryEnglish.Activity.BaseActivity;
 import app.com.HungryEnglish.Model.Teacher.InfoMainResponse;
 import app.com.HungryEnglish.Model.Teacher.InfoResponse;
@@ -53,6 +56,7 @@ public class AddImageOrLinkActivity extends BaseActivity {
     private LinearLayout llAddMoreLayout;
     private TextView tvAddMoreBtn;
     private List<EditText> allEds;
+    private List<EditText> lintTitleArray;
     public int cnt = 0;
     EditText etAddMoreLink;
     private ImageView ivSelectImage;
@@ -60,6 +64,7 @@ public class AddImageOrLinkActivity extends BaseActivity {
     private String pathPic = "";
     public static int maxLinks = 2;
     public ArrayList<String> links;
+
     InfoResponse infoList;
     private LinearLayout llLinkList;
 
@@ -71,11 +76,9 @@ public class AddImageOrLinkActivity extends BaseActivity {
         setOnClick();
         links = new ArrayList<>();
         allEds = new ArrayList<EditText>();
+        lintTitleArray = new ArrayList<>();
 
         callGetInfoApi();
-
-
-
 
 
     }
@@ -99,7 +102,7 @@ public class AddImageOrLinkActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 if (allEds.size() > 0 && allEds.size() <= maxLinks) {
-                    addDynamicContactText("");
+                    addDynamicContactText("","");
                 }
             }
         });
@@ -113,18 +116,19 @@ public class AddImageOrLinkActivity extends BaseActivity {
         tvSubmitLink.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (pathPic.equalsIgnoreCase("")) {
-                    Toast.makeText(AddImageOrLinkActivity.this, "Please Select Image", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+//                if (pathPic.equalsIgnoreCase("")) {
+//                    Toast.makeText(AddImageOrLinkActivity.this, "Please Select Image", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
 
                 for (int i = 0; i < allEds.size(); i++) {
                     String edtText = getText(allEds.get(i));
+                    String lintTitle = getText(lintTitleArray.get(i));
                     if (edtText.equalsIgnoreCase("")) {
                         toast("Please Enter Link" + (i + 1));
                         return;
                     } else {
-                        links.add(edtText);
+                        links.add(lintTitle + "--" + edtText);
                     }
                 }
                 callSubmitImageAndLInkApi();
@@ -164,6 +168,7 @@ public class AddImageOrLinkActivity extends BaseActivity {
 
                 @Override
                 public void failure(RetrofitError error) {
+                    Utils.dismissDialog();
                     error.printStackTrace();
                     error.getMessage();
                     Toast.makeText(getApplicationContext(), "Something Wrong", Toast.LENGTH_SHORT).show();
@@ -190,19 +195,24 @@ public class AddImageOrLinkActivity extends BaseActivity {
         finish();
     }
 
-    private void addDynamicContactText(String link1) {
+    private void addDynamicContactText(String link1, String linkTitle) {
         cnt = cnt + 1;
-        TextView tvLabel = new TextView(AddImageOrLinkActivity.this);
+        EditText tvLabel = new EditText(AddImageOrLinkActivity.this);
         LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         llp.setMargins(Math.round(getResources().getDimension(R.dimen._5sdp)), 0, 0, 0); // llp.setMargins(left, top, right, bottom);
         tvLabel.setLayoutParams(llp);
         tvLabel.setPadding(Math.round(getResources().getDimension(R.dimen._5sdp)), Math.round(getResources().getDimension(R.dimen._5sdp)), Math.round(getResources().getDimension(R.dimen._5sdp)), Math.round(getResources().getDimension(R.dimen._5sdp)));
-        tvLabel.setText("Link " + cnt);
+        if (linkTitle.equals("")) {
+            tvLabel.setHint("Link " + cnt);
+        } else {
+            tvLabel.setText(linkTitle);
+        }
         tvLabel.setTextColor(ContextCompat.getColor(AddImageOrLinkActivity.this, R.color.colorPrimaryDark));
         tvLabel.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.black));
         tvLabel.setTextSize(12);
+        tvLabel.setBackground(ContextCompat.getDrawable(AddImageOrLinkActivity.this, R.drawable.bg_edt));
         llAddMoreLayout.addView(tvLabel);
-
+        lintTitleArray.add(tvLabel);
         etAddMoreLink = new EditText(AddImageOrLinkActivity.this);
         allEds.add(etAddMoreLink);
 //            etAddMoreLink.setId(id);
@@ -304,7 +314,7 @@ public class AddImageOrLinkActivity extends BaseActivity {
                         toast(infoMainResponse.getMsg());
                         allEds.clear();
                         tvAddMoreBtn.setVisibility(View.VISIBLE);
-                        addDynamicContactText("");
+                        addDynamicContactText("", "");
                         return;
                     }
                     if (infoMainResponse.getStatus().equals("true")) {
@@ -315,15 +325,25 @@ public class AddImageOrLinkActivity extends BaseActivity {
                         ivSelectImage.setScaleType(ScaleType.CENTER_CROP);
                         Picasso.with(AddImageOrLinkActivity.this).load(imgUrl).placeholder(R.drawable.gredient_green).error(R.drawable.gredient_green).into(ivSelectImage);
                         if (!infoList.getLink1().equalsIgnoreCase("")) {
-                            addDynamicContactText(infoList.getLink1());
+
+                            String[] link1 = infoList.getLink1().split("--");
+//                            addDynamicContactText(link1[0]);
+//                            addDynamicContactText(link1[1]);
+                            addDynamicContactText(link1[1], link1[0]);
                         }
 
                         if (!infoList.getLink2().equalsIgnoreCase("")) {
-                            addDynamicContactText(infoList.getLink2());
+                            String[] link1 = infoList.getLink2().split("--");
+//                            addDynamicContactText(link1[0]);
+//                            addDynamicContactText(link1[1]);
+                            addDynamicContactText(link1[1], link1[0]);
                         }
 
                         if (!infoList.getLink3().equalsIgnoreCase("")) {
-                            addDynamicContactText(infoList.getLink3());
+                            String[] link1 = infoList.getLink3().split("--");
+//                            addDynamicContactText(link1[0]);
+//                            addDynamicContactText(link1[1]);
+                            addDynamicContactText(link1[1], link1[0]);
                         }
                         hideAddMoreButton();
                     }
@@ -348,7 +368,7 @@ public class AddImageOrLinkActivity extends BaseActivity {
         return map;
     }
 
-//    private void showDynamicContactText(final String link1) {
+    //    private void showDynamicContactText(final String link1) {
 //        cnt = cnt + 1;
 //        TextView tvLabel = new TextView(AddImageOrLinkActivity.this);
 //        LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -375,5 +395,40 @@ public class AddImageOrLinkActivity extends BaseActivity {
 //
 //        });
 //    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                // Should we show an explanation?
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                        Manifest.permission.READ_EXTERNAL_STORAGE)) {
 
+                    // Show an explanation to the user *asynchronously* -- don't block
+                    // this thread waiting for the user's response! After the user
+                    // sees the explanation, try again to request the permission.
+
+                } else {
+
+                    // No explanation needed, we can request the permission.
+
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                            MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+
+                    // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                    // app-defined int constant. The callback method gets the
+                    // result of the request.
+                }
+            } else {
+
+            }
+
+        } else {
+
+        }
+
+    }
 }

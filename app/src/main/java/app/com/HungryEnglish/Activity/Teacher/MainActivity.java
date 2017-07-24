@@ -7,6 +7,7 @@ import java.util.Map;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -20,6 +21,7 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import app.com.HungryEnglish.Activity.BaseActivity;
 import app.com.HungryEnglish.Activity.LoginActivity;
 import app.com.HungryEnglish.Activity.Student.StudentProfileActivity;
@@ -135,15 +137,24 @@ public class MainActivity extends BaseActivity {
                         String imgUrl = Constant.BASEURL + infoList.getImage();
                         Picasso.with(MainActivity.this).load(imgUrl).placeholder(R.drawable.gredient_green).error(R.drawable.gredient_green).into(image_teacher_list_header);
                         if (!infoList.getLink1().equalsIgnoreCase("")) {
-                            addDynamicContactText(infoList.getLink1());
+                            String[] link1 = infoList.getLink1().split("--");
+                            addDynamicContactText(link1[0]);
+                            addDynamicContactText(link1[1]);
+
                         }
 
                         if (!infoList.getLink2().equalsIgnoreCase("")) {
-                            addDynamicContactText(infoList.getLink2());
+                            String[] link1 = infoList.getLink2().split("--");
+                            addDynamicContactText(link1[0]);
+                            addDynamicContactText(link1[1]);
+
                         }
 
                         if (!infoList.getLink3().equalsIgnoreCase("")) {
-                            addDynamicContactText(infoList.getLink3());
+                            String[] link1 = infoList.getLink3().split("--");
+                            addDynamicContactText(link1[0]);
+                            addDynamicContactText(link1[1]);
+
                         }
 
                     }
@@ -181,17 +192,23 @@ public class MainActivity extends BaseActivity {
         tvLabel.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.black));
         tvLabel.setTextSize(12);
         llLinkList.addView(tvLabel);
+        if (link1.startsWith("www.")) {
+            tvLabel.setTextColor(Color.BLUE);
+        }
         tvLabel.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 String url = "";
-                if (!link1.startsWith("http://") && !link1.startsWith("https://")) {
-                    url = "http://" + link1;
-                } else {
-                    url = link1;
+                if (link1.startsWith("www.")) {
+                    if (!link1.startsWith("http://") && !link1.startsWith("https://")) {
+                        url = "http://" + link1;
+                    } else {
+                        url = link1;
+                    }
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(browserIntent);
                 }
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                startActivity(browserIntent);
+
             }
 
         });

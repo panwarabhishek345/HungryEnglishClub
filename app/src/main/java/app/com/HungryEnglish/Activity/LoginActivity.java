@@ -170,8 +170,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         Map<String, String> map = new HashMap<>();
         map.put("u_pass", "" + passwordEdt.getText().toString());
         map.put("u_name", "" + emailEdt.getText());
-
-        Log.e("map", "LOGIN " + map);
         return map;
     }
 }

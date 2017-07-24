@@ -235,10 +235,10 @@ public class TeacherProfileActivity extends BaseActivity implements
             switch (reqCode) {
                 case SELECT_PHOTO:
                     if (Build.VERSION.SDK_INT <= 21) {
-                        pathProfilePic = getRealPathFromURI(this, data.getData());
-                    } else {
-                        pathProfilePic = getPath(this, data.getData());
-                    }
+                    pathProfilePic = getRealPathFromURI(this, data.getData());
+                } else {
+                    pathProfilePic = getPath(this, data.getData());
+                }
                     Picasso.with(TeacherProfileActivity.this).load(Uri.fromFile(new File(pathProfilePic))).error(R.drawable.ic_user_default).into(profileImage);
                     break;
                 case SELECT_ID_PROOF:
