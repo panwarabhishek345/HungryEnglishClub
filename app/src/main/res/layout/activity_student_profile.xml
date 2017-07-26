@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/bg_color"
-            android:fillViewport="true">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    android:fillViewport="true">
 
 
     <LinearLayout
@@ -18,7 +18,7 @@
             android:gravity="center"
             android:text="@string/parent_msg"
             android:textColor="@color/colorAccent"
-            android:textSize="@dimen/_14sdp"/>
+            android:textSize="@dimen/_14sdp" />
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -37,7 +37,7 @@
                 android:inputType="text"
                 android:padding="@dimen/_5sdp"
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/_12sdp"/>
+                android:textSize="@dimen/_12sdp" />
         </android.support.design.widget.TextInputLayout>
 
         <RadioGroup
@@ -54,16 +54,36 @@
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/colorPrimaryDark"
                 android:checked="true"
-                android:text="@string/radio_male"/>
+                android:text="@string/radio_male" />
 
             <RadioButton
                 android:id="@+id/radioFemale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/colorPrimaryDark"
-                android:text="@string/radio_female"/>
+                android:text="@string/radio_female" />
 
         </RadioGroup>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/wechatEdit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@drawable/bg_edt"
+                android:hint="@string/age_student"
+                android:inputType="number"
+                android:padding="@dimen/_5sdp"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_12sdp" />
+        </android.support.design.widget.TextInputLayout>
+
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -81,7 +101,7 @@
                 android:inputType="number"
                 android:padding="@dimen/_5sdp"
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/_12sdp"/>
+                android:textSize="@dimen/_12sdp" />
         </android.support.design.widget.TextInputLayout>
 
 
@@ -102,7 +122,7 @@
                 android:inputType="text"
                 android:padding="@dimen/_5sdp"
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/_12sdp"/>
+                android:textSize="@dimen/_12sdp" />
         </android.support.design.widget.TextInputLayout>
 
 
@@ -123,10 +143,9 @@
                 android:inputType="text"
                 android:padding="@dimen/_5sdp"
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/_12sdp"/>
+                android:textSize="@dimen/_12sdp" />
 
         </android.support.design.widget.TextInputLayout>
-
 
 
         <Button
@@ -138,7 +157,7 @@
             android:text="@string/submit"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="@dimen/_16sdp"/>
+            android:textSize="@dimen/_16sdp" />
 
 
     </LinearLayout>
