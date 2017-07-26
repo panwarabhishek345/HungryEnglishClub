@@ -6,6 +6,7 @@ import com.squareup.okhttp.ResponseBody;
 
 import java.util.Map;
 
+import app.com.HungryEnglish.Model.ForgotPassord.ForgotPasswordModel;
 import app.com.HungryEnglish.Model.Profile.StudentGetProfileMainResponse;
 import app.com.HungryEnglish.Model.Profile.StudentProfileMainResponse;
 import app.com.HungryEnglish.Model.Profile.TeacherProfileMainResponse;
@@ -35,6 +36,10 @@ public interface WebServices {
 
     @POST("/register.php")
     public void getRegister(@QueryMap Map<String, String> map, Callback<RegisterMainResponse> callback);
+
+
+    @POST("/change_password.php")
+    public void resetPassword(@QueryMap Map<String, String> map, Callback<ForgotPasswordModel> callback);
 
     @POST("/student_profile.php")
     public void getParentProfile(@QueryMap Map<String, String> map, Callback<StudentProfileMainResponse> callback);

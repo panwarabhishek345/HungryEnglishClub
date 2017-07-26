@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import app.com.HungryEnglish.Activity.Admin.AdminDashboardActivity;
@@ -33,6 +35,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     EditText emailEdt, passwordEdt;
     Utils utils;
     AlphaAnimation click;
+    TextView forgotPasswordTxt;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +57,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
         passwordEdt = (EditText) findViewById(R.id.activity_login_password);
 
+        forgotPasswordTxt = (TextView) findViewById(R.id.txt_forgot_password);
+
         setTitle("Login");
 
 
         registerBtn.setOnClickListener(this);
         loginBtn.setOnClickListener(this);
+        forgotPasswordTxt.setOnClickListener(this);
     }
 
     @Override
@@ -86,7 +93,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 // CALL LOGIN API
                 callLoginApi();
                 break;
+
+            case R.id.txt_forgot_password:
+                startActivity(ForgotPassword.class);
         }
+
     }
 
 
@@ -117,7 +128,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 }
                 if (loginUser.getStatus().equals("true")) {
                     String role = loginUser.getData().getRole();
-                    Log.e("ROLE",""+role);
+                    Log.e("ROLE", "" + role);
 
                     String isActiveStatue = loginUser.getData().getIsActive();
                     Toast.makeText(getApplicationContext(), "" + loginUser.getMsg(), Toast.LENGTH_SHORT).show();

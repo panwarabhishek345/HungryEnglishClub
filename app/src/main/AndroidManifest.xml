@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="app.com.HungryEnglish">
+    package="app.com.HungryEnglish">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -21,44 +21,44 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.Admin.AdminTeacherList"/>
+        <activity android:name=".Activity.Admin.AdminTeacherList" />
         <activity
             android:name="app.com.HungryEnglish.Activity.RegisterActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
-        <activity android:name="app.com.HungryEnglish.Activity.LoginActivity"
+        <activity
+            android:name="app.com.HungryEnglish.Activity.LoginActivity"
             android:windowSoftInputMode="adjustPan"></activity>
-        <activity android:name="app.com.HungryEnglish.Activity.Student.StudentProfileActivity"/>
-        <activity android:name="app.com.HungryEnglish.Activity.Teacher.TeacherProfileActivity"/>
+        <activity android:name="app.com.HungryEnglish.Activity.Student.StudentProfileActivity" />
+        <activity android:name="app.com.HungryEnglish.Activity.Teacher.TeacherProfileActivity" />
         <activity android:name="app.com.HungryEnglish.Activity.Teacher.TeacherListActivity">
             <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN"/>-->
+            <!--<action android:name="android.intent.action.MAIN"/>-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--<category android:name="android.intent.category.LAUNCHER"/>-->
             <!--</intent-filter>-->
         </activity>
 
-        <activity android:name=".Activity.Admin.AdminDashboardActivity"/>
-        <activity android:name=".Activity.Student.StudentListActivity"/>
-        <activity android:name=".Activity.Admin.AddImageOrLinkActivity"/>
+        <activity android:name=".Activity.Admin.AdminDashboardActivity" />
+        <activity android:name=".Activity.Student.StudentListActivity" />
+        <activity android:name=".Activity.Admin.AddImageOrLinkActivity" />
+        <activity android:name=".Activity.ForgotPassword" />
 
-        <service
-            android:name=".Fcm.MyFirebaseMessagingService">
+        <service android:name=".Fcm.MyFirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <service
-            android:name=".Fcm.MyFirebaseInstanceIDService">
+        <service android:name=".Fcm.MyFirebaseInstanceIDService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 
@@ -75,9 +75,9 @@
 
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version"/>
+            android:value="@integer/google_play_services_version" />
 
-        <service android:name=".Services.DownloadService"/>
+        <service android:name=".Services.DownloadService" />
     </application>
 
 </manifest>
