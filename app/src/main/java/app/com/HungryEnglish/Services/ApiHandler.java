@@ -19,7 +19,7 @@ import retrofit.converter.GsonConverter;
 
 public class ApiHandler {
 
-    private static final String BASE_URL = Constant.BASEURL;
+    public static final String BASE_URL = Constant.BASEURL;
 
     private static final long HTTP_TIMEOUT = TimeUnit.SECONDS.toMillis(6000);
     private static WebServices apiService;
@@ -57,7 +57,7 @@ public class ApiHandler {
 
 
 
-    private static OkHttpClient myOkHttpClient(){
+    protected static OkHttpClient myOkHttpClient(){
 
         try{
             OkHttpClient okHttpClient = new OkHttpClient();

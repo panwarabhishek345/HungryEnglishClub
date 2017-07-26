@@ -1,45 +1,45 @@
-<resources>
+﻿<resources>
     <string name="app_name">Hungry English</string>
     <string name="title_activity_register">Register</string>
-    <string name="full_name">Full Name</string>
-    <string name="msg">Create an account</string>
-    <string name="user_name">Username</string>
-    <string name="email">Email</string>
-    <string name="password">Password</string>
-    <string name="signup">Sign up</string>
+    <string name="full_name">全名</string>
+    <string name="msg">创建帐户</string>
+    <string name="user_name">用户名</string>
+    <string name="email">邮件</string>
+    <string name="password">密码</string>
+    <string name="signup">注册</string>
     <string name="alreadyhaveaccount">Already have an account?</string>
     <string name="doyouhaveaccount">Do not have an account?</string>
-    <string name="login">Login</string>
+    <string name="login">登录</string>
     <string name="msg_login">Please login into your account.</string>
-    <string name="openaccount">Create An Account</string>
-    <string name="parent_msg">Student / Parent Information</string>
-    <string name="age_student">Age of Student</string>
-    <string name="year_of_english_exp">Year of English Experence</string>
+    <string name="openaccount">创建帐户</string>
+    <string name="parent_msg">学生/家长信息</string>
+    <string name="age_student">学生年龄</string>
+    <string name="year_of_english_exp">多年英语经验</string>
     <string name="nearest_railway_station">Nearest Railway Station</string>
-    <string name="address">Address</string>
+    <string name="address">地址</string>
 
-    <string name="radio_male">Male</string>
-    <string name="radio_female">Female</string>
-    <string name="submit">Submit</string>
-    <string name="email_validation">Enter Valid Email</string>
-    <string name="password_validation">Password Must be grater then 6 charcter</string>
-    <string name="no_internet">Please check Internet Connection</string>
-    <string name="loginfail">Enter Valid Email Password</string>
-    <string name="user_name_validation">Username Must be graterthen 4 Charcter</string>
+    <string name="radio_male">男</string>
+    <string name="radio_female">女</string>
+    <string name="submit">提交</string>
+    <string name="email_validation">输入正确的邮箱地址</string>
+    <string name="password_validation">Password Must be grater then 6 charcters</string>
+    <string name="no_internet">检查网络是否连接</string>
+    <string name="loginfail">Please enter a valid Email Password</string>
+    <string name="user_name_validation">Username Must be greater than 4 charcters</string>
     <string name="full_name_validation">Enter Full Name</string>
     <string name="internet_connection_error">Hungry English requires an internet connection.Make sure Wi-Fi or mobile networks are turned on, then try again.</string>
-    <string name="wechat">Wechat Id</string>
-    <string name="applyasteacher">Apply as teacher</string>
+    <string name="wechat">Wechat ID</string>
+    <string name="applyasteacher">Apply as Teacher</string>
     <string name="teacher_profile">Teacher Profile</string>
     <string name="upload_id">Upload ID Proof</string>
-    <string name="current_workplace">Current Workplace</string>
-    <string name="avaibility">Avaibility</string>
+    <string name="current_workplace">目前的工作</string>
+    <string name="avaibility">可用性</string>
     <string name="upload_cv">Upload CV</string>
-    <string name="parent_profile">Parent Profile</string>
+    <string name="parent_profile">家长信息</string>
     <string name="upload_audio">Upload Audio</string>
-    <string name="location">Address ( Location )</string>
+    <string name="location">地址</string>
     <string name="sucess_external_storage_msg">Hungry English will use your storage.</string>
-    <string name="error_permission_msg">Hungry English can be miss behave.</string>
+    <string name="error_permission_msg">Hungry English may use extra utilities..</string>
     <string name="logout">Logout</string>
     <string name="teacher_name">Name :</string>
     <string name="teacher_email">Email :</string>
@@ -62,7 +62,9 @@
     <string name="logout_note">Would you like to logout from Hungry English?</string>
     <string name="cancel">Cancel</string>
     <string name="linksforref">Links for reference.</string>
-    <string name="mobile_or_wechat">Mobile/Wechat Id</string>
-    <string name="report_teacher">Report Teacher</string>
+    <string name="mobile_or_wechat">Mobile/Wechat ID</string>
+    <string name="report_teacher">查看老师档案 </string>
     <string name="right_reseved">© André Roberts 2017 - All Rights Reserved</string>
 </resources>
+
+

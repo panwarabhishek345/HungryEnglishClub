@@ -1,9 +1,11 @@
 package app.com.HungryEnglish.Services;
 
 
+import com.squareup.okhttp.Call;
+import com.squareup.okhttp.ResponseBody;
+
 import java.util.Map;
 
-import app.com.HungryEnglish.Activity.Teacher.TeacherProfileActivity;
 import app.com.HungryEnglish.Model.Profile.StudentGetProfileMainResponse;
 import app.com.HungryEnglish.Model.Profile.StudentProfileMainResponse;
 import app.com.HungryEnglish.Model.Profile.TeacherProfileMainResponse;
@@ -18,6 +20,7 @@ import app.com.HungryEnglish.Model.admin.CountListMainResponse;
 import app.com.HungryEnglish.Model.login.LoginMainResponse;
 import app.com.HungryEnglish.Model.register.RegisterMainResponse;
 import retrofit.Callback;
+import retrofit.http.GET;
 import retrofit.http.Multipart;
 import retrofit.http.POST;
 import retrofit.http.Part;
@@ -72,6 +75,9 @@ public interface WebServices {
     @POST("/teacher_profile.php")
 //    void createTeacherProfile(@QueryMap Map<String, String> map, @Part("idProof") TypedFile idProof, @Part("proImage") TypedFile proImage, @Part("resume") TypedFile resume, Callback<TeacherProfileMainResponse> callback);
     public void createTeacherProfile(@QueryMap Map<String, String> map, @Part("idProof") TypedFile idProof, @Part("proImage") TypedFile proImage, @Part("resume") TypedFile resume, Callback<TeacherProfileMainResponse> callback);
+
+//    @GET
+//    Call<ResponseBody> downloadFileWithDynamicUrlSync(String fileUrl);
 }
 
 

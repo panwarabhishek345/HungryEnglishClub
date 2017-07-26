@@ -10,16 +10,15 @@ import java.util.Map;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
+import android.os.Handler;
+import android.os.ResultReceiver;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
-import android.support.annotation.StringDef;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -34,15 +33,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import app.com.HungryEnglish.Activity.Admin.AdminDashboardActivity;
 import app.com.HungryEnglish.Activity.BaseActivity;
 import app.com.HungryEnglish.Activity.LoginActivity;
 import app.com.HungryEnglish.Model.Profile.TeacherProfileMainResponse;
 import app.com.HungryEnglish.Model.Teacher.TeacherProfileMain;
 import app.com.HungryEnglish.R;
 import app.com.HungryEnglish.Services.ApiHandler;
+import app.com.HungryEnglish.Services.DownloadService;
 import app.com.HungryEnglish.Util.Constant;
-import app.com.HungryEnglish.Util.Constant.SHARED_PREFS;
 import app.com.HungryEnglish.Util.Utils;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -74,6 +72,8 @@ public class TeacherProfileActivity extends BaseActivity implements
     private String pathProfilePic = "", pathCvDoc = "", pathIdProofPic = "", pathAudioFile = "";
     private Button btnSubmiTeacherProfile;
     private String id = "", role = "";
+    String cvFileName, audioFileName, audioPath, resumePath;
+    ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +110,12 @@ public class TeacherProfileActivity extends BaseActivity implements
 
         btnSubmiTeacherProfile = (Button) findViewById(R.id.btnSubmiTeacherProfile);
 
+        String role = Utils.ReadSharePrefrence(TeacherProfileActivity.this, Constant.SHARED_PREFS.KEY_USER_ROLE);
+        if (role.equalsIgnoreCase("admin")) {
+            ivViewCv.setVisibility(View.VISIBLE);
+            ivViewAudio.setVisibility(View.VISIBLE);
+        }
+
         profileImage.setOnClickListener(this);
         idProofImage.setOnClickListener(this);
         btnCvUpload.setOnClickListener(this);
@@ -124,10 +130,14 @@ public class TeacherProfileActivity extends BaseActivity implements
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ivViewCv:
+
+                downloadCv();
                 break;
 
             case R.id.ivViewAudio:
+                downloadAudio();
                 break;
+
             case R.id.profile_image:
                 uploadImage(SELECT_PHOTO);
                 break;
@@ -187,6 +197,47 @@ public class TeacherProfileActivity extends BaseActivity implements
         }
     }
 
+    private void downloadCv() {
+
+        if (resumePath != null) {
+            mProgressDialog = new ProgressDialog(TeacherProfileActivity.this);
+            mProgressDialog.setMessage("Please wait Download Resume");
+            mProgressDialog.setIndeterminate(true);
+            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            mProgressDialog.setCancelable(true);
+            mProgressDialog.show();
+            Log.d("PATH", resumePath);
+            Toast.makeText(this, "Download start", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, DownloadService.class);
+            intent.putExtra("url", resumePath);
+            intent.putExtra("receiver", new DownloadReceiver(new Handler()));
+            startService(intent);
+
+        } else {
+            Toast.makeText(this, "Path not found", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void downloadAudio() {
+
+        if (audioPath != null) {
+            mProgressDialog = new ProgressDialog(TeacherProfileActivity.this);
+            mProgressDialog.setMessage("Please wait Download Audio");
+            mProgressDialog.setIndeterminate(true);
+            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            mProgressDialog.setCancelable(true);
+            mProgressDialog.show();
+            Toast.makeText(this, "Download start", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, DownloadService.class);
+            intent.putExtra("url", audioPath);
+            intent.putExtra("receiver", new DownloadReceiver(new Handler()));
+            startService(intent);
+            Log.d("PATH", audioPath);
+        } else {
+            Toast.makeText(this, "Path not found", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private void uploadFile() {
         Intent photoPickerIntent = new Intent(Intent.ACTION_GET_CONTENT);
         photoPickerIntent.setType("*/*");
@@ -207,7 +258,8 @@ public class TeacherProfileActivity extends BaseActivity implements
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE: {
                 // If request is cancelled, the result arrays are empty.
@@ -235,10 +287,10 @@ public class TeacherProfileActivity extends BaseActivity implements
             switch (reqCode) {
                 case SELECT_PHOTO:
                     if (Build.VERSION.SDK_INT <= 21) {
-                    pathProfilePic = getRealPathFromURI(this, data.getData());
-                } else {
-                    pathProfilePic = getPath(this, data.getData());
-                }
+                        pathProfilePic = getRealPathFromURI(this, data.getData());
+                    } else {
+                        pathProfilePic = getPath(this, data.getData());
+                    }
                     Picasso.with(TeacherProfileActivity.this).load(Uri.fromFile(new File(pathProfilePic))).error(R.drawable.ic_user_default).into(profileImage);
                     break;
                 case SELECT_ID_PROOF:
@@ -256,7 +308,7 @@ public class TeacherProfileActivity extends BaseActivity implements
                         pathCvDoc = getPath(this, data.getData());
                     }
                     String[] spiltArray = pathCvDoc.split("/");
-                    String cvFileName = spiltArray[spiltArray.length - 1];
+                    cvFileName = spiltArray[spiltArray.length - 1];
                     btnCvUpload.setText(cvFileName);
                     if (!pathCvDoc.equals("")) {
                         Picasso.with(TeacherProfileActivity.this).load(R.drawable.ic_file).into(ivCVFileStatus);
@@ -269,7 +321,7 @@ public class TeacherProfileActivity extends BaseActivity implements
                         pathAudioFile = getPath(this, data.getData());
                     }
                     String[] spiltAudioArray = pathCvDoc.split("/");
-                    String audioFileName = spiltAudioArray[spiltAudioArray.length - 1];
+                    audioFileName = spiltAudioArray[spiltAudioArray.length - 1];
                     btnAudioFile.setText(audioFileName);
                     if (!btnAudioFile.equals("")) {
                         Picasso.with(TeacherProfileActivity.this).load(R.drawable.ic_file).into(ivAudioFileStatus);
@@ -344,14 +396,14 @@ public class TeacherProfileActivity extends BaseActivity implements
                     Picasso.with(TeacherProfileActivity.this).load(BASEURL + teacherProfileMain.getInfo().getProfileImage()).into(profileImage);
                     Log.e("ID IMG", "" + BASEURL + teacherProfileMain.getInfo().getIdImage());
                     Picasso.with(TeacherProfileActivity.this).load(BASEURL + teacherProfileMain.getInfo().getIdImage()).into(idProofImage);
-                    String resumePath = teacherProfileMain.getInfo().getResume();
+                    resumePath = teacherProfileMain.getInfo().getResume();
                     String[] cvFileArray = resumePath.split("/");
                     if (cvFileArray.length > 1) {
                         btnCvUpload.setText(cvFileArray[cvFileArray.length - 1]);
                         Picasso.with(TeacherProfileActivity.this).load(R.drawable.ic_file).into(ivCVFileStatus);
                     }
 
-                    String audioPath = teacherProfileMain.getInfo().getAudioFile();
+                    audioPath = teacherProfileMain.getInfo().getAudioFile();
                     String[] audioFileArray = audioPath.split("/");
                     if (audioFileArray.length > 1) {
                         btnAudioFile.setText(audioFileArray[audioFileArray.length - 1]);
@@ -473,5 +525,24 @@ public class TeacherProfileActivity extends BaseActivity implements
                 break;
         }
         return true;
+    }
+
+    public class DownloadReceiver extends ResultReceiver {
+
+        public DownloadReceiver(Handler handler) {
+            super(handler);
+        }
+
+        @Override
+        protected void onReceiveResult(int resultCode, Bundle resultData) {
+            super.onReceiveResult(resultCode, resultData);
+            if (resultCode == DownloadService.UPDATE_PROGRESS) {
+                int progress = resultData.getInt("progress");
+                mProgressDialog.setProgress(progress);
+                if (progress == 100) {
+                    mProgressDialog.dismiss();
+                }
+            }
+        }
     }
 }
