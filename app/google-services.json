@@ -1,35 +1,27 @@
 {
   "project_info": {
-    "project_number": "511302388983",
-    "firebase_url": "https://hungry-english.firebaseio.com",
-    "project_id": "hungry-english",
-    "storage_bucket": "hungry-english.appspot.com"
+    "project_number": "349801035173",
+    "firebase_url": "https://hungry-english-94de3.firebaseio.com",
+    "project_id": "hungry-english-94de3",
+    "storage_bucket": "hungry-english-94de3.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:511302388983:android:96120a81f3161597",
+        "mobilesdk_app_id": "1:349801035173:android:96120a81f3161597",
         "android_client_info": {
           "package_name": "app.com.HungryEnglish"
         }
       },
       "oauth_client": [
         {
-          "client_id": "511302388983-8a1sch0gdjbd30ee033s3jbsetb0jpqu.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "app.com.HungryEnglish",
-            "certificate_hash": "69877f152d9ea63c55fd1f059081f7eb92290011"
-          }
-        },
-        {
-          "client_id": "511302388983-g4ik721meh3ik29hll2k4kjuoa8v7rg1.apps.googleusercontent.com",
+          "client_id": "349801035173-9umfv9tglngp5jq1m3et85tmthcifhtn.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDMhHVg8FChO2wO8nvoK2Rw-CWk_wjFbRc"
+          "current_key": "AIzaSyACIaN88JHNNfSWwKwWxKeI0TGJTeiey2Q"
         }
       ],
       "services": {
@@ -37,13 +29,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "511302388983-g4ik721meh3ik29hll2k4kjuoa8v7rg1.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2

@@ -65,7 +65,8 @@ public class ForgotPassword extends BaseActivity implements View.OnClickListener
         if (v.getId() == R.id.activity_forgot_password_submit_btn) {
 
             if (Utils.emailValidator(edtEmail.getText().toString())) {
-                sendEmail();
+                checkEmail();
+
             } else {
                 Toast.makeText(this, "Enter Valid Email", Toast.LENGTH_SHORT).show();
             }
@@ -100,6 +101,41 @@ public class ForgotPassword extends BaseActivity implements View.OnClickListener
         }
     }
 
+    private void checkEmail() {
+        if (!Utils.checkNetwork(ForgotPassword.this)) {
+            Utils.showCustomDialog(getResources().getString(R.string.internet_error), getResources().getString(R.string.internet_connection_error), ForgotPassword.this);
+            return;
+        }
+
+        Utils.showDialog(ForgotPassword.this);
+        HashMap<String, String> map = new HashMap<>();
+        map.put("email", edtEmail.getText().toString());
+
+        ApiHandler.getApiService().checkUser(map, new retrofit.Callback<ForgotPasswordModel>() {
+
+            @Override
+            public void success(ForgotPasswordModel forgotPasswordModel, Response response) {
+
+                Utils.dismissDialog();
+
+                if (forgotPasswordModel.getStatus().toString().equalsIgnoreCase("true")) {
+                    sendEmail();
+                    Toast.makeText(ForgotPassword.this, forgotPasswordModel.getMsg(), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(ForgotPassword.this, forgotPasswordModel.getMsg(), Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Utils.dismissDialog();
+                Toast.makeText(ForgotPassword.this, "Try Again", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private void ResetPassword() {
         if (!Utils.checkNetwork(ForgotPassword.this)) {
             Utils.showCustomDialog(getResources().getString(R.string.internet_error), getResources().getString(R.string.internet_connection_error), ForgotPassword.this);
@@ -118,6 +154,12 @@ public class ForgotPassword extends BaseActivity implements View.OnClickListener
 
                 Utils.dismissDialog();
                 Toast.makeText(ForgotPassword.this, forgotPasswordModel.getMsg(), Toast.LENGTH_SHORT).show();
+
+                if (forgotPasswordModel.getStatus().toString().equalsIgnoreCase("true")) {
+                    onBackPressed();
+                }else{
+                    Toast.makeText(ForgotPassword.this, forgotPasswordModel.getMsg(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -156,8 +198,8 @@ public class ForgotPassword extends BaseActivity implements View.OnClickListener
         String[] recipients = {edtEmail.getText().toString()};
         SendEmailAsyncTask email = new SendEmailAsyncTask();
         email.activity = this;
-        email.m = new Mail("dmvgeorgia@gmail.com", "dmv_georgia");
-        email.m.set_from("dmvgeorgia@gmail.com");
+        email.m = new Mail("hungryenglishclub@gmail.com", "rujulgandhi");
+        email.m.set_from("hungryenglishclub@gmail.com");
         email.m.setBody(message);
         email.m.set_to(recipients);
         email.m.set_subject("Hungry English CLUB");

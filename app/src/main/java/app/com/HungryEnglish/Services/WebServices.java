@@ -81,8 +81,11 @@ public interface WebServices {
 //    void createTeacherProfile(@QueryMap Map<String, String> map, @Part("idProof") TypedFile idProof, @Part("proImage") TypedFile proImage, @Part("resume") TypedFile resume, Callback<TeacherProfileMainResponse> callback);
     public void createTeacherProfile(@QueryMap Map<String, String> map, @Part("idProof") TypedFile idProof, @Part("proImage") TypedFile proImage, @Part("resume") TypedFile resume, Callback<TeacherProfileMainResponse> callback);
 
-//    @GET
-//    Call<ResponseBody> downloadFileWithDynamicUrlSync(String fileUrl);
+    @GET("/add_request.php")
+    void addRequest(@QueryMap Map<String, String> map, Callback<ForgotPasswordModel> callback);
+
+    @GET("/check_user.php")
+    void checkUser(@QueryMap Map<String, String> map, Callback<ForgotPasswordModel> callback);
 }
 
 
