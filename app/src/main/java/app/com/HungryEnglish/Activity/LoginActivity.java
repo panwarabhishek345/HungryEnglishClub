@@ -6,6 +6,7 @@ import java.util.Map;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -14,6 +15,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.squareup.okhttp.internal.Util;
 
 import app.com.HungryEnglish.Activity.Admin.AdminDashboardActivity;
 import app.com.HungryEnglish.Activity.Student.StudentProfileActivity;
@@ -36,12 +40,16 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     Utils utils;
     AlphaAnimation click;
     TextView forgotPasswordTxt;
+    private String Token;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        Token = FirebaseInstanceId.getInstance().getToken();
+
         context = LoginActivity.this;
         click = new AlphaAnimation(1F, 0.5F);
         utils = new Utils(LoginActivity.this);
@@ -181,6 +189,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         Map<String, String> map = new HashMap<>();
         map.put("u_pass", "" + passwordEdt.getText().toString());
         map.put("u_name", "" + emailEdt.getText());
+        map.put("device_id",Token);
+
+        Log.d("TOKEN",Token);
         return map;
     }
 }

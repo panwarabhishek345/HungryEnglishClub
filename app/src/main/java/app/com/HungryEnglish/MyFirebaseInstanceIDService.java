@@ -1,9 +1,11 @@
-package app.com.HungryEnglish.Fcm;
+package app.com.HungryEnglish;
 
 import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
+
+import app.com.HungryEnglish.Util.Utils;
 
 /**
  * Created by Bhadresh Chavada on 23-07-2017.
@@ -42,6 +44,7 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
      */
     private void sendRegistrationToServer(String token) {
         // TODO: Implement this method to send token to your app server.
+        Utils.WriteSharePrefrence(getApplicationContext(), "FCMTOKEN", token);
     }
 
 }

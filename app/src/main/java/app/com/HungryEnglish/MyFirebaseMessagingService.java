@@ -1,4 +1,4 @@
-package app.com.HungryEnglish.Fcm;
+package app.com.HungryEnglish;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
