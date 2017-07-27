@@ -47,7 +47,7 @@ import static app.com.HungryEnglish.Util.Constant.SHARED_PREFS.KEY_USER_ROLE;
 
 public class StudentProfileActivity extends BaseActivity {
 
-    private EditText fullNameStudentEdit, ageEdit, nearRailwayStationEdit, avaibilityStudentEdit, wechatEdt;
+    private EditText fullNameStudentEdit, ageEdit, nearRailwayStationEdit, avaibilityStudentEdit, wechatEdt, userNameEdt, skillEdt, emailEdt;
     private RadioGroup radioSex;
     private RadioButton radioMale, radioFemale;
     private RadioButton radioButton;
@@ -94,7 +94,11 @@ public class StudentProfileActivity extends BaseActivity {
 
         radioFemale = (RadioButton) findViewById(R.id.radioFemale);
 
+        userNameEdt = (EditText) findViewById(R.id.usernameStudentEdit);
 
+        skillEdt = (EditText) findViewById(R.id.skillStudentEdit);
+
+        emailEdt = (EditText) findViewById(R.id.emailEdit);
     }
 
 
@@ -297,6 +301,9 @@ public class StudentProfileActivity extends BaseActivity {
                         radioFemale.setChecked(true);
                     }
                     nearRailwayStationEdit.setText(studentGetProfileMainResponse.getInfo().getStation());
+                    userNameEdt.setText(studentGetProfileMainResponse.getData().getUsername());
+                    skillEdt.setText(studentGetProfileMainResponse.getInfo().getSkills());
+                    emailEdt.setText(studentGetProfileMainResponse.getData().getEmail());
                 }
             }
 

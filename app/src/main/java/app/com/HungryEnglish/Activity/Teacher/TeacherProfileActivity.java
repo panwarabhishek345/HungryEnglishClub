@@ -67,7 +67,7 @@ public class TeacherProfileActivity extends BaseActivity implements
     final int SELECT_ID_PROOF = 200;
     final int SELECT_FILE = 300;
     final int SELECT_AUDIO = 400;
-    private EditText btnCvUpload, btnAudioFile;
+    private EditText btnCvUpload, btnAudioFile,userNameEdit,emailEdit;
     private EditText currnetPlaceEdit, fullNameTeacherEdit, avaibilityDateTeacherEdit, specialSkillTeacherEdit, etMobileOrWechatId;
     private String pathProfilePic = "", pathCvDoc = "", pathIdProofPic = "", pathAudioFile = "";
     private Button btnSubmiTeacherProfile;
@@ -107,7 +107,9 @@ public class TeacherProfileActivity extends BaseActivity implements
         specialSkillTeacherEdit = (EditText) findViewById(R.id.specialSkillTeacherEdit);
         btnAudioFile = (EditText) findViewById(R.id.btn_audio_file);
         btnCvUpload = (EditText) findViewById(R.id.btn_cv_file);
+        userNameEdit = (EditText) findViewById(R.id.usernameStudentEdit);
 
+        emailEdit = (EditText) findViewById(R.id.emailEdit);
         btnSubmiTeacherProfile = (Button) findViewById(R.id.btnSubmiTeacherProfile);
 
         String role = Utils.ReadSharePrefrence(TeacherProfileActivity.this, Constant.SHARED_PREFS.KEY_USER_ROLE);
@@ -410,6 +412,8 @@ public class TeacherProfileActivity extends BaseActivity implements
                         Picasso.with(TeacherProfileActivity.this).load(R.drawable.ic_file).into(ivAudioFileStatus);
                     }
 
+                    emailEdit.setText(teacherProfileMain.getData().getUsername());
+                    userNameEdit.setText(teacherProfileMain.getData().getUsername());
                     etMobileOrWechatId.setText(String.valueOf(teacherProfileMain.getData().getMobNo()));
                 }
             }
