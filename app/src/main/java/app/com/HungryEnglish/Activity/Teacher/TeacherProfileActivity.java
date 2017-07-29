@@ -67,7 +67,7 @@ public class TeacherProfileActivity extends BaseActivity implements
     final int SELECT_ID_PROOF = 200;
     final int SELECT_FILE = 300;
     final int SELECT_AUDIO = 400;
-    private EditText btnCvUpload, btnAudioFile,userNameEdit,emailEdit;
+    private EditText btnCvUpload, btnAudioFile, userNameEdit, emailEdit;
     private EditText currnetPlaceEdit, fullNameTeacherEdit, avaibilityDateTeacherEdit, specialSkillTeacherEdit, etMobileOrWechatId;
     private String pathProfilePic = "", pathCvDoc = "", pathIdProofPic = "", pathAudioFile = "";
     private Button btnSubmiTeacherProfile;
@@ -174,25 +174,25 @@ public class TeacherProfileActivity extends BaseActivity implements
                     etMobileOrWechatId.requestFocus();
                 }
 
-                if (pathProfilePic.equalsIgnoreCase("")) {
-                    Toast.makeText(TeacherProfileActivity.this, "Please Select Profile Image", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (pathIdProofPic.equalsIgnoreCase("")) {
-                    Toast.makeText(TeacherProfileActivity.this, "Please Select id proof Image", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (pathCvDoc.equalsIgnoreCase("")) {
-                    Toast.makeText(TeacherProfileActivity.this, "Please Select CV document image", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (pathAudioFile.equalsIgnoreCase("")) {
-                    Toast.makeText(TeacherProfileActivity.this, "Please Select Audio file", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+//                if (pathProfilePic.equalsIgnoreCase("")) {
+//                    Toast.makeText(TeacherProfileActivity.this, "Please Select Profile Image", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//
+//                if (pathIdProofPic.equalsIgnoreCase("")) {
+//                    Toast.makeText(TeacherProfileActivity.this, "Please Select id proof Image", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//
+//                if (pathCvDoc.equalsIgnoreCase("")) {
+//                    Toast.makeText(TeacherProfileActivity.this, "Please Select CV document image", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//
+//                if (pathAudioFile.equalsIgnoreCase("")) {
+//                    Toast.makeText(TeacherProfileActivity.this, "Please Select Audio file", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
 
                 callTeacherProfileApi();
                 break;
@@ -433,11 +433,20 @@ public class TeacherProfileActivity extends BaseActivity implements
         if (pathProfilePic != null && pathIdProofPic != null && pathIdProofPic != null && pathIdProofPic != null) {
             //  SHOW PROGRESS DIALOG
             Utils.showDialog(TeacherProfileActivity.this);
-            TypedFile proImage = new TypedFile("multipart/form-data", new File(pathProfilePic));
-            TypedFile idProof = new TypedFile("multipart/form-data", new File(pathIdProofPic));
-            TypedFile resume = new TypedFile("multipart/form-data", new File(pathCvDoc));
-            TypedFile audiofile = new TypedFile("multipart/form-data", new File(pathAudioFile));
+            TypedFile proImage = null, idProof = null, resume = null, audiofile = null;
+            if (pathProfilePic != null) {
+                proImage = new TypedFile("multipart/form-data", new File(pathProfilePic));
+            }
 
+            if (pathIdProofPic != null) {
+                idProof = new TypedFile("multipart/form-data", new File(pathIdProofPic));
+            }
+            if (pathCvDoc != null) {
+                resume = new TypedFile("multipart/form-data", new File(pathCvDoc));
+            }
+            if (pathAudioFile != null) {
+                audiofile = new TypedFile("multipart/form-data", new File(pathAudioFile));
+            }
             ApiHandler.getApiService().createTeacherProfile(getTeacherProfileDetail(), idProof, proImage, resume, new Callback<TeacherProfileMainResponse>() {
 
                 @Override

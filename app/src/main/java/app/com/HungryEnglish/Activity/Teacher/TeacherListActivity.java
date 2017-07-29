@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -71,7 +73,12 @@ public class TeacherListActivity extends BaseActivity {
         imgListHeader = (ImageView) findViewById(image_teacher_list_header);
         llLinkList = (LinearLayout) findViewById(R.id.llLinkList);
 
-
+//        imgListHeader.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(Contactus.class);
+//            }
+//        });
     }
 
 

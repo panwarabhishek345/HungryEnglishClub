@@ -53,6 +53,13 @@ public class MainActivity extends BaseActivity {
     private void idMapping() {
         image_teacher_list_header = (ImageView) findViewById(R.id.image_teacher_list_header);
         llLinkList = (LinearLayout) findViewById(R.id.llLinkList);
+
+        image_teacher_list_header.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(Contactus.class);
+            }
+        });
     }
 
     @Override

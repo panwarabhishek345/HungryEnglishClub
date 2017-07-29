@@ -40,7 +40,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     Utils utils;
     AlphaAnimation click;
     TextView forgotPasswordTxt;
-    private String Token;
+    private String Token = "ABC";
 
 
     @Override
@@ -48,12 +48,18 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Token = FirebaseInstanceId.getInstance().getToken();
+//        getToken();
 
         context = LoginActivity.this;
         click = new AlphaAnimation(1F, 0.5F);
         utils = new Utils(LoginActivity.this);
         idMapping();
+    }
+
+    private void getToken() {
+        Token = FirebaseInstanceId.getInstance().getToken();
+//        if (Token == null)
+//            getToken();
     }
 
     private void idMapping() {
@@ -96,6 +102,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 if (passwordEdt.getText().toString().trim().length() < 6) {
                     passwordEdt.setError("Password must be minimun 6 character");
                     passwordEdt.requestFocus();
+                    return;
+                }
+                if (Token == null) {
+                    Toast.makeText(context, "Please Try Again", Toast.LENGTH_SHORT).show();
+//                    getToken();
                     return;
                 }
                 // CALL LOGIN API
@@ -189,9 +200,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         Map<String, String> map = new HashMap<>();
         map.put("u_pass", "" + passwordEdt.getText().toString());
         map.put("u_name", "" + emailEdt.getText());
-        map.put("device_id",Token);
+        map.put("device_id", Token);
 
-        Log.d("TOKEN",Token);
+        Log.d("TOKEN", Token);
         return map;
     }
 }
