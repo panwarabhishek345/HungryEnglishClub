@@ -86,7 +86,7 @@ public class TeacherApprovedAdapter extends RecyclerView.Adapter<TeacherApproved
             @Override
             public void onClick(View v) {
 
-                callRemoveTeacherFromListApi(pos,teacherList.get(pos).getId(),teacherList.get(pos).getRole());
+                callRemoveTeacherFromListApi(pos, teacherList.get(pos).getId(), teacherList.get(pos).getRole());
 
             }
         });
@@ -97,6 +97,7 @@ public class TeacherApprovedAdapter extends RecyclerView.Adapter<TeacherApproved
                 Intent intent = new Intent(mContext, TeacherProfileActivity.class);
                 intent.putExtra("id", teacherList.get(pos).getId());
                 intent.putExtra("role", teacherList.get(pos).getRole());
+                intent.putExtra("callFrom", "Admin");
                 mContext.startActivity(intent);
             }
         });

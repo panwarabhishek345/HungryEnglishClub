@@ -6,10 +6,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.app.Dialog;
+import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -40,6 +42,9 @@ public class MainActivity extends BaseActivity {
     InfoResponse infoList;
     ImageView image_teacher_list_header;
 
+    String imageURL1, imageURL2, imageURL3;
+    Handler handler = new Handler();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +62,7 @@ public class MainActivity extends BaseActivity {
         image_teacher_list_header.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(Contactus.class);
+
             }
         });
     }
@@ -67,6 +72,9 @@ public class MainActivity extends BaseActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_profile, menu);
         // return true so that the menu pop up is opened
+
+        MenuItem item = (MenuItem) menu.findItem(R.id.contact);
+        item.setVisible(true);
         return true;
     }
 
@@ -107,6 +115,10 @@ public class MainActivity extends BaseActivity {
                     startActivity(TeacherProfileActivity.class);
                 break;
 
+            case R.id.contact:
+                startActivity(Contactus.class);
+                break;
+
 
         }
         return true;
@@ -141,8 +153,11 @@ public class MainActivity extends BaseActivity {
 
                         infoList = new InfoResponse();
                         infoList = infoMainResponse.getInfo();
-                        String imgUrl = Constant.BASEURL + infoList.getImage();
-                        Picasso.with(MainActivity.this).load(imgUrl).placeholder(R.drawable.gredient_green).error(R.drawable.gredient_green).into(image_teacher_list_header);
+                        imageURL1 = Constant.BASEURL + infoList.getImage1();
+                        imageURL2 = Constant.BASEURL + infoList.getImage2();
+                        imageURL3 = Constant.BASEURL + infoList.getImage3();
+
+                        SetImage1();
                         if (!infoList.getLink1().equalsIgnoreCase("")) {
                             String[] link1 = infoList.getLink1().split("--");
                             addDynamicContactText(link1[0]);
@@ -178,6 +193,37 @@ public class MainActivity extends BaseActivity {
 
         }
 
+    }
+
+    private void SetImage1() {
+        Picasso.with(MainActivity.this).load(imageURL1).placeholder(R.drawable.gredient_green).error(R.drawable.gredient_green).into(image_teacher_list_header);
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                SetImage2();
+            }
+        }, 3000);
+    }
+
+    private void SetImage2() {
+        Picasso.with(MainActivity.this).load(imageURL2).placeholder(R.drawable.gredient_green).error(R.drawable.gredient_green).into(image_teacher_list_header);
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                SetImage3();
+            }
+        }, 3000);
+
+    }
+
+    private void SetImage3() {
+        Picasso.with(MainActivity.this).load(imageURL3).placeholder(R.drawable.gredient_green).error(R.drawable.gredient_green).into(image_teacher_list_header);
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                SetImage1();
+            }
+        }, 3000);
     }
 
 

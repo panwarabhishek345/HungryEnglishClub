@@ -25,6 +25,7 @@ import retrofit.http.GET;
 import retrofit.http.Multipart;
 import retrofit.http.POST;
 import retrofit.http.Part;
+import retrofit.http.PartMap;
 import retrofit.http.QueryMap;
 import retrofit.mime.TypedFile;
 
@@ -67,7 +68,7 @@ public interface WebServices {
 
     @Multipart
     @POST("/add_info.php")
-    public void addInfo(@QueryMap Map<String, String> map, @Part("image") TypedFile image, Callback<AddInfoResponse> callback);
+    public void addInfo(@QueryMap Map<String, String> map, @Part("image1") TypedFile imageTypeFile, @Part("image2") TypedFile imageTypeFile2, @Part("image3") TypedFile image, Callback<AddInfoResponse> callback);
 
     @POST("/profile.php")
     public void getTeacherProfile(@QueryMap Map<String, String> map, Callback<TeacherProfileMain> callback);
@@ -79,7 +80,7 @@ public interface WebServices {
     @Multipart
     @POST("/teacher_profile.php")
 //    void createTeacherProfile(@QueryMap Map<String, String> map, @Part("idProof") TypedFile idProof, @Part("proImage") TypedFile proImage, @Part("resume") TypedFile resume, Callback<TeacherProfileMainResponse> callback);
-    public void createTeacherProfile(@QueryMap Map<String, String> map, @Part("idProof") TypedFile idProof, @Part("proImage") TypedFile proImage, @Part("resume") TypedFile resume, Callback<TeacherProfileMainResponse> callback);
+    public void createTeacherProfile(@QueryMap Map<String, String> map, @PartMap Map<String,TypedFile> Files, Callback<TeacherProfileMainResponse> callback);
 
     @GET("/add_request.php")
     void addRequest(@QueryMap Map<String, String> map, Callback<ForgotPasswordModel> callback);

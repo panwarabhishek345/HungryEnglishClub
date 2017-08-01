@@ -152,7 +152,8 @@ public class TeacherListActivity extends BaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_profile, menu);
-
+        MenuItem item = (MenuItem) menu.findItem(R.id.contact);
+        item.setVisible(true);
         // return true so that the menu pop up is opened
         return true;
     }
@@ -176,7 +177,11 @@ public class TeacherListActivity extends BaseActivity {
                         startActivity(TeacherProfileActivity.class);
                         break;
 
+
                 }
+            case R.id.contact:
+                startActivity(Contactus.class);
+                break;
         }
         return true;
     }

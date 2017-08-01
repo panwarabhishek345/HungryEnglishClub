@@ -52,6 +52,8 @@ import static app.com.HungryEnglish.Util.Utils.getRealPathFromURI;
 
 public class AddImageOrLinkActivity extends BaseActivity {
     final int SELECT_PHOTO = 100;
+    final int SELECT_PHOTO2 = 200;
+    final int SELECT_PHOTO3 = 300;
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 0;
     private LinearLayout llAddMoreLayout;
     private TextView tvAddMoreBtn;
@@ -59,14 +61,17 @@ public class AddImageOrLinkActivity extends BaseActivity {
     private List<EditText> lintTitleArray;
     public int cnt = 0;
     EditText etAddMoreLink;
-    private ImageView ivSelectImage;
+    private ImageView ivSelectImage, ivSelectImage2, ivSelectImage3;
+
+
     private TextView tvSubmitLink;
-    private String pathPic = "";
+    private String pathPic = "", pathPic3 = "", pathPic2 = "";
     public static int maxLinks = 2;
     public ArrayList<String> links;
 
     InfoResponse infoList;
     private LinearLayout llLinkList;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -93,7 +98,11 @@ public class AddImageOrLinkActivity extends BaseActivity {
     private void idMapping() {
         llAddMoreLayout = (LinearLayout) findViewById(R.id.llAddMoreLayout);
         tvAddMoreBtn = (TextView) findViewById(R.id.tvAddMoreBtn);
-        ivSelectImage = (ImageView) findViewById(R.id.ivSelectImage);
+        ivSelectImage = (ImageView) findViewById(R.id.ivSelectImage1);
+        ivSelectImage2 = (ImageView) findViewById(R.id.ivSelectImage2);
+        ivSelectImage3 = (ImageView) findViewById(R.id.ivSelectImage3);
+
+
         tvSubmitLink = (TextView) findViewById(R.id.tvSubmitLink);
     }
 
@@ -102,7 +111,7 @@ public class AddImageOrLinkActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 if (allEds.size() > 0 && allEds.size() <= maxLinks) {
-                    addDynamicContactText("","");
+                    addDynamicContactText("", "");
                 }
             }
         });
@@ -113,13 +122,38 @@ public class AddImageOrLinkActivity extends BaseActivity {
                 uploadImage(SELECT_PHOTO);
             }
         });
+
+        ivSelectImage2.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                uploadImage(SELECT_PHOTO2);
+            }
+        });
+
+        ivSelectImage3.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                uploadImage(SELECT_PHOTO3);
+            }
+        });
         tvSubmitLink.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if (pathPic.equalsIgnoreCase("")) {
-//                    Toast.makeText(AddImageOrLinkActivity.this, "Please Select Image", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
+                if (pathPic.equalsIgnoreCase("")) {
+                    Toast.makeText(AddImageOrLinkActivity.this, "Please Select Image", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (pathPic2.equalsIgnoreCase("")) {
+                    Toast.makeText(AddImageOrLinkActivity.this, "Please Select Image 2", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (pathPic3.equalsIgnoreCase("")) {
+                    Toast.makeText(AddImageOrLinkActivity.this, "Please Select Image 3", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
 
                 for (int i = 0; i < allEds.size(); i++) {
                     String edtText = getText(allEds.get(i));
@@ -143,7 +177,9 @@ public class AddImageOrLinkActivity extends BaseActivity {
         } else {
             Utils.showDialog(AddImageOrLinkActivity.this);
             TypedFile imageTypeFile = new TypedFile("multipart/form-data", new File(pathPic));
-            ApiHandler.getApiService().addInfo(addInfoDetail(), imageTypeFile, new retrofit.Callback<AddInfoResponse>() {
+            TypedFile imageTypeFile2 = new TypedFile("multipart/form-data", new File(pathPic2));
+            TypedFile imageTypeFile3 = new TypedFile("multipart/form-data", new File(pathPic3));
+            ApiHandler.getApiService().addInfo(addInfoDetail(), imageTypeFile, imageTypeFile2, imageTypeFile3, new retrofit.Callback<AddInfoResponse>() {
                 @Override
                 public void success(AddInfoResponse addInfoResponse, Response response) {
                     Utils.dismissDialog();
@@ -184,6 +220,11 @@ public class AddImageOrLinkActivity extends BaseActivity {
         for (int i = 0; i < links.size(); i++) {
             map.put("link" + (i + 1), links.get(i));
         }
+//        map.put("link1", imageLink1.getText().toString());
+//        map.put("link2", imageLink2.getText().toString());
+//        map.put("link3", imageLink3.getText().toString());
+
+
         return map;
     }
 
@@ -245,6 +286,7 @@ public class AddImageOrLinkActivity extends BaseActivity {
         startActivityForResult(photoPickerIntent, PHOTO_CONSTANT);
     }
 
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
@@ -282,9 +324,27 @@ public class AddImageOrLinkActivity extends BaseActivity {
                     Picasso.with(AddImageOrLinkActivity.this).load(Uri.fromFile(new File(pathPic))).error(R.drawable.ic_user_default).into(ivSelectImage);
                     break;
 
+                case SELECT_PHOTO2:
+                    if (Build.VERSION.SDK_INT <= 21) {
+                        pathPic2 = getRealPathFromURI(this, data.getData());
+                    } else {
+                        pathPic2 = getPath(this, data.getData());
+                    }
+                    ivSelectImage2.setScaleType(ScaleType.CENTER_CROP);
+                    Picasso.with(AddImageOrLinkActivity.this).load(Uri.fromFile(new File(pathPic2))).error(R.drawable.ic_user_default).into(ivSelectImage2);
+                    break;
+
+                case SELECT_PHOTO3:
+                    if (Build.VERSION.SDK_INT <= 21) {
+                        pathPic3 = getRealPathFromURI(this, data.getData());
+                    } else {
+                        pathPic3 = getPath(this, data.getData());
+                    }
+                    ivSelectImage3.setScaleType(ScaleType.CENTER_CROP);
+                    Picasso.with(AddImageOrLinkActivity.this).load(Uri.fromFile(new File(pathPic3))).error(R.drawable.ic_user_default).into(ivSelectImage3);
+                    break;
+
             }
-        } else {
-            toast("Select Image");
         }
     }
 
@@ -321,29 +381,44 @@ public class AddImageOrLinkActivity extends BaseActivity {
 
                         infoList = new InfoResponse();
                         infoList = infoMainResponse.getInfo();
-                        String imgUrl = Constant.BASEURL + infoList.getImage();
+                        String imgUrl = Constant.BASEURL + infoList.getImage1();
                         ivSelectImage.setScaleType(ScaleType.CENTER_CROP);
                         Picasso.with(AddImageOrLinkActivity.this).load(imgUrl).placeholder(R.drawable.gredient_green).error(R.drawable.gredient_green).into(ivSelectImage);
+
+                        String imgUrl2 = Constant.BASEURL + infoList.getImage2();
+                        ivSelectImage.setScaleType(ScaleType.CENTER_CROP);
+                        Picasso.with(AddImageOrLinkActivity.this).load(imgUrl2).placeholder(R.drawable.gredient_green).error(R.drawable.gredient_green).into(ivSelectImage2);
+
+
+                        String imgUrl3 = Constant.BASEURL + infoList.getImage3();
+                        ivSelectImage.setScaleType(ScaleType.CENTER_CROP);
+                        Picasso.with(AddImageOrLinkActivity.this).load(imgUrl3).placeholder(R.drawable.gredient_green).error(R.drawable.gredient_green).into(ivSelectImage3);
+
+
                         if (!infoList.getLink1().equalsIgnoreCase("")) {
-
-                            String[] link1 = infoList.getLink1().split("--");
+                            if (infoList.getLink1().contains("--")) {
+                                String[] link1 = infoList.getLink1().split("--");
 //                            addDynamicContactText(link1[0]);
 //                            addDynamicContactText(link1[1]);
-                            addDynamicContactText(link1[1], link1[0]);
+                                addDynamicContactText(link1[1], link1[0]);
+                            }
                         }
-
                         if (!infoList.getLink2().equalsIgnoreCase("")) {
-                            String[] link1 = infoList.getLink2().split("--");
+                            if (infoList.getLink2().contains("--")) {
+                                String[] link1 = infoList.getLink2().split("--");
 //                            addDynamicContactText(link1[0]);
 //                            addDynamicContactText(link1[1]);
-                            addDynamicContactText(link1[1], link1[0]);
+                                addDynamicContactText(link1[1], link1[0]);
+                            }
                         }
 
                         if (!infoList.getLink3().equalsIgnoreCase("")) {
-                            String[] link1 = infoList.getLink3().split("--");
+                            if (infoList.getLink3().contains("--")) {
+                                String[] link1 = infoList.getLink3().split("--");
 //                            addDynamicContactText(link1[0]);
 //                            addDynamicContactText(link1[1]);
-                            addDynamicContactText(link1[1], link1[0]);
+                                addDynamicContactText(link1[1], link1[0]);
+                            }
                         }
                         hideAddMoreButton();
                     }

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Random;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -22,6 +23,7 @@ import javax.mail.AuthenticationFailedException;
 import javax.mail.MessagingException;
 
 import app.com.HungryEnglish.Activity.ForgotPassword;
+import app.com.HungryEnglish.Activity.Teacher.TeacherProfileActivity;
 import app.com.HungryEnglish.Fragment.TeacherApprovedListFragment;
 import app.com.HungryEnglish.Model.ForgotPassord.ForgotPasswordModel;
 import app.com.HungryEnglish.Model.Teacher.TeacherListResponse;
@@ -103,45 +105,18 @@ public class TeacherListAdapter extends RecyclerView.Adapter<TeacherListAdapter.
                 @Override
                 public void onClick(View v) {
 //                    Toast.makeText(mContext, "Send Mail To Teacher Under Development", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(mContext, TeacherProfileActivity.class);
+                    intent.putExtra("id", teacherList.get(pos).getId());
+                    intent.putExtra("role", teacherList.get(pos).getRole());
+                    intent.putExtra("callFrom", "Student");
+                    mContext.startActivity(intent);
 
-                    RequestToTeacher(position);
+//                    RequestToTeacher(position);
                 }
             });
         }
     }
 
-    private void RequestToTeacher(final int position) {
-
-
-        Utils.showDialog(mContext);
-        HashMap<String, String> map = new HashMap<>();
-        map.put("teacherId", teacherList.get(position).getId());
-        map.put("studentId", Utils.ReadSharePrefrence(mContext, Constant.SHARED_PREFS.KEY_USER_ID));
-
-//        http://smartsquad.16mb.com/HungryEnglish/api/add_request.php?teacherId=1&studentId=2
-        ApiHandler.getApiService().addRequest(map, new retrofit.Callback<ForgotPasswordModel>() {
-
-
-            @Override
-            public void success(ForgotPasswordModel forgotPasswordModel, Response response) {
-
-                Utils.dismissDialog();
-
-
-                if (forgotPasswordModel.getStatus().toString().equals("true")) {
-                    Toast.makeText(mContext, forgotPasswordModel.getMsg(), Toast.LENGTH_SHORT).show();
-                    sendEmail(Utils.ReadSharePrefrence(mContext, Constant.SHARED_PREFS.KEY_USER_NAME),teacherList.get(position).getFullName());
-                }
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Utils.dismissDialog();
-                Toast.makeText(mContext, "Try Again", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
 
     @Override
     public int getItemCount() {
@@ -149,61 +124,5 @@ public class TeacherListAdapter extends RecyclerView.Adapter<TeacherListAdapter.
         return teacherList.size();
     }
 
-    private void sendEmail(String studentName, String TeacherName) {
 
-        String message = "Welcome to Hungry English Club " + studentName + "Enquiry for Teacher  " + TeacherName;
-
-        String[] recipients = {"idigi@live.com"};
-        SendEmailAsyncTask email = new SendEmailAsyncTask();
-//        email.activity = mContext;
-        email.m = new Mail("hungryenglishclub@gmail.com", "rujulgandhi");
-        email.m.set_from("hungryenglishclub@gmail.com");
-        email.m.setBody(message);
-        email.m.set_to(recipients);
-        email.m.set_subject("Hungry English CLUB");
-        email.execute();
-
-
-    }
-
-
-    class SendEmailAsyncTask extends AsyncTask<Void, Void, Boolean> {
-        Mail m;
-        ForgotPassword activity;
-
-        public SendEmailAsyncTask() {
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            try {
-                if (m.send()) {
-//                    Toast.makeText(activity, "Email sent.", Toast.LENGTH_SHORT).show();
-
-
-                } else {
-//                Toast.makeText(activity, "Email failed to send.", Toast.LENGTH_SHORT).show();
-                }
-
-                return true;
-            } catch (AuthenticationFailedException e) {
-                Log.e("EmailError", "Bad account details");
-                e.printStackTrace();
-
-//            Toast.makeText(activity, "Authentication failed.", Toast.LENGTH_SHORT).show();
-                return false;
-            } catch (MessagingException e) {
-                Log.e("EmailError", "Email failed");
-                e.printStackTrace();
-
-//            Toast.makeText(activity, "Email failed to send.", Toast.LENGTH_SHORT).show();
-                return false;
-            } catch (Exception e) {
-                e.printStackTrace();
-
-//            Toast.makeText(activity, "Unexpected error occured.", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        }
-    }
 }

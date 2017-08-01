@@ -72,6 +72,8 @@
     <string name="re_enter_password">Re Enter Password</string>
     <string name="resend_otp">Resend OTP ! Click here</string>
     <string name="msg_otp">Enter Received OTP</string>
+    <string name="requst_teacher">Request Teacher</string>
+    <string name="url">URL</string>
 </resources>
 
 
