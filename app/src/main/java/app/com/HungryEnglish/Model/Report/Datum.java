@@ -1,5 +1,6 @@
 package app.com.HungryEnglish.Model.Report;
 
+import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
  * Created by Bhadresh Chavada on 01-08-2017.
  */
 
-public class Datum {
+public class Datum implements Parcelable{
 
 
     @SerializedName("teacherEmail")
@@ -247,5 +248,66 @@ public class Datum {
     public void setTSkills(String tSkills) {
         this.tSkills = tSkills;
     }
+
+    protected Datum(Parcel in) {
+        teacherEmail = in.readString();
+        teacherFullName = in.readString();
+        teacherWeChat = in.readString();
+        stuEmail = in.readString();
+        stuFullName = in.readString();
+        stuWeChat = in.readString();
+        stuSex = in.readString();
+        stuAge = in.readString();
+        stuStation = in.readString();
+        stuSkills = in.readString();
+        stuTime = in.readString();
+        tProfileImage = in.readString();
+        tIdImage = in.readString();
+        tResume = in.readString();
+        tAudioFile = in.readString();
+        tAddress = in.readString();
+        tTime = in.readString();
+        tSkills = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(teacherEmail);
+        dest.writeString(teacherFullName);
+        dest.writeString(teacherWeChat);
+        dest.writeString(stuEmail);
+        dest.writeString(stuFullName);
+        dest.writeString(stuWeChat);
+        dest.writeString(stuSex);
+        dest.writeString(stuAge);
+        dest.writeString(stuStation);
+        dest.writeString(stuSkills);
+        dest.writeString(stuTime);
+        dest.writeString(tProfileImage);
+        dest.writeString(tIdImage);
+        dest.writeString(tResume);
+        dest.writeString(tAudioFile);
+        dest.writeString(tAddress);
+        dest.writeString(tTime);
+        dest.writeString(tSkills);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Datum> CREATOR = new Parcelable.Creator<Datum>() {
+        @Override
+        public Datum createFromParcel(Parcel in) {
+            return new Datum(in);
+        }
+
+        @Override
+        public Datum[] newArray(int size) {
+            return new Datum[size];
+        }
+    };
 
 }

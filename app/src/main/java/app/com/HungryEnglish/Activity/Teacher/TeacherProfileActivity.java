@@ -273,12 +273,12 @@ public class TeacherProfileActivity extends BaseActivity implements
     private void downloadCv() {
 
         if (resumePath != null) {
-            mProgressDialog = new ProgressDialog(TeacherProfileActivity.this);
-            mProgressDialog.setMessage("Please wait Download Resume");
-            mProgressDialog.setIndeterminate(true);
-            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-            mProgressDialog.setCancelable(true);
-            mProgressDialog.show();
+//            mProgressDialog = new ProgressDialog(TeacherProfileActivity.this);
+//            mProgressDialog.setMessage("Please wait Download Resume");
+//            mProgressDialog.setIndeterminate(true);
+//            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+//            mProgressDialog.setCancelable(true);
+//            mProgressDialog.show();
             Log.d("PATH", Constant.BASEURL + resumePath);
             Toast.makeText(this, "Download start", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, DownloadService.class);
@@ -294,12 +294,12 @@ public class TeacherProfileActivity extends BaseActivity implements
     private void downloadAudio() {
 
         if (audioPath != null) {
-            mProgressDialog = new ProgressDialog(TeacherProfileActivity.this);
-            mProgressDialog.setMessage("Please wait Download Audio");
-            mProgressDialog.setIndeterminate(true);
-            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-            mProgressDialog.setCancelable(true);
-            mProgressDialog.show();
+//            mProgressDialog = new ProgressDialog(TeacherProfileActivity.this);
+//            mProgressDialog.setMessage("Please wait Download Audio");
+//            mProgressDialog.setIndeterminate(true);
+//            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+//            mProgressDialog.setCancelable(true);
+//            mProgressDialog.show();
             Toast.makeText(this, "Download start", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, DownloadService.class);
             intent.putExtra("url", Constant.BASEURL + audioPath);
@@ -557,6 +557,7 @@ public class TeacherProfileActivity extends BaseActivity implements
             }
             if (pathAudioFile != null) {
                 audiofile = new TypedFile("multipart/form-data", new File(pathAudioFile));
+                files.put("audioFile", audiofile);
             }
 
 
@@ -665,9 +666,10 @@ public class TeacherProfileActivity extends BaseActivity implements
             super.onReceiveResult(resultCode, resultData);
             if (resultCode == DownloadService.UPDATE_PROGRESS) {
                 int progress = resultData.getInt("progress");
-                mProgressDialog.setProgress(progress);
+//                mProgressDialog.setProgress(progress);
                 if (progress == 100) {
-                    mProgressDialog.dismiss();
+//                    mProgressDialog.dismiss();
+                    Toast.makeText(mContext, "Download Successfully", Toast.LENGTH_SHORT).show();
                 }
             }
         }
