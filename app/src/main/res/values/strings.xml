@@ -74,6 +74,7 @@
     <string name="msg_otp">Enter Received OTP</string>
     <string name="requst_teacher">Request Teacher</string>
     <string name="url">URL</string>
+    <string name="report">Report</string>
 </resources>
 
 

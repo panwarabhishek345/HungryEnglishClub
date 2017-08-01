@@ -247,9 +247,9 @@ public class TeacherProfileActivity extends BaseActivity implements
 //                if (pathProfilePic.equalsIgnoreCase("")) {
 //                    Toast.makeText(TeacherProfileActivity.this, "Please Select Profile Image", Toast.LENGTH_SHORT).show();
 //                    return;
-//                }
 //
 //                if (pathIdProofPic.equalsIgnoreCase("")) {
+//                }
 //                    Toast.makeText(TeacherProfileActivity.this, "Please Select id proof Image", Toast.LENGTH_SHORT).show();
 //                    return;
 //                }
@@ -279,7 +279,7 @@ public class TeacherProfileActivity extends BaseActivity implements
             mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             mProgressDialog.setCancelable(true);
             mProgressDialog.show();
-            Log.d("PATH", resumePath);
+            Log.d("PATH", Constant.BASEURL + resumePath);
             Toast.makeText(this, "Download start", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, DownloadService.class);
             intent.putExtra("url", resumePath);
@@ -302,7 +302,7 @@ public class TeacherProfileActivity extends BaseActivity implements
             mProgressDialog.show();
             Toast.makeText(this, "Download start", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, DownloadService.class);
-            intent.putExtra("url", audioPath);
+            intent.putExtra("url", Constant.BASEURL + audioPath);
             intent.putExtra("receiver", new DownloadReceiver(new Handler()));
             startService(intent);
             Log.d("PATH", audioPath);
@@ -501,71 +501,99 @@ public class TeacherProfileActivity extends BaseActivity implements
             Utils.showCustomDialog("Internet Connection !", getResources().getString(R.string.internet_connection_error), TeacherProfileActivity.this);
             return;
         }
-//        if (pathProfilePic != null && pathIdProofPic != null && pathIdProofPic != null && pathIdProofPic != null) {
-        //  SHOW PROGRESS DIALOG
+
         Utils.showDialog(TeacherProfileActivity.this);
         TypedFile proImage = null, idProof = null, resume = null, audiofile = null;
 
         Map<String, TypedFile> files = new HashMap<String, TypedFile>();
-//        files.put("my file number one", new TypedFile("image/jpg", new File(filename)));
-//        files.put("my file number two", new TypedFile("image/jpg", new File(filename)));
+
+        if (pathProfilePic == null && pathIdProofPic == null && pathCvDoc == null) {
 
 
-        if (pathProfilePic != null) {
-            proImage = new TypedFile("multipart/form-data", new File(pathProfilePic));
-            files.put("proImage", proImage);
-        }
+            ApiHandler.getApiService().createTeacherProfile(getTeacherProfileDetail(), new Callback<TeacherProfileMainResponse>() {
 
-        if (pathIdProofPic != null) {
-            idProof = new TypedFile("multipart/form-data", new File(pathIdProofPic));
-            files.put("idProof", idProof);
-        }
-        if (pathCvDoc != null) {
-            resume = new TypedFile("multipart/form-data", new File(pathCvDoc));
-            files.put("resume", resume);
-        }
-        if (pathAudioFile != null) {
-            audiofile = new TypedFile("multipart/form-data", new File(pathAudioFile));
-        }
-
-
-
-        ApiHandler.getApiService().createTeacherProfile(getTeacherProfileDetail(), files, new Callback<TeacherProfileMainResponse>() {
-
-            @Override
-            public void success(TeacherProfileMainResponse teacherProfileMainResponse, Response response) {
-                Utils.dismissDialog();
-                if (teacherProfileMainResponse == null) {
-                    Toast.makeText(getApplicationContext(), "Something Wrong", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (teacherProfileMainResponse.getStatus() == null) {
-                    Toast.makeText(getApplicationContext(), "Something Wrong", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (teacherProfileMainResponse.getStatus().equals("false")) {
-                    Toast.makeText(getApplicationContext(), "" + teacherProfileMainResponse.getMsg(), Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (teacherProfileMainResponse.getStatus().equals("true")) {
-                    Toast.makeText(getApplicationContext(), "" + teacherProfileMainResponse.getMsg(), Toast.LENGTH_SHORT).show();
+                @Override
+                public void success(TeacherProfileMainResponse teacherProfileMainResponse, Response response) {
+                    Utils.dismissDialog();
+                    if (teacherProfileMainResponse == null) {
+                        Toast.makeText(getApplicationContext(), "Something Wrong", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (teacherProfileMainResponse.getStatus() == null) {
+                        Toast.makeText(getApplicationContext(), "Something Wrong", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (teacherProfileMainResponse.getStatus().equals("false")) {
+                        Toast.makeText(getApplicationContext(), "" + teacherProfileMainResponse.getMsg(), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (teacherProfileMainResponse.getStatus().equals("true")) {
+                        Toast.makeText(getApplicationContext(), "" + teacherProfileMainResponse.getMsg(), Toast.LENGTH_SHORT).show();
 //                        startActivity(MainActivity.class);
-                    finish();
+                        finish();
+                    }
                 }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    Utils.dismissDialog();
+                    error.printStackTrace();
+                    toast("Something Wrong");
+                }
+            });
+        } else {
+            if (pathProfilePic != null) {
+                proImage = new TypedFile("multipart/form-data", new File(pathProfilePic));
+                files.put("proImage", proImage);
             }
 
-            @Override
-            public void failure(RetrofitError error) {
-                Utils.dismissDialog();
-                error.printStackTrace();
-                toast("Something Wrong");
+            if (pathIdProofPic != null) {
+                idProof = new TypedFile("multipart/form-data", new File(pathIdProofPic));
+                files.put("idProof", idProof);
             }
-        });
-//        }
-//        else {
-//            Utils.dismissDialog();
-//            toast("Please select all the files");
-//        }
+            if (pathCvDoc != null) {
+                resume = new TypedFile("multipart/form-data", new File(pathCvDoc));
+                files.put("resume", resume);
+            }
+            if (pathAudioFile != null) {
+                audiofile = new TypedFile("multipart/form-data", new File(pathAudioFile));
+            }
+
+
+            ApiHandler.getApiService().createTeacherProfile(getTeacherProfileDetail(), files, new Callback<TeacherProfileMainResponse>() {
+
+                @Override
+                public void success(TeacherProfileMainResponse teacherProfileMainResponse, Response response) {
+                    Utils.dismissDialog();
+                    if (teacherProfileMainResponse == null) {
+                        Toast.makeText(getApplicationContext(), "Something Wrong", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (teacherProfileMainResponse.getStatus() == null) {
+                        Toast.makeText(getApplicationContext(), "Something Wrong", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (teacherProfileMainResponse.getStatus().equals("false")) {
+                        Toast.makeText(getApplicationContext(), "" + teacherProfileMainResponse.getMsg(), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (teacherProfileMainResponse.getStatus().equals("true")) {
+                        Toast.makeText(getApplicationContext(), "" + teacherProfileMainResponse.getMsg(), Toast.LENGTH_SHORT).show();
+//                        startActivity(MainActivity.class);
+                        finish();
+                    }
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    Utils.dismissDialog();
+                    error.printStackTrace();
+                    toast("Something Wrong");
+                }
+            });
+        }
+
+
     }
 
     private Map<String, String> getTeacherProfileDetail() {

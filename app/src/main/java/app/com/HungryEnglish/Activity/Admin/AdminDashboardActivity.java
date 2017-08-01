@@ -8,6 +8,9 @@ import android.support.annotation.StringDef;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -23,6 +26,10 @@ import java.util.Map;
 import app.com.HungryEnglish.Activity.BaseActivity;
 import app.com.HungryEnglish.Activity.LoginActivity;
 import app.com.HungryEnglish.Activity.Student.StudentListActivity;
+import app.com.HungryEnglish.Activity.Student.StudentProfileActivity;
+import app.com.HungryEnglish.Activity.Teacher.Contactus;
+import app.com.HungryEnglish.Activity.Teacher.TeacherListActivity;
+import app.com.HungryEnglish.Activity.Teacher.TeacherProfileActivity;
 import app.com.HungryEnglish.Adapter.StudentListAdapter;
 import app.com.HungryEnglish.Adapter.TeacherApprovedAdapter;
 import app.com.HungryEnglish.Model.StudentList.StudentData;
@@ -43,7 +50,7 @@ import retrofit.client.Response;
 
 public class AdminDashboardActivity extends BaseActivity {
 
-    LinearLayout llStudentList, llTeacherList, llAddImageOrLink, llLogout;
+    LinearLayout llStudentList, llTeacherList, llAddImageOrLink, llreport;
 
     AlphaAnimation click;
     int teacherCount = 0, studentCount = 0;
@@ -62,37 +69,25 @@ public class AdminDashboardActivity extends BaseActivity {
 
     }
 
-    private void idMapping() {
-        llStudentList = (LinearLayout) findViewById(R.id.llStudentList);
-        llTeacherList = (LinearLayout) findViewById(R.id.llTeacherList);
-        llAddImageOrLink = (LinearLayout) findViewById(R.id.llAddImageOrLink);
-        llLogout = (LinearLayout) findViewById(R.id.llLogout);
-        tvTeacherCountAdmin = (TextView) findViewById(R.id.tvTeacherCountAdmin);
-        tvStudentCountAdmin = (TextView) findViewById(R.id.tvStudentCountAdmin);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_profile, menu);
+        MenuItem item = (MenuItem) menu.findItem(R.id.contact);
+        item.setVisible(false);
+
+        MenuItem itemProfile = (MenuItem) menu.findItem(R.id.profile);
+        item.setVisible(false);
+        // return true so that the menu pop up is opened
+        return true;
+
     }
 
-    private void setOnClick() {
-        llStudentList.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(StudentListActivity.class);
-            }
-        });
-        llTeacherList.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(AdminTeacherList.class);
-            }
-        });
-        llAddImageOrLink.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(AddImageOrLinkActivity.class);
-            }
-        });
-        llLogout.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        String role = Utils.ReadSharePrefrence(AdminDashboardActivity.this, Constant.SHARED_PREFS.KEY_USER_ROLE);
+        switch (item.getItemId()) {
+            case R.id.logout:
                 final Dialog dialog = new Dialog(AdminDashboardActivity.this);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(R.layout.popup_logout);
@@ -117,6 +112,46 @@ public class AdminDashboardActivity extends BaseActivity {
                     }
                 });
                 dialog.show();
+
+                break;
+
+        }
+        return true;
+    }
+
+    private void idMapping() {
+        llStudentList = (LinearLayout) findViewById(R.id.llStudentList);
+        llTeacherList = (LinearLayout) findViewById(R.id.llTeacherList);
+        llAddImageOrLink = (LinearLayout) findViewById(R.id.llAddImageOrLink);
+        llreport = (LinearLayout) findViewById(R.id.llreport);
+        tvTeacherCountAdmin = (TextView) findViewById(R.id.tvTeacherCountAdmin);
+        tvStudentCountAdmin = (TextView) findViewById(R.id.tvStudentCountAdmin);
+    }
+
+    private void setOnClick() {
+        llStudentList.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(StudentListActivity.class);
+            }
+        });
+        llTeacherList.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(AdminTeacherList.class);
+            }
+        });
+        llAddImageOrLink.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(AddImageOrLinkActivity.class);
+            }
+        });
+        llreport.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(ReportActivity.class);
             }
         });
 
@@ -172,8 +207,6 @@ public class AdminDashboardActivity extends BaseActivity {
         Map<String, String> map = new HashMap<>();
         return map;
     }
-
-
 
 
 }

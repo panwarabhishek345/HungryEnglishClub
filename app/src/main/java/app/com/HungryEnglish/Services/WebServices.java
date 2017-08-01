@@ -11,6 +11,7 @@ import app.com.HungryEnglish.Model.Profile.StudentGetProfileMainResponse;
 import app.com.HungryEnglish.Model.Profile.StudentProfileMainResponse;
 import app.com.HungryEnglish.Model.Profile.TeacherProfileMainResponse;
 import app.com.HungryEnglish.Model.RemoveTeacher.RemoveTeacherFromListMainResponse;
+import app.com.HungryEnglish.Model.Report.ReportModel;
 import app.com.HungryEnglish.Model.StudentList.StudentListMainResponse;
 import app.com.HungryEnglish.Model.Teacher.InfoMainResponse;
 import app.com.HungryEnglish.Model.Teacher.TeacherListMainResponse;
@@ -82,11 +83,19 @@ public interface WebServices {
 //    void createTeacherProfile(@QueryMap Map<String, String> map, @Part("idProof") TypedFile idProof, @Part("proImage") TypedFile proImage, @Part("resume") TypedFile resume, Callback<TeacherProfileMainResponse> callback);
     public void createTeacherProfile(@QueryMap Map<String, String> map, @PartMap Map<String,TypedFile> Files, Callback<TeacherProfileMainResponse> callback);
 
+    @Multipart
+    @POST("/teacher_profile.php")
+//    void createTeacherProfile(@QueryMap Map<String, String> map, @Part("idProof") TypedFile idProof, @Part("proImage") TypedFile proImage, @Part("resume") TypedFile resume, Callback<TeacherProfileMainResponse> callback);
+    public void createTeacherProfile(@QueryMap Map<String, String> map,  Callback<TeacherProfileMainResponse> callback);
+
     @GET("/add_request.php")
     void addRequest(@QueryMap Map<String, String> map, Callback<ForgotPasswordModel> callback);
 
     @GET("/check_user.php")
     void checkUser(@QueryMap Map<String, String> map, Callback<ForgotPasswordModel> callback);
+
+    @GET("/report_list.php")
+    void getReportList(Callback<ReportModel> callback);
 }
 
 
