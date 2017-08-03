@@ -1,13 +1,6 @@
 package app.com.HungryEnglish.Activity.Teacher;
 
 
-import com.squareup.okhttp.Call;
-import com.squareup.picasso.Picasso;
-
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
@@ -19,8 +12,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.ResultReceiver;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
@@ -39,6 +31,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.mail.AuthenticationFailedException;
 import javax.mail.MessagingException;
 
@@ -50,7 +54,6 @@ import app.com.HungryEnglish.Model.Profile.TeacherProfileMainResponse;
 import app.com.HungryEnglish.Model.Teacher.TeacherProfileMain;
 import app.com.HungryEnglish.R;
 import app.com.HungryEnglish.Services.ApiHandler;
-import app.com.HungryEnglish.Services.DownloadService;
 import app.com.HungryEnglish.Util.Constant;
 import app.com.HungryEnglish.Util.Mail;
 import app.com.HungryEnglish.Util.Utils;
@@ -79,6 +82,8 @@ public class TeacherProfileActivity extends BaseActivity implements
     final int SELECT_ID_PROOF = 200;
     final int SELECT_FILE = 300;
     final int SELECT_AUDIO = 400;
+    private ProgressDialog pDialog;
+    public static final int progress_bar_type = 0;
     private EditText btnCvUpload, btnAudioFile, userNameEdit, emailEdit, currnetPlaceEdit, fullNameTeacherEdit, avaibilityDateTeacherEdit, specialSkillTeacherEdit, etMobileOrWechatId;
 
     private String pathProfilePic = null, pathCvDoc = null, pathIdProofPic = null, pathAudioFile = null;
@@ -198,12 +203,11 @@ public class TeacherProfileActivity extends BaseActivity implements
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ivViewCv:
-
-                downloadCv();
+                createDirectory(resumePath, Constant.FILE_TYPE_RESUME);
                 break;
 
             case R.id.ivViewAudio:
-                downloadAudio();
+                createDirectory(audioPath, Constant.FILE_TYPE_AUDIO);
                 break;
 
             case R.id.profile_image:
@@ -244,72 +248,12 @@ public class TeacherProfileActivity extends BaseActivity implements
                         etMobileOrWechatId.requestFocus();
                     }
 
-//                if (pathProfilePic.equalsIgnoreCase("")) {
-//                    Toast.makeText(TeacherProfileActivity.this, "Please Select Profile Image", Toast.LENGTH_SHORT).show();
-//                    return;
-//
-//                if (pathIdProofPic.equalsIgnoreCase("")) {
-//                }
-//                    Toast.makeText(TeacherProfileActivity.this, "Please Select id proof Image", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                if (pathCvDoc.equalsIgnoreCase("")) {
-//                    Toast.makeText(TeacherProfileActivity.this, "Please Select CV document image", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                if (pathAudioFile.equalsIgnoreCase("")) {
-//                    Toast.makeText(TeacherProfileActivity.this, "Please Select Audio file", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-
                     callTeacherProfileApi();
                     break;
                 }
         }
     }
 
-    private void downloadCv() {
-
-        if (resumePath != null) {
-//            mProgressDialog = new ProgressDialog(TeacherProfileActivity.this);
-//            mProgressDialog.setMessage("Please wait Download Resume");
-//            mProgressDialog.setIndeterminate(true);
-//            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-//            mProgressDialog.setCancelable(true);
-//            mProgressDialog.show();
-            Log.d("PATH", Constant.BASEURL + resumePath);
-            Toast.makeText(this, "Download start", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, DownloadService.class);
-            intent.putExtra("url", resumePath);
-            intent.putExtra("receiver", new DownloadReceiver(new Handler()));
-            startService(intent);
-
-        } else {
-            Toast.makeText(this, "Path not found", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void downloadAudio() {
-
-        if (audioPath != null) {
-//            mProgressDialog = new ProgressDialog(TeacherProfileActivity.this);
-//            mProgressDialog.setMessage("Please wait Download Audio");
-//            mProgressDialog.setIndeterminate(true);
-//            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-//            mProgressDialog.setCancelable(true);
-//            mProgressDialog.show();
-            Toast.makeText(this, "Download start", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, DownloadService.class);
-            intent.putExtra("url", Constant.BASEURL + audioPath);
-            intent.putExtra("receiver", new DownloadReceiver(new Handler()));
-            startService(intent);
-            Log.d("PATH", audioPath);
-        } else {
-            Toast.makeText(this, "Path not found", Toast.LENGTH_SHORT).show();
-        }
-    }
 
     private void uploadFile() {
         Intent photoPickerIntent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -655,25 +599,6 @@ public class TeacherProfileActivity extends BaseActivity implements
         return true;
     }
 
-    public class DownloadReceiver extends ResultReceiver {
-
-        public DownloadReceiver(Handler handler) {
-            super(handler);
-        }
-
-        @Override
-        protected void onReceiveResult(int resultCode, Bundle resultData) {
-            super.onReceiveResult(resultCode, resultData);
-            if (resultCode == DownloadService.UPDATE_PROGRESS) {
-                int progress = resultData.getInt("progress");
-//                mProgressDialog.setProgress(progress);
-                if (progress == 100) {
-//                    mProgressDialog.dismiss();
-                    Toast.makeText(mContext, "Download Successfully", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
-    }
 
     private void RequestToTeacher() {
 
@@ -769,4 +694,125 @@ public class TeacherProfileActivity extends BaseActivity implements
         }
     }
 
+    /**
+     * Background Async Task to download file
+     */
+    private class DownloadFileFromURL extends AsyncTask<String, String, String> {
+        private String folderPath;
+        private String fileName;
+
+        public DownloadFileFromURL(String folderPath, String fileName) {
+            this.folderPath = folderPath;
+            this.fileName = fileName;
+        }
+
+        /**
+         * Before starting background thread
+         * Show Progress Bar Dialog
+         */
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            showDialog(progress_bar_type);
+        }
+
+        /**
+         * Downloading file in background thread
+         */
+        @Override
+        protected String doInBackground(String... f_url) {
+            int count;
+            try {
+                String fullUrl = BASEURL + f_url[0];
+                Log.d("FullURL", fullUrl);
+                URL url = new URL(fullUrl);
+                URLConnection conection = url.openConnection();
+                conection.connect();
+                // getting file length
+                int lenghtOfFile = conection.getContentLength();
+
+                // input stream to read file - with 8k buffer
+                InputStream input = new BufferedInputStream(url.openStream(), 8192);
+
+                // Output stream to write file
+                OutputStream output = new FileOutputStream(folderPath + "/" + fileName);
+
+                byte data[] = new byte[1024];
+
+                long total = 0;
+
+                while ((count = input.read(data)) != -1) {
+                    total += count;
+                    // publishing the progress....
+                    // After this onProgressUpdate will be called
+                    publishProgress("" + (int) ((total * 100) / lenghtOfFile));
+
+                    // writing data to file
+                    output.write(data, 0, count);
+                }
+
+                // flushing output
+                output.flush();
+                // closing streams
+                output.close();
+                input.close();
+            } catch (Exception e) {
+                Log.e("Error: ", e.getMessage());
+            }
+
+            return null;
+        }
+
+        /**
+         * Updating progress bar
+         */
+        protected void onProgressUpdate(String... progress) {
+            // setting progress percentage
+            pDialog.setProgress(Integer.parseInt(progress[0]));
+        }
+
+        /**
+         * After completing background task
+         * Dismiss the progress dialog
+         **/
+        @Override
+        protected void onPostExecute(String file_url) {
+            // dismiss the dialog after the file was downloaded
+            dismissDialog(progress_bar_type);
+            Toast.makeText(mContext, getString(R.string.file_downloaded), Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        switch (id) {
+            case progress_bar_type:
+                pDialog = new ProgressDialog(this);
+                pDialog.setMessage("Downloading file. Please wait...");
+                pDialog.setIndeterminate(false);
+                pDialog.setMax(100);
+                pDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                pDialog.setCancelable(true);
+                pDialog.show();
+                return pDialog;
+            default:
+                return null;
+        }
+    }
+
+    private void createDirectory(String file_name, String type) {
+        Log.d("FilePath", file_name.split("/")[1]);
+        try {
+            File folder = new File(Environment.getExternalStorageDirectory().toString() + "/" + getString(R.string.app_name) + "/" + type + "/");
+            if (!folder.exists()) {
+                folder.mkdirs();
+                new DownloadFileFromURL(folder.getAbsolutePath(), file_name.split("/")[1]).execute(file_name);
+            } else {
+                new DownloadFileFromURL(folder.getAbsolutePath(), file_name.split("/")[1]).execute(file_name);
+            }
+        } catch (Exception e) {
+            Log.d("Exception", e.toString());
+        }
+    }
 }

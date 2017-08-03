@@ -11,6 +11,10 @@ public class Constant {
     public static final String ROLE_TEACHER = "teacher";
     public static final String ROLE_STUDENT = "student";
     public static final int SPLASH_TIME = 3000;
+    public static final String FILE_TYPE_RESUME = "Resume";
+    public static final String FILE_TYPE_AUDIO = "Audio";
+    public static final String FILE_TYPE_PROFILE = "Profile";
+    public static final String FILE_TYPE_IDPROOF = "IdProof";
 
     public static final String BASEURL = "http://smartsquad.16mb.com/HungryEnglish/api/";
 

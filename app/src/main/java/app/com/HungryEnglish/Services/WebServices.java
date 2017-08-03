@@ -22,6 +22,7 @@ import app.com.HungryEnglish.Model.admin.CountListMainResponse;
 import app.com.HungryEnglish.Model.login.LoginMainResponse;
 import app.com.HungryEnglish.Model.register.RegisterMainResponse;
 import retrofit.Callback;
+import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
 import retrofit.http.Multipart;
 import retrofit.http.POST;
@@ -79,6 +80,7 @@ public interface WebServices {
 
 
     @Multipart
+    @FormUrlEncoded
     @POST("/teacher_profile.php")
 //    void createTeacherProfile(@QueryMap Map<String, String> map, @Part("idProof") TypedFile idProof, @Part("proImage") TypedFile proImage, @Part("resume") TypedFile resume, Callback<TeacherProfileMainResponse> callback);
     public void createTeacherProfile(@QueryMap Map<String, String> map, @PartMap Map<String,TypedFile> Files, Callback<TeacherProfileMainResponse> callback);
