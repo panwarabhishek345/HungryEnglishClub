@@ -73,7 +73,7 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHold
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         pos = position;
-        holder.tvRequestString.setText(reportList.get(position).getStuFullName() + "  Request to  " + reportList.get(position).getTeacherFullName());
+        holder.tvRequestString.setText(reportList.get(position).getStuFullName() + "  Request to  " + reportList.get(position).getTeacherEmail());
 
 
     }

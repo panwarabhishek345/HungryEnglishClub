@@ -54,7 +54,7 @@ public class DownloadService extends IntentService {
 
             // download the file
             InputStream input = new BufferedInputStream(connection.getInputStream());
-            OutputStream output = new FileOutputStream("/sdcard/"+FileName);
+            OutputStream output = new FileOutputStream("/sdcard/AAAA"+FileName);
 
             byte data[] = new byte[1024];
             long total = 0;

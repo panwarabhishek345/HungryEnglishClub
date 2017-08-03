@@ -43,7 +43,9 @@ public class MainActivity extends BaseActivity {
     ImageView image_teacher_list_header;
 
     String imageURL1, imageURL2, imageURL3;
+    String imageClickURL1, imageClickURL2, imageClickURL3;
     Handler handler = new Handler();
+    int temp = 0;
 
 
     @Override
@@ -62,7 +64,41 @@ public class MainActivity extends BaseActivity {
         image_teacher_list_header.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                String url = "";
+                if (temp == 1) {
 
+                    if (imageClickURL1.startsWith("www.")) {
+                        if (!imageClickURL1.startsWith("http://") && !imageClickURL1.startsWith("https://")) {
+                            url = "http://" + imageClickURL1;
+                        } else {
+                            url = imageClickURL1;
+                        }
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                        startActivity(browserIntent);
+                    }
+                } else if (temp == 2) {
+
+                    if (imageClickURL2.startsWith("www.")) {
+                        if (!imageClickURL2.startsWith("http://") && !imageClickURL2.startsWith("https://")) {
+                            url = "http://" + imageClickURL2;
+                        } else {
+                            url = imageClickURL2;
+                        }
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                        startActivity(browserIntent);
+                    }
+                } else if (temp == 3) {
+
+                    if (imageClickURL3.startsWith("www.")) {
+                        if (!imageClickURL3.startsWith("http://") && !imageClickURL3.startsWith("https://")) {
+                            url = "http://" + imageClickURL3;
+                        } else {
+                            url = imageClickURL3;
+                        }
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                        startActivity(browserIntent);
+                    }
+                }
             }
         });
     }
@@ -162,6 +198,7 @@ public class MainActivity extends BaseActivity {
                             String[] link1 = infoList.getLink1().split("--");
                             addDynamicContactText(link1[0]);
                             addDynamicContactText(link1[1]);
+                            imageClickURL1 = link1[2];
 
                         }
 
@@ -169,6 +206,7 @@ public class MainActivity extends BaseActivity {
                             String[] link1 = infoList.getLink2().split("--");
                             addDynamicContactText(link1[0]);
                             addDynamicContactText(link1[1]);
+                            imageClickURL2 = link1[2];
 
                         }
 
@@ -176,7 +214,7 @@ public class MainActivity extends BaseActivity {
                             String[] link1 = infoList.getLink3().split("--");
                             addDynamicContactText(link1[0]);
                             addDynamicContactText(link1[1]);
-
+                            imageClickURL3 = link1[2];
                         }
 
                     }
@@ -196,34 +234,37 @@ public class MainActivity extends BaseActivity {
     }
 
     private void SetImage1() {
+        temp = 1;
         Picasso.with(MainActivity.this).load(imageURL1).placeholder(R.drawable.gredient_green).error(R.drawable.gredient_green).into(image_teacher_list_header);
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 SetImage2();
             }
-        }, 3000);
+        }, 7000);
     }
 
     private void SetImage2() {
+        temp = 2;
         Picasso.with(MainActivity.this).load(imageURL2).placeholder(R.drawable.gredient_green).error(R.drawable.gredient_green).into(image_teacher_list_header);
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 SetImage3();
             }
-        }, 3000);
+        }, 7000);
 
     }
 
     private void SetImage3() {
+        temp = 3;
         Picasso.with(MainActivity.this).load(imageURL3).placeholder(R.drawable.gredient_green).error(R.drawable.gredient_green).into(image_teacher_list_header);
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 SetImage1();
             }
-        }, 3000);
+        }, 7000);
     }
 
 

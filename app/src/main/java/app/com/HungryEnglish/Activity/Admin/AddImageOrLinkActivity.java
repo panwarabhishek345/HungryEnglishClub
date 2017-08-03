@@ -62,7 +62,7 @@ public class AddImageOrLinkActivity extends BaseActivity {
     public int cnt = 0;
     EditText etAddMoreLink;
     private ImageView ivSelectImage, ivSelectImage2, ivSelectImage3;
-
+    EditText imageLink1, imageLink2, imageLink3;
 
     private TextView tvSubmitLink;
     private String pathPic = "", pathPic3 = "", pathPic2 = "";
@@ -86,6 +86,8 @@ public class AddImageOrLinkActivity extends BaseActivity {
         callGetInfoApi();
 
 
+
+
     }
 
     private void hideAddMoreButton() {
@@ -101,6 +103,9 @@ public class AddImageOrLinkActivity extends BaseActivity {
         ivSelectImage = (ImageView) findViewById(R.id.ivSelectImage1);
         ivSelectImage2 = (ImageView) findViewById(R.id.ivSelectImage2);
         ivSelectImage3 = (ImageView) findViewById(R.id.ivSelectImage3);
+        imageLink1 = (EditText) findViewById(R.id.edt_image1_url);
+        imageLink2 = (EditText) findViewById(R.id.edt_image2_url);
+        imageLink3 = (EditText) findViewById(R.id.edt_image3_url);
 
 
         tvSubmitLink = (TextView) findViewById(R.id.tvSubmitLink);
@@ -162,7 +167,12 @@ public class AddImageOrLinkActivity extends BaseActivity {
                         toast("Please Enter Link" + (i + 1));
                         return;
                     } else {
-                        links.add(lintTitle + "--" + edtText);
+                        if (i == 0)
+                            links.add(lintTitle + "--" + edtText + "--" + imageLink1.getText().toString());
+                        else if (i == 1)
+                            links.add(lintTitle + "--" + edtText + "--" + imageLink2.getText().toString());
+                        else if (i == 2)
+                            links.add(lintTitle + "--" + edtText + "--" + imageLink3.getText().toString());
                     }
                 }
                 callSubmitImageAndLInkApi();
@@ -401,6 +411,7 @@ public class AddImageOrLinkActivity extends BaseActivity {
 //                            addDynamicContactText(link1[0]);
 //                            addDynamicContactText(link1[1]);
                                 addDynamicContactText(link1[1], link1[0]);
+                                imageLink1.setText(link1[2]);
                             }
                         }
                         if (!infoList.getLink2().equalsIgnoreCase("")) {
@@ -409,6 +420,7 @@ public class AddImageOrLinkActivity extends BaseActivity {
 //                            addDynamicContactText(link1[0]);
 //                            addDynamicContactText(link1[1]);
                                 addDynamicContactText(link1[1], link1[0]);
+                                imageLink2.setText(link1[2]);
                             }
                         }
 
@@ -418,6 +430,7 @@ public class AddImageOrLinkActivity extends BaseActivity {
 //                            addDynamicContactText(link1[0]);
 //                            addDynamicContactText(link1[1]);
                                 addDynamicContactText(link1[1], link1[0]);
+                                imageLink3.setText(link1[2]);
                             }
                         }
                         hideAddMoreButton();
