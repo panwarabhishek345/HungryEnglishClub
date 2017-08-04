@@ -75,6 +75,10 @@
     <string name="requst_teacher">Request Teacher</string>
     <string name="url">URL</string>
     <string name="report">Report</string>
+    <string name="generate_report">Generate Reports</string>
+    <string name="loading">Loading..</string>
+    <string name="report_sucess">Report created sucessfully.</string>
+    <string name="error_something_wrong">Something went wrong.</string>
 </resources>
 
 

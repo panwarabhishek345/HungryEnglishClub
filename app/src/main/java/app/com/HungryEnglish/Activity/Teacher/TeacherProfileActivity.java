@@ -31,6 +31,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.io.BufferedInputStream;
@@ -411,7 +412,6 @@ public class TeacherProfileActivity extends BaseActivity implements
                     currnetPlaceEdit.setText(teacherProfileMain.getInfo().getAddress());
                     specialSkillTeacherEdit.setText(teacherProfileMain.getInfo().getSkills());
                     Picasso.with(TeacherProfileActivity.this).load(BASEURL + teacherProfileMain.getInfo().getProfileImage()).into(profileImage);
-                    Log.e("ID IMG", "" + BASEURL + teacherProfileMain.getInfo().getIdImage());
                     Picasso.with(TeacherProfileActivity.this).load(BASEURL + teacherProfileMain.getInfo().getIdImage()).into(idProofImage);
                     resumePath = teacherProfileMain.getInfo().getResume();
                     String[] cvFileArray = resumePath.split("/");
@@ -503,8 +503,7 @@ public class TeacherProfileActivity extends BaseActivity implements
                 audiofile = new TypedFile("multipart/form-data", new File(pathAudioFile));
                 files.put("audioFile", audiofile);
             }
-
-
+            Log.i("HashMap", "SomeText: " + new Gson().toJson(files) + " second = " + new Gson().toJson(getTeacherProfileDetail()));
             ApiHandler.getApiService().createTeacherProfile(getTeacherProfileDetail(), files, new Callback<TeacherProfileMainResponse>() {
 
                 @Override

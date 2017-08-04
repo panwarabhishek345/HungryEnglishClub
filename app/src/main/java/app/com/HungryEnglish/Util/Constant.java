@@ -15,6 +15,7 @@ public class Constant {
     public static final String FILE_TYPE_AUDIO = "Audio";
     public static final String FILE_TYPE_PROFILE = "Profile";
     public static final String FILE_TYPE_IDPROOF = "IdProof";
+    public static final String FILE_TYPE_REPORT = "Report";
 
     public static final String BASEURL = "http://smartsquad.16mb.com/HungryEnglish/api/";
 

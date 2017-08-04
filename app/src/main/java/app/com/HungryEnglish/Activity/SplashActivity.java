@@ -1,6 +1,5 @@
 package app.com.HungryEnglish.Activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,7 +17,7 @@ import app.com.HungryEnglish.Util.Utils;
  * Created by Vnnovate on 6/29/2017.
  */
 
-public class SplashActivity extends Activity {
+public class SplashActivity extends BaseActivity {
     // Splash screen timer
     private static int SPLASH_TIME_OUT = 4000;
 
@@ -50,23 +49,26 @@ public class SplashActivity extends Activity {
 
                     } else if (role.equalsIgnoreCase("teacher") && isActiveStatue.equalsIgnoreCase("0")) {
 
+                        toast("Admin will approve your request.");
+
+                    } else if (role.equalsIgnoreCase("teacher") && isActiveStatue.equalsIgnoreCase("1")) {
+
                         Intent i = new Intent(SplashActivity.this, TeacherProfileActivity.class);
                         startActivity(i);
                         finish();
 
-                    } else if (role.equalsIgnoreCase("teacher") && isActiveStatue.equalsIgnoreCase("1")) {
+                    } else if (role.equalsIgnoreCase("teacher") && isActiveStatue.equalsIgnoreCase("2")) {
+
                         Intent i = new Intent(SplashActivity.this, MainActivity.class);
                         startActivity(i);
                         finish();
 
-                    } else if (role.equalsIgnoreCase("teacher") && isActiveStatue.equalsIgnoreCase("2")) {
-                        Intent i = new Intent(SplashActivity.this, MainActivity.class);
-                        startActivity(i);
-                        finish();
-                    }else if (role.equalsIgnoreCase("admin")) {
+                    } else if (role.equalsIgnoreCase("admin")) {
+
                         Intent i = new Intent(SplashActivity.this, AdminDashboardActivity.class);
                         startActivity(i);
                         finish();
+
                     }
 
                 } else {

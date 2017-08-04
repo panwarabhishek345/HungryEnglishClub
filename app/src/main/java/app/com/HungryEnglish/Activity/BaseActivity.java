@@ -1,12 +1,6 @@
 package app.com.HungryEnglish.Activity;
 
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -20,6 +14,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 import app.com.HungryEnglish.Util.Constant;
 import app.com.HungryEnglish.Util.SetDatePicker;
 import app.com.HungryEnglish.Util.Utils;
@@ -112,15 +113,11 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-
     }
 
     // TODO: 09/6/17 Show the calender and dispaly Date
     protected void chooseDate(final TextView textView, final SetDatePicker dateResponse) {
-
-
         Calendar newCalendar = Calendar.getInstance();
-
         DatePickerDialog datePickerDialog = new DatePickerDialog(BaseActivity.this, new DatePickerDialog.OnDateSetListener() {
 
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -129,8 +126,6 @@ public class BaseActivity extends AppCompatActivity {
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 String date = simpleDateFormat.format(newDate.getTime());
                 dateResponse.onDateSelect(date, textView);
-
-
             }
 
         }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
@@ -141,8 +136,6 @@ public class BaseActivity extends AppCompatActivity {
 
     // TODO: 09/6/17 Show the TimePicker and dispaly Date
     protected void chooseTime(final TextView textView, final SetDatePicker dateResponse) {
-
-
         Calendar mcurrentTime = Calendar.getInstance();
         int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
         int minute = mcurrentTime.get(Calendar.MINUTE);
@@ -155,7 +148,5 @@ public class BaseActivity extends AppCompatActivity {
         }, hour, minute, true);//Yes 24 hour time
         mTimePicker.setTitle("Select Time");
         mTimePicker.show();
-
-
     }
 }
