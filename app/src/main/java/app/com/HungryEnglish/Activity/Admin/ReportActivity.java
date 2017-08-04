@@ -43,17 +43,33 @@ import retrofit.client.Response;
 public class ReportActivity extends BaseActivity {
 
     RecyclerView reportList;
+    Button btnGenerateReport;
+    List<Datum> reportArraylist;
+    
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_list);
 
         reportList = (RecyclerView) findViewById(R.id.report_list);
+        btnGenerateReport = (Button) findViewById(R.id.btn_generate_report);
         getReportDetails();
 //        GenerateReport();
+        
+        btnGenerateReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+                if(reportArraylist.size>0){
+                 GenerateReport();}else{
+                    {
+                        Toast.makeText(ReportActivity.this, "No Record Found", Toast.LENGTH_SHORT).show();
+                    }
+            }
+        });
     }
 
-    private void GenerateReport(List<Datum> reportArraylist) {
+    private void GenerateReport() {
 
         final String fileName = "TodoList.xls";
 
@@ -166,7 +182,7 @@ public class ReportActivity extends BaseActivity {
                     }
                     if (reportModel.getStatus().equals("true")) {
 
-                        List<Datum> reportArraylist  = new ArrayList<Datum>();
+                        reportArraylist  = new ArrayList<Datum>();
                         reportArraylist = reportModel.getData();
 
                         ReportAdapter reportAdapter = new ReportAdapter(ReportActivity.this, reportArraylist);
