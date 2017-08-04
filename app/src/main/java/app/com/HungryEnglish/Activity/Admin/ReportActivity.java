@@ -53,13 +53,13 @@ public class ReportActivity extends BaseActivity {
 //        GenerateReport();
     }
 
-    private void GenerateReport() {
+    private void GenerateReport(List<Datum> reportArraylist) {
 
         final String fileName = "TodoList.xls";
 
         //Saving file in external storage
         File sdCard = Environment.getExternalStorageDirectory();
-        File directory = new File(sdCard.getAbsolutePath() + "/javatechig.todo");
+        File directory = new File(sdCard.getAbsolutePath() + "/javatechig");
 
         //create directory if not exist
         if (!directory.isDirectory()) {
@@ -74,29 +74,55 @@ public class ReportActivity extends BaseActivity {
         WritableWorkbook workbook;
 
         try {
-            workbook = Workbook.createWorkbook(file, wbSettings);
-            //Excel sheet name. 0 represents first sheet
-            WritableSheet sheet = workbook.createSheet("MyShoppingList", 0);
 
-            try {
-                sheet.addCell(new Label(0, 0, "Subject")); // column and row
-                sheet.addCell(new Label(1, 0, "Description"));
-//                if (cursor.moveToFirst()) {
-//                    do {
-//                        String title = cursor.getString(cursor.getColumnIndex(DatabaseHelper.TODO_SUBJECT));
-//                        String desc = cursor.getString(cursor.getColumnIndex(DatabaseHelper.TODO_DESC));
-//
-//                        int i = cursor.getPosition() + 1;
-//                        sheet.addCell(new Label(0, i, title));
-//                        sheet.addCell(new Label(1, i, desc));
-//                    } while (cursor.moveToNext());
-//                }
-//                //closing cursor
-//                cursor.close();
-            } catch (RowsExceededException e) {
-                e.printStackTrace();
-            } catch (WriteException e) {
-                e.printStackTrace();
+            //Excel sheet name. 0 represents first sheet
+            workbook = Workbook.createWorkbook(file, wbSettings);
+            for (int i = 0; i < reportArraylist.size(); i++) {
+
+                WritableSheet sheet = workbook.createSheet(reportArraylist.get(i).getStuFullName() + "  " + i, i);
+
+
+                try {
+                    sheet.addCell(new Label(0, 0, "Teacher Email")); // column and row
+                    sheet.addCell(new Label(0, 1, "Teacher Full Name")); // column and row
+                    sheet.addCell(new Label(0, 2, "Teacher WeChat")); // column and row
+                    sheet.addCell(new Label(0, 3, "Teacher Address")); // column and row
+                    sheet.addCell(new Label(0, 4, "Teacher Time")); // column and row
+                    sheet.addCell(new Label(0, 5, "Teacher Skills"));
+
+                    sheet.addCell(new Label(0, 8, "Student Email")); // column and row
+                    sheet.addCell(new Label(0, 9, "Student Full Name")); // column and row
+                    sheet.addCell(new Label(0, 10, "Student WeChat")); // column and row
+                    sheet.addCell(new Label(0, 11, "Student Sex")); // column and row
+                    sheet.addCell(new Label(0, 12, "Student Age")); // column and row
+                    sheet.addCell(new Label(0, 13, "Student Station")); // column and row
+                    sheet.addCell(new Label(0, 14, "Student Skills")); // column and row
+                    sheet.addCell(new Label(0, 15, "Student Time")); // column and row
+
+
+                    sheet.addCell(new Label(1, 0, reportArraylist.get(i).getTeacherEmail())); // column and row
+                    sheet.addCell(new Label(1, 1, reportArraylist.get(i).getTeacherFullName())); // column and row
+                    sheet.addCell(new Label(1, 2, reportArraylist.get(i).getTeacherWeChat())); // column and row
+                    sheet.addCell(new Label(1, 3, reportArraylist.get(i).getTAddress())); // column and row
+                    sheet.addCell(new Label(1, 4, reportArraylist.get(i).getTTime())); // column and row
+                    sheet.addCell(new Label(1, 5, reportArraylist.get(i).getTSkills()));
+
+                    sheet.addCell(new Label(1, 8, reportArraylist.get(i).getStuEmail())); // column and row
+                    sheet.addCell(new Label(1, 9, reportArraylist.get(i).getStuFullName())); // column and row
+                    sheet.addCell(new Label(1, 10, reportArraylist.get(i).getStuWeChat())); // column and row
+                    sheet.addCell(new Label(1, 11, reportArraylist.get(i).getStuSex())); // column and row
+                    sheet.addCell(new Label(1, 12, reportArraylist.get(i).getStuAge())); // column and row
+                    sheet.addCell(new Label(1, 13, reportArraylist.get(i).getStuStation())); // column and row
+                    sheet.addCell(new Label(1, 14, reportArraylist.get(i).getStuSkills())); // column and row
+                    sheet.addCell(new Label(1, 15, reportArraylist.get(i).getStuTime())); // column and row
+
+
+                } catch (RowsExceededException e) {
+                    e.printStackTrace();
+                } catch (WriteException e) {
+                    e.printStackTrace();
+                }
+
             }
             workbook.write();
             try {
@@ -104,6 +130,8 @@ public class ReportActivity extends BaseActivity {
             } catch (WriteException e) {
                 e.printStackTrace();
             }
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
