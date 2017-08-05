@@ -227,7 +227,6 @@ public class TeacherProfileActivity extends BaseActivity implements
                 if (CallFrom.equals("Student")) {
                     RequestToTeacher();
                 } else {
-
                     if (fullNameTeacherEdit.getText().toString().equals("")) {
                         fullNameTeacherEdit.setError("Enter Name");
                         fullNameTeacherEdit.requestFocus();
@@ -338,7 +337,7 @@ public class TeacherProfileActivity extends BaseActivity implements
                     } else {
                         pathAudioFile = getPath(this, data.getData());
                     }
-                    String[] spiltAudioArray = pathCvDoc.split("/");
+                    String[] spiltAudioArray = pathAudioFile.split("/");
                     audioFileName = spiltAudioArray[spiltAudioArray.length - 1];
                     btnAudioFile.setText(audioFileName);
                     if (!btnAudioFile.equals("")) {
@@ -407,6 +406,9 @@ public class TeacherProfileActivity extends BaseActivity implements
             @Override
             public void success(TeacherProfileMain teacherProfileMain, Response response) {
                 fullNameTeacherEdit.setText(teacherProfileMain.getData().getFullName());
+                emailEdit.setText(teacherProfileMain.getData().getUsername());
+                userNameEdit.setText(teacherProfileMain.getData().getUsername());
+                etMobileOrWechatId.setText(String.valueOf(teacherProfileMain.getData().getMobNo()));
                 if (teacherProfileMain.getInfo() != null) {
                     avaibilityDateTeacherEdit.setText(teacherProfileMain.getInfo().getAvailableTime());
                     currnetPlaceEdit.setText(teacherProfileMain.getInfo().getAddress());
@@ -426,10 +428,6 @@ public class TeacherProfileActivity extends BaseActivity implements
                         btnAudioFile.setText(audioFileArray[audioFileArray.length - 1]);
                         Picasso.with(TeacherProfileActivity.this).load(R.drawable.ic_file).into(ivAudioFileStatus);
                     }
-
-                    emailEdit.setText(teacherProfileMain.getData().getUsername());
-                    userNameEdit.setText(teacherProfileMain.getData().getUsername());
-                    etMobileOrWechatId.setText(String.valueOf(teacherProfileMain.getData().getMobNo()));
                 }
             }
 
@@ -450,9 +448,9 @@ public class TeacherProfileActivity extends BaseActivity implements
         TypedFile proImage = null, idProof = null, resume = null, audiofile = null;
 
         Map<String, TypedFile> files = new HashMap<String, TypedFile>();
+        Log.i("HashMap", "SomeText: " + new Gson().toJson(files) + " second = " + new Gson().toJson(getTeacherProfileDetail()));
 
-        if (pathProfilePic == null && pathIdProofPic == null && pathCvDoc == null) {
-
+        if (pathProfilePic == null && pathIdProofPic == null && pathCvDoc == null && pathAudioFile == null ) {
 
             ApiHandler.getApiService().createTeacherProfile(getTeacherProfileDetail(), new Callback<TeacherProfileMainResponse>() {
 
@@ -503,8 +501,7 @@ public class TeacherProfileActivity extends BaseActivity implements
                 audiofile = new TypedFile("multipart/form-data", new File(pathAudioFile));
                 files.put("audioFile", audiofile);
             }
-            Log.i("HashMap", "SomeText: " + new Gson().toJson(files) + " second = " + new Gson().toJson(getTeacherProfileDetail()));
-            ApiHandler.getApiService().createTeacherProfile(getTeacherProfileDetail(), files, new Callback<TeacherProfileMainResponse>() {
+           ApiHandler.getApiService().createTeacherProfile(getTeacherProfileDetail(), files, new Callback<TeacherProfileMainResponse>() {
 
                 @Override
                 public void success(TeacherProfileMainResponse teacherProfileMainResponse, Response response) {

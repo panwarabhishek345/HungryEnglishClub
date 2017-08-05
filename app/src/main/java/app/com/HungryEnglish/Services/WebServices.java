@@ -1,9 +1,6 @@
 package app.com.HungryEnglish.Services;
 
 
-import com.squareup.okhttp.Call;
-import com.squareup.okhttp.ResponseBody;
-
 import java.util.Map;
 
 import app.com.HungryEnglish.Model.ForgotPassord.ForgotPasswordModel;
@@ -22,7 +19,6 @@ import app.com.HungryEnglish.Model.admin.CountListMainResponse;
 import app.com.HungryEnglish.Model.login.LoginMainResponse;
 import app.com.HungryEnglish.Model.register.RegisterMainResponse;
 import retrofit.Callback;
-import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
 import retrofit.http.Multipart;
 import retrofit.http.POST;
@@ -80,15 +76,11 @@ public interface WebServices {
 
 
     @Multipart
-    @FormUrlEncoded
     @POST("/teacher_profile.php")
-//    void createTeacherProfile(@QueryMap Map<String, String> map, @Part("idProof") TypedFile idProof, @Part("proImage") TypedFile proImage, @Part("resume") TypedFile resume, Callback<TeacherProfileMainResponse> callback);
-    public void createTeacherProfile(@QueryMap Map<String, String> map, @PartMap Map<String,TypedFile> Files, Callback<TeacherProfileMainResponse> callback);
+    public void createTeacherProfile(@QueryMap Map<String, String> map, @PartMap Map<String, TypedFile> Files, Callback<TeacherProfileMainResponse> callback);
 
-    @Multipart
     @POST("/teacher_profile.php")
-//    void createTeacherProfile(@QueryMap Map<String, String> map, @Part("idProof") TypedFile idProof, @Part("proImage") TypedFile proImage, @Part("resume") TypedFile resume, Callback<TeacherProfileMainResponse> callback);
-    public void createTeacherProfile(@QueryMap Map<String, String> map,  Callback<TeacherProfileMainResponse> callback);
+    public void createTeacherProfile(@QueryMap Map<String, String> map, Callback<TeacherProfileMainResponse> callback);
 
     @GET("/add_request.php")
     void addRequest(@QueryMap Map<String, String> map, Callback<ForgotPasswordModel> callback);

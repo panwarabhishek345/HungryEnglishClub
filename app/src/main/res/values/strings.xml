@@ -3,7 +3,7 @@
     <string name="title_activity_register">Register</string>
     <string name="full_name">Full Name/全名</string>
     <string name="msg">Create an Account/创建帐户</string>
-    <string name="user_name">Username/用户名</string>
+    <string name="user_name">Username/Email - 用户名/邮箱</string>
     <string name="email">Email/邮件</string>
     <string name="password">Password/密码</string>
     <string name="signup">Sign up/注册</string>
@@ -65,7 +65,7 @@
     <string name="mobile_or_wechat">Mobile/Wechat ID</string>
     <string name="report_teacher">View Teacher/查看老师档案 </string>
     <string name="right_reseved">© André Roberts 2017 - All Rights Reserved</string>
-    <string name="forgot_password">forgot password ? Click here</string>
+    <string name="forgot_password">Forgot password ? Click here</string>
     <string name="msg_forgot_passowrd">Enter Register Email to Receive OTP.</string>
     <string name="OTP">OTP</string>
     <string name="msg_reset_passoword">Enter a New Password</string>
